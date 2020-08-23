@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.AddOrRemoveAlbumsPage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:AddOrRemoveAlbumsViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar Margin="0,15,0,15" x:Name="searchBarAlbums"
+                   SearchCommand="{Binding SearchCommandAlbums}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBarAlbums}}"
+                           BackgroundColor="WhiteSmoke" TextColor="Black"/>
+            <Label Text="Note: Clicking on albums will automatically add/remove them from your album list" FontAttributes="Bold"
+                   HorizontalOptions="Center" FontSize="14" TextColor="White"/>
+            <Label Text="Use the search bar to search for albums" FontAttributes="Bold"
+                   HorizontalOptions="Center" FontSize="14" TextColor="White"/>
+            <ListView ItemsSource="{Binding Albums}" ItemSelected="ClickedEvent" SelectedItem="{Binding SelectedAlbum}" Margin="0,20,0,10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="0,10,0,10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding AlbumPhoto,Converter={StaticResource imgConv}}" HeightRequest="100"
+                                           Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"/>
+                                    <Label Text="{Binding AlbumName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="16" TextColor="White" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding ArtistName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" FontAttributes="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding AlbumGeneratedRating}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" FontAttributes="Bold" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

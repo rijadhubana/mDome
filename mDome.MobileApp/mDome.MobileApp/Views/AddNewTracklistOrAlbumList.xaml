@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.AddNewTracklistOrAlbumList"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.BindingContext>
+        <vm:NewTracklistOrAlbumListViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView HeightRequest="5000">
+        <StackLayout Margin="10,10,10,10">
+            <Label Margin="10,5,10,5" Text="List Name:" TextColor="White" FontSize="16"/>
+                <Entry Margin="10,5,10,5" BackgroundColor="WhiteSmoke" Text="{Binding Name}" TextColor="Black"/>
+                <Label Margin="10,5,10,5" Text="Unique Key: " TextColor="White" FontSize="16"/>
+                <Entry Margin="10,5,10,5" Text="{Binding UniqueKey}" BackgroundColor="WhiteSmoke" TextColor="Black"/>
+                <Button Margin="10,5,10,5" Text="Generate Key" CornerRadius="15" Command="{Binding GenerateKeyCommand}" BackgroundColor="WhiteSmoke" TextColor="Black"/>
+                <Label Margin="10,5,10,5" Text="Album List Description: " TextColor="White" FontSize="16" IsVisible="{Binding IsAlbumList}"/>
+                <Editor Margin="10,5,10,5" HeightRequest="100" Text="{Binding AlbumListDesc}" BackgroundColor="WhiteSmoke" 
+                    TextColor="Black" IsVisible="{Binding IsAlbumList}"/>
+                <Label Margin="10,5,10,5" Text="Select List Type: " TextColor="White" FontSize="16"/>
+                <Picker Margin="10,5,10,5" TextColor="Black" BackgroundColor="WhiteSmoke"
+                            SelectedItem="{Binding SelectedType}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Private</x:String>
+                        <x:String>Public</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Button Margin="10,10,10,10" Text="Submit" BackgroundColor="LightGray" Command="{Binding SubmitCommand}" TextColor="Black" CornerRadius="15"/>
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

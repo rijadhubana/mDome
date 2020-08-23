@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.AddNewReviewPage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:AddReviewViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView HeightRequest="5000">
+            <StackLayout Margin="20,5,20,5">
+                <Image Source="{Binding LoadedAlbum.AlbumPhoto,Converter={StaticResource imgConv}}" HeightRequest="150"
+                       HorizontalOptions="Center"/>
+                <Label Text="{Binding LoadedAlbum.AlbumName}" TextColor="White" FontSize="16" FontAttributes="Bold"
+                       HorizontalOptions="Center"/>
+                <Label Text="Review Text:" TextColor="White" FontSize="13"/>
+                <Editor HeightRequest="100" BackgroundColor="WhiteSmoke" TextColor="Black" FontSize="13"
+                        Text="{Binding ReviewText}"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.Column="0">
+                        <Label Text="Select your favorite tracks!" TextColor="White" FontSize="13" FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand" Margin="0,15,0,15"/>
+                        <StackLayout  Margin="15,0,15,0" BindableLayout.ItemsSource="{Binding FavouriteTracksList}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                        <StackLayout>
+                                        <input:CheckBox Type="Material" IsChecked="{Binding Checked,Mode=OneTime}" Key="{Binding TrackId}"
+                                                        CheckChanged="FavTrackChanged" Color="White"
+                                                        Text="{Binding TrackNamePlusNumber}" TextColor="White" TextFontSize="13"/>
+                                        </StackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Grid.Row="0" Grid.Column="1">
+                        <Label Text="Select your least favorite tracks!" TextColor="White" FontSize="13" FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand" Margin="0,15,0,15"/>
+                        <StackLayout  Margin="15,0,15,0" BindableLayout.ItemsSource="{Binding LeastFavouriteTracksList}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label Text="{Binding TrackId}" IsVisible="False"/>
+                                        <input:CheckBox Type="Material" IsChecked="{Binding Checked,Mode=OneTime}" Key="{Binding TrackId}"
+                                                        CheckChanged="LeastFavTrackChanged" Color="White"
+                                                        Text="{Binding TrackNamePlusNumber}" TextColor="White" TextFontSize="13"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+                <Label Text="Rate this Album" TextColor="White" FontSize="13"/>
+                <Picker TextColor="Black" BackgroundColor="WhiteSmoke"
+                            SelectedItem="{Binding Rating}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>0</x:String>
+                            <x:String>1</x:String>
+                            <x:String>2</x:String>
+                            <x:String>3</x:String>
+                            <x:String>4</x:String>
+                            <x:String>5</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Button BackgroundColor="WhiteSmoke" Text="Submit Review" TextColor="Black" Command="{Binding SubmitReviewCommand}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

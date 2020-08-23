@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xf:BottomBarPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.FollowersFollowingPage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}" BarTextColor="White">
+    <xf:BottomBarPage.BindingContext>
+        <vm:FollowersFollowingViewModel/>
+    </xf:BottomBarPage.BindingContext>
+    <xf:BottomBarPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </xf:BottomBarPage.Resources>
+    <ContentPage Title="Followers" IconImageSource="followers.png">
+        <StackLayout Margin="10,10,10,10">
+            <Label FontSize="16" FontAttributes="Bold" TextColor="WhiteSmoke" Text="{Binding FollowersNumber}"/>
+        <ListView ItemsSource="{Binding Followers}" ItemSelected="VisitUser" SelectedItem="{Binding SelectedUser}" Margin="0,20,0,10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="100">
+                        <Grid Padding="0,0,0,15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding UserPhoto,Converter={StaticResource imgConv}}"
+                                        Grid.Row="0" Grid.Column="0" HeightRequest="70" VerticalOptions="Center"/>
+                            <Label Text="{Binding Username}"
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center" VerticalOptions="Center"
+                                FontSize="16" TextColor="White" FontAttributes="Bold"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="Following" IconImageSource="following.png">
+        <StackLayout Margin="10,10,10,10">
+            <Label FontSize="16" FontAttributes="Bold" TextColor="WhiteSmoke" Text="{Binding FollowingNumber}"/>
+
+        <ListView ItemsSource="{Binding Following}" ItemSelected="VisitUser" SelectedItem="{Binding SelectedUser}" Margin="0,20,0,10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="100">
+                        <Grid Padding="0,0,0,15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding UserPhoto,Converter={StaticResource imgConv}}"
+                                        Grid.Row="0" Grid.Column="0" HeightRequest="70" VerticalOptions="Center"/>
+                            <Label Text="{Binding Username}"
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center" VerticalOptions="Center"
+                                FontSize="16" TextColor="White" FontAttributes="Bold"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </StackLayout>
+
+    </ContentPage>
+</xf:BottomBarPage>

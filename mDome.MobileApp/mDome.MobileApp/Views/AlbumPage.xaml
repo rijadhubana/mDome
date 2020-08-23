@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.AlbumPage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:AlbumViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView HeightRequest="5000">
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Aspect="AspectFill"
+                Source="{local:ImageResource mDome.MobileApp.Images.wallpaper.png}"
+                Grid.ColumnSpan="3" Grid.Column="0"
+                Grid.RowSpan="4" Grid.Row="0"
+                Opacity="0.6" />
+                <Frame CornerRadius="100" 
+           HeightRequest="200"
+           WidthRequest="200"
+           HorizontalOptions="Center"
+           Padding="0"
+           IsClippedToBounds="True" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3">
+                    <Image Source="{Binding LoadedAlbum.AlbumPhoto,Converter={StaticResource imgConv}}"
+           HorizontalOptions="Center"
+           VerticalOptions="Center" />
+                </Frame>
+                <Label Text="{Binding LoadedAlbum.AlbumName}" TextColor="White" FontSize="16" FontAttributes="Bold"
+                   HorizontalOptions="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2"/>
+                <Label Text="{Binding LoadedArtist.ArtistName}" TextColor="White" FontSize="13" FontAttributes="Bold"
+                   HorizontalOptions="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"/>
+            </Grid>
+            <StackLayout Margin="10,0,10,0">
+                <Label Text="{Binding LoadedAlbum.AlbumDescription}" TextColor="White" FontSize="13" HorizontalOptions="Center"/>
+                <Label Text="{Binding DateReleased}" TextColor="White" FontSize="13" HorizontalOptions="Center"/>
+                <Label Text="{Binding RatingStr}" TextColor="White" FontSize="13" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+                </StackLayout>
+            <Grid Margin="0,30,0,30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" Grid.Row="0">
+                    <Image Source="{Binding LikeSource}"  HorizontalOptions="Center" HeightRequest="40" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LikeCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="{Binding NumberOfLikes}" HorizontalOptions="Center" TextColor="WhiteSmoke" FontSize="15" FontAttributes="Bold"/>
+                </StackLayout>
+                <StackLayout Grid.Column="1" Grid.Row="0">
+                    <Image Source="{Binding DislikeSource}" HorizontalOptions="Center" HeightRequest="40">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DislikeCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="{Binding NumberOfDislikes}" HorizontalOptions="Center" TextColor="WhiteSmoke" FontSize="15" FontAttributes="Bold"/>
+                </StackLayout>
+                <Button Margin="20,0,20,0" BackgroundColor="LightGray" Clicked="VisitArtist" TextColor="Black" CornerRadius="15" Text="Visit Artist Page" Grid.Row="1" Grid.Column="0"/>
+                <Button Margin="20,0,20,0" BackgroundColor="LightGray" TextColor="Black" CornerRadius="15" Text="Add to Album List"  Grid.Row="1" Grid.Column="1"/>
+                <Button Margin="20,0,20,0" BackgroundColor="LightGray" Clicked="ReviewThisAlbum" TextColor="Black" CornerRadius="15" Text="Review This Album"  Grid.Row="2" Grid.Column="0"/>
+                <Button Margin="20,0,20,0" BackgroundColor="LightGray" Clicked="RelatedReviews" TextColor="Black" CornerRadius="15" Text="Related Reviews"  Grid.Row="2" Grid.Column="1"/>
+
+
+                </Grid>
+                <StackLayout>
+                    <WebView Source="{Binding WebViewString}" HeightRequest="300" WidthRequest="500"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Track Listing" TextColor="White" FontSize="15" FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand" Margin="0,15,0,15"/>
+                    <StackLayout  Margin="15,0,15,0" BindableLayout.ItemsSource="{Binding TracksOnAlbum}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="VisitTrack"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Label Text="{Binding TrackId}" IsVisible="False"/>
+                                    <Label Text="{Binding TrackNamePlusNumber}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" FontAttributes="Bold" HeightRequest="40">
+                                    </Label>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

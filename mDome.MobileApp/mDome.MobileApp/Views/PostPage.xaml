@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.PostPage" BackgroundImageSource="{local:ImageResource Source=mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.BindingContext>
+        <vm:PostViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView HeightRequest="5000">
+        <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
+            <Image Source="{Binding loadedPost.PostPhoto,Converter={StaticResource imgConv}}" HorizontalOptions="CenterAndExpand" HeightRequest="200"/>
+            <Label Text="{Binding loadedPost.PostTitle}" LineBreakMode="WordWrap" BackgroundColor="DarkBlue"
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" TextColor="White"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" HorizontalOptions="End" Source="{Binding loadedPost.OPPhoto,Converter={StaticResource imgConv}}" HeightRequest="25"/>
+            <Label Grid.Column="1" Text="{Binding loadedPost.AdminName}" HorizontalOptions="Start" LineBreakMode="NoWrap" TextColor="White"
+                                FontSize="16"/>
+            </Grid>
+            <Label Text="{Binding loadedPost.PostText}" 
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" TextColor="White"/>
+                <Label Text="{Binding loadedPost.PostDateTime}" 
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" TextColor="White" HorizontalOptions="End"/>
+                <Grid Padding="15,15,15,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Column="0" Grid.Row="0">
+                        <Image Source="{Binding LikeSource}"  HorizontalOptions="Center" HeightRequest="40" >
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LikeCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="{Binding NumberOfLikes}" HorizontalOptions="Center" TextColor="WhiteSmoke" FontSize="15" FontAttributes="Bold"/>
+                    </StackLayout>
+                    <StackLayout Grid.Column="1" Grid.Row="0">
+                        <Image Source="{Binding DislikeSource}" HorizontalOptions="Center" HeightRequest="40" Grid.Column="1" Grid.Row="0">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DislikeCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="{Binding NumberOfDislikes}" HorizontalOptions="Center" TextColor="WhiteSmoke" FontSize="15" FontAttributes="Bold"/>
+                    </StackLayout>
+                    <Button Clicked="CommentsLikes" BackgroundColor="LightGray" TextColor="Black" CornerRadius="15" Text="Comments/Likes" Grid.Row="0" Grid.Column="2"/>
+                <Button BackgroundColor="LightGray" TextColor="Black" CornerRadius="15" Clicked="VisitArtist" IsEnabled="{Binding VisitArtist}" Text="Visit Artist Page" Grid.Row="1" Grid.Column="0"/>
+                <Button BackgroundColor="LightGray" Clicked="VisitUserPage" TextColor="Black" CornerRadius="15" Text="Visit User Profile" IsEnabled="{Binding VisitUser}" Grid.Row="1" Grid.Column="1"/>
+                <Button BackgroundColor="LightGray" Clicked="VisitAlbum" TextColor="Black" CornerRadius="15" Text="Visit Album Page" IsEnabled="{Binding VisitAlbum}" Grid.Row="1" Grid.Column="2"/>
+                 <Button CornerRadius="15" BackgroundColor="LightGray" TextColor="Black" Text="Delete Post" IsEnabled="{Binding DeleteVisible}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
+
+                </Grid>
+            </StackLayout>
+            
+        </ScrollView>
+        
+    </ContentPage.Content>
+</ContentPage>

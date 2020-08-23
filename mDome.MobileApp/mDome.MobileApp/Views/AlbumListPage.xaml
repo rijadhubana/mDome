@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.AlbumListPage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels" 
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:AlbumListViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView HeightRequest="5000">
+            <StackLayout>
+                <StackLayout Margin="15,0,15,0">
+                    <Label Text="Album List By:" TextColor="White" FontSize="15" FontAttributes="Bold"
+                       HorizontalOptions="CenterAndExpand"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding LoadedUserProfile.UserPhoto,Converter={StaticResource imgConv}}" HeightRequest="70" Grid.Row="0"
+                               Grid.Column="0" HorizontalOptions="EndAndExpand"/>
+                        <Label Text="{Binding LoadedUserProfile.Username}" TextColor="White" FontAttributes="Bold"
+                               HorizontalOptions="StartAndExpand" Grid.Row="0" Grid.Column="1" VerticalOptions="Center"/>
+                    </Grid>
+                    <Label Text="Album List Name:" TextColor="White" FontSize="13"
+                       HorizontalOptions="StartAndExpand"/>
+                    <Entry Text="{Binding AlbumListName}" TextColor="White" BackgroundColor="Transparent"
+                           IsEnabled="{Binding EnableEntries}"/>
+                    <Label Text="Unique Key:" TextColor="White" FontSize="13"
+                       HorizontalOptions="StartAndExpand"/>
+                    <Entry Text="{Binding UniqueKey}" TextColor="White" BackgroundColor="Transparent"
+                       IsEnabled="{Binding EnableEntries}"/>
+                    <Label Text="Date Created: " TextColor="White" FontSize="13"
+                       HorizontalOptions="StartAndExpand"/>
+                    <Entry Text="{Binding LoadedAlbumList.ListDateCreated}" TextColor="White" BackgroundColor="Transparent"
+                       IsEnabled="False"/>
+                    <Label Text="Tracklist Type: " TextColor="White" FontSize="13"
+                       HorizontalOptions="StartAndExpand"/>
+                    <Picker TextColor="White" BackgroundColor="Transparent"
+                            SelectedItem="{Binding SelectedAlbumListType}" IsEnabled="{Binding EnableEntries}">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Private</x:String>
+                                <x:String>Public</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <Label Text="Album List Description: " TextColor="White" FontSize="13"
+                       HorizontalOptions="StartAndExpand"/>
+                    <Editor HeightRequest="100" Text="{Binding AlbumListDescription}" IsEnabled="{Binding EnableEntries}" BackgroundColor="Transparent" TextColor="White" FontSize="13"/>
+                    <Button Margin="0,5,0,5" Text="Submit Changes" Command="{Binding SubmitChangesCommand}" IsEnabled="{Binding EnableEntries}" BackgroundColor="LightGray" CornerRadius="15"/>
+                    <Button Margin="0,5,0,5" Text="Delete Tracklist" Command="{Binding DeleteAlbumListCommand}" IsEnabled="{Binding EnableEntries}" BackgroundColor="LightGray" CornerRadius="15"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Margin="5,5,5,5" Grid.Row="0" Grid.Column="0" Clicked="AddAlbums"  Text="Add Albums" IsEnabled="{Binding EnableEntries}" BackgroundColor="LightGray" CornerRadius="15"/>
+                        <Button Margin="5,5,5,5" Grid.Row="0" Grid.Column="1" Clicked="RemoveAlbums"  Text="Remove Albums" IsEnabled="{Binding EnableEntries}" BackgroundColor="LightGray" CornerRadius="15"/>
+                        <Button Margin="5,5,5,5" Grid.Row="0" Grid.Column="2" Command="{Binding CopyAlbumListCommand}" Text="Copy This List" IsEnabled="{Binding EnableCopy}" BackgroundColor="LightGray" CornerRadius="15"/>
+                    </Grid>
+                </StackLayout>
+                <Label Text="Album Listing" TextColor="White" FontSize="15" FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand" Margin="0,15,0,15"/>
+                <StackLayout  Margin="15,0,15,0" BindableLayout.ItemsSource="{Binding AlbumsInList}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Margin="0,0,0,10"
+                                                 touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="VisitAlbum"/>
+                                </StackLayout.GestureRecognizers>
+                                <Label Text="{Binding AlbumId}" IsVisible="False"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="60"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding AlbumPhoto,Converter={StaticResource imgConv}}" HeightRequest="100"
+                                           Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"/>
+                                    <Label Text="{Binding AlbumName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="16" TextColor="White" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding ArtistName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" FontAttributes="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding AlbumGeneratedRating}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" FontAttributes="Bold" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

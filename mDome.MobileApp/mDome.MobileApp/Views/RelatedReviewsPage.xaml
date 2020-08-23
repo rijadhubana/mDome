@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.RelatedReviewsPage"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             xmlns:local="clr-namespace:mDome.MobileApp" xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:RelatedReviewsViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Related Reviews" TextColor="Black" BackgroundColor="White" FontSize="16" FontAttributes="Bold"></Label>
+            <ListView ItemsSource="{Binding ReviewList}" 
+                      SelectedItem="{Binding SelectedReview, Mode=TwoWay}"
+                      ItemSelected="VisitPost" RowHeight="200" HasUnevenRows="False">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="200">
+                            <StackLayout Margin="0,10,0,10">
+                            <Grid Padding="20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="100"/>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"  Source="{Binding PostPhoto,Converter={StaticResource imgConv}}"
+                                       HeightRequest="150" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Label Text="{Binding Username}" LineBreakMode="WordWrap" TextColor="White"
+                                FontSize="16" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                                           VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="30"/>
+                                <Label Text="{Binding ReviewText}" LineBreakMode="TailTruncation"
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="13" TextColor="White" Grid.Row="1" 
+                                      HeightRequest="100" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="Start" HorizontalOptions="StartAndExpand"/>
+                                    <Label Text="{Binding Rating}" 
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" HeightRequest="50" TextColor="White" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" VerticalOptions="Start" HorizontalOptions="Center" FontAttributes="Bold"/>
+                            </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

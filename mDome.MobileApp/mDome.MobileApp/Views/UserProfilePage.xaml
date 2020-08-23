@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             x:Class="mDome.MobileApp.Views.UserProfilePage"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:UserProfileViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+
+                <Image Aspect="AspectFill"
+                Source="{Binding ShownProfile.UserWallpaper,Converter={StaticResource imgConv}}"
+                Grid.ColumnSpan="5"
+                Grid.RowSpan="4"
+                Opacity="0.6" />
+                <Image Source="{Binding ShownProfile.UserPhoto,Converter={StaticResource imgConv}}" HeightRequest="80" WidthRequest="80" 
+                Grid.Column="1" 
+                Grid.Row="1"
+                HorizontalOptions="Start"
+                VerticalOptions="End"/>
+                
+                
+
+                <StackLayout VerticalOptions="CenterAndExpand" Grid.Row="1" Margin="10,0,0,0"
+                Grid.Column="2" Grid.ColumnSpan="3" Orientation="Vertical">
+                    <Label
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                TextColor="White"
+                Text="{Binding ShownProfile.Username}"/>
+                    <Button BackgroundColor="DarkBlue" HorizontalOptions="Center" Opacity="0.7" CornerRadius="15" Text="Follow" TextColor="White" 
+                  IsVisible="{Binding FollowButtonIsVisible}" Command="{Binding FollowCommand}"/>
+                    <Button BackgroundColor="ForestGreen" HorizontalOptions="Center" Opacity="0.7" CornerRadius="15" Text="Followed" TextColor="White" 
+                  IsVisible="{Binding UnfollowButtonIsVisible}" Command="{Binding UnfollowCommand}"/>
+                    <Button BackgroundColor="Teal" HorizontalOptions="Center" Opacity="0.7" CornerRadius="15" Text="Edit Profile" TextColor="White" 
+                  IsVisible="{Binding EditProfileButtonIsVisible}" Clicked="EditProfile"/>
+                </StackLayout>
+            </Grid>
+            <ScrollView HeightRequest="5000">
+                <StackLayout Padding="15,0,15,0">
+                <Label Text="{Binding ShownProfile.About}" TextColor="WhiteSmoke"
+                       FontSize="16" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                        <Label Text="Recommended Artists" TextColor="WhiteSmoke"
+                       FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    </StackLayout>
+                        <StackLayout Grid.Row="1" Grid.Column="0"  touch:TouchEff.PressedAnimationDuration="800"
+            touch:TouchEff.RegularAnimationDuration="800"
+            touch:TouchEff.PressedScale="0.8"
+            touch:TouchEff.PressedOpacity="0.6"
+            touch:TouchEff.RippleCount="-1">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="VisitArtist1"/>
+                            </StackLayout.GestureRecognizers>
+                        <Image Source="{Binding Artist1.ArtistPhoto,Converter={StaticResource imgConv}}"
+                               HeightRequest="125"/>
+                        <Label Text="{Binding Artist1.ArtistName}" LineBreakMode="WordWrap" HorizontalOptions="Center" VerticalOptions="Start" TextColor="WhiteSmoke"/>
+                    </StackLayout>
+                        <StackLayout Grid.Row="1" Grid.Column="1"  touch:TouchEff.PressedAnimationDuration="800"
+            touch:TouchEff.RegularAnimationDuration="800"
+            touch:TouchEff.PressedScale="0.8"
+            touch:TouchEff.PressedOpacity="0.6"
+            touch:TouchEff.RippleCount="-1">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="VisitArtist2"/>
+                            </StackLayout.GestureRecognizers>
+                        <Image Source="{Binding Artist2.ArtistPhoto,Converter={StaticResource imgConv}}"
+                               HeightRequest="125"/>
+                        <Label Text="{Binding Artist2.ArtistName}" LineBreakMode="WordWrap" HorizontalOptions="Center" VerticalOptions="Start" TextColor="WhiteSmoke"/>
+                    </StackLayout>
+                        <StackLayout Grid.Row="1" Grid.Column="2"  touch:TouchEff.PressedAnimationDuration="800"
+            touch:TouchEff.RegularAnimationDuration="800"
+            touch:TouchEff.PressedScale="0.8"
+            touch:TouchEff.PressedOpacity="0.6"
+            touch:TouchEff.RippleCount="-1">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="VisitArtist3"/>
+                            </StackLayout.GestureRecognizers>
+                        <Image Source="{Binding Artist3.ArtistPhoto,Converter={StaticResource imgConv}}"
+                               HeightRequest="125"/>
+                        <Label Text="{Binding Artist3.ArtistName}" LineBreakMode="WordWrap" HorizontalOptions="Center" VerticalOptions="Start" TextColor="WhiteSmoke"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                        <Label Text="Recommended Albums" TextColor="WhiteSmoke"
+                       FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"
+                            />
+                        </StackLayout>
+                        <StackLayout Grid.Row="3" Grid.Column="0"   touch:TouchEff.PressedAnimationDuration="800"
+            touch:TouchEff.RegularAnimationDuration="800"
+            touch:TouchEff.PressedScale="0.8"
+            touch:TouchEff.PressedOpacity="0.6"
+            touch:TouchEff.RippleCount="-1">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="VisitAlbum1"/>
+                            </StackLayout.GestureRecognizers>
+                        <Image Source="{Binding Album1.AlbumPhoto,Converter={StaticResource imgConv}}"
+                               HeightRequest="125"/>
+                        <Label Text="{Binding Album1.AlbumName}" LineBreakMode="WordWrap" HorizontalOptions="Center" VerticalOptions="Start" TextColor="WhiteSmoke"/>
+                    </StackLayout >
+                        <StackLayout Grid.Row="3" Grid.Column="1"  touch:TouchEff.PressedAnimationDuration="800"
+            touch:TouchEff.RegularAnimationDuration="800"
+            touch:TouchEff.PressedScale="0.8"
+            touch:TouchEff.PressedOpacity="0.6"
+            touch:TouchEff.RippleCount="-1">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="VisitAlbum2"/>
+                            </StackLayout.GestureRecognizers>
+                        <Image Source="{Binding Album2.AlbumPhoto,Converter={StaticResource imgConv}}"
+                               HeightRequest="125"/>
+                        <Label Text="{Binding Album2.AlbumName}" LineBreakMode="WordWrap" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" TextColor="WhiteSmoke"/>
+                    </StackLayout>
+                        <StackLayout Grid.Row="3" Grid.Column="2"  touch:TouchEff.PressedAnimationDuration="800"
+            touch:TouchEff.RegularAnimationDuration="800"
+            touch:TouchEff.PressedScale="0.8"
+            touch:TouchEff.PressedOpacity="0.6"
+            touch:TouchEff.RippleCount="-1">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="VisitAlbum3"/>
+                            </StackLayout.GestureRecognizers>
+                        <Image Source="{Binding Album3.AlbumPhoto,Converter={StaticResource imgConv}}"
+                               HeightRequest="125"/>
+                        <Label Text="{Binding Album3.AlbumName}" LineBreakMode="WordWrap" HorizontalOptions="Center" VerticalOptions="Start" TextColor="WhiteSmoke"/>
+                    </StackLayout>
+                </Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button CornerRadius="15" Grid.Row="0" Grid.Column="0" Clicked="RelatedPosts" BackgroundColor="LightGray" Text="Posts" TextColor="Black" FontSize="15" />
+                        <Button CornerRadius="15" Grid.Row="0" Grid.Column="1" Clicked="RelatedReviews" BackgroundColor="LightGray" Text="Reviews" TextColor="Black" FontSize="15"/>
+                        <Button CornerRadius="15" Grid.Row="1" Grid.Column="0" Clicked="FeaturedTracklists" BackgroundColor="LightGray" Text="Featured Tracklists" TextColor="Black" />
+                        <Button CornerRadius="15" Grid.Row="1" Grid.Column="1" BackgroundColor="LightGray" Text="Featured Album Lists" TextColor="Black"/>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

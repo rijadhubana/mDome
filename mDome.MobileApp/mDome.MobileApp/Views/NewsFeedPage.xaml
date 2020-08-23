@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:mDome.MobileApp" xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.NewsFeedPage" BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.BindingContext>
+        <vm:NewsFeedViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+            <ResourceDictionary>
+                <converters:ImageConverter x:Key="imgConv"/>
+            </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding loadedPosts}" 
+                      SelectedItem="{Binding selectedPost, Mode=TwoWay}"
+                      ItemSelected="ListView_ItemSelected" RowHeight="200">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="200">
+                            <Grid Padding="20">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.7*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Row="0" Grid.Column="0"  Source="{Binding PostPhoto,Converter={StaticResource imgConv}}"
+                                       HeightRequest="150" VerticalOptions="StartAndExpand" HorizontalOptions="Start"/>
+                                <StackLayout Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+                                    <Label Text="{Binding AdminName}" LineBreakMode="WordWrap" TextColor="White"
+                                FontSize="16"/>
+                                    <Label Text="{Binding PostTitle}" LineBreakMode="WordWrap" BackgroundColor="White"
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" TextColor="Black"/>
+                                    
+                                    <Label Text="{Binding PostText}" 
+                                LineBreakMode="TailTruncation"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" TextColor="White"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Margin="15,15,15,15" BackgroundColor="LightGray" TextColor="Black" Text="Add New Post" CornerRadius="10" Clicked="Button_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

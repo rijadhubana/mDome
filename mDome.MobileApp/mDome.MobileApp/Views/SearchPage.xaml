@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xf:BottomBarPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.SearchPage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}" BarTextColor="White">
+  <!--Pages can be added as references or inline-->
+    <xf:BottomBarPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </xf:BottomBarPage.Resources>
+    <xf:BottomBarPage.BindingContext>
+        <vm:SearchPageViewModel/>
+    </xf:BottomBarPage.BindingContext>
+    <ContentPage Title="Artists" IconImageSource="artisticongreen.png">
+        <ContentPage.Content>
+            <StackLayout>
+                <SearchBar Margin="0,15,0,15" x:Name="searchBarArtists"
+                   SearchCommand="{Binding SearchCommandArtists}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBarArtists}}"
+                           BackgroundColor="WhiteSmoke" TextColor="Black"/>
+                <ListView ItemsSource="{Binding QueryArtists}" ItemSelected="VisitArtist" SelectedItem="{Binding SelectedArtist}" Margin="0,20,0,10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="200">
+                                <Grid Padding="0,15,0,15">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="60"/>
+                                        <RowDefinition Height="60"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ArtistPhoto,Converter={StaticResource imgConv}}"
+                                       Grid.RowSpan="3" Grid.Row="0" Grid.Column="0" HeightRequest="150" WidthRequest="150" VerticalOptions="Center"/>
+                                    <Label Text="{Binding ArtistName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center"
+                                FontSize="16" TextColor="White" FontAttributes="Bold"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"/>
+                                    <Label Text="{Binding ArtistMembers}" 
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+                                    <Label Text="{Binding ArtistGenresInString}"
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="Albums" IconImageSource="albumgreen.png">
+        <ContentPage.Content>
+            <StackLayout>
+                <SearchBar Margin="0,15,0,15" x:Name="searchBarAlbums"
+                   SearchCommand="{Binding SearchCommandAlbums}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBarAlbums}}"
+                           BackgroundColor="WhiteSmoke" TextColor="Black"/>
+                <ListView ItemsSource="{Binding QueryAlbums}" ItemSelected="VisitAlbum" SelectedItem="{Binding SelectedAlbum}" Margin="0,20,0,10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="0,15,0,15">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding AlbumPhoto,Converter={StaticResource imgConv}}"
+                                       Grid.RowSpan="3" Grid.Row="0" Grid.Column="0" HeightRequest="150" WidthRequest="150" VerticalOptions="Center"/>
+                                    <Label Text="{Binding AlbumName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center"
+                                FontSize="16" TextColor="White" FontAttributes="Bold"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"/>
+                                    <Label Text="{Binding ArtistName}" 
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="Start"
+                                FontSize="13" TextColor="White" Grid.Column="1" FontAttributes="Bold" Grid.ColumnSpan="2" Grid.Row="1"/>
+                                    <Label Text="{Binding AlbumGeneratedRating}"
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="Start"
+                                FontSize="13" TextColor="White" Grid.Column="1"  Grid.Row="2"/>
+                                    <Label Text="{Binding DateReleased}"
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="End"
+                                FontSize="13" TextColor="White" Grid.Column="2" Grid.Row="2"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="Tracks" IconImageSource="songgreen.png">
+        <ContentPage.Content>
+            <StackLayout>
+                <SearchBar Margin="0,15,0,15" x:Name="searchBarTracks"
+                   SearchCommand="{Binding SearchCommandTracks}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBarTracks}}"
+                           BackgroundColor="WhiteSmoke" TextColor="Black"/>
+                <ListView ItemsSource="{Binding QueryTracks}" ItemSelected="VisitTrack" SelectedItem="{Binding SelectedTrack}" Margin="0,20,0,10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="0,10,0,10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="20"/>
+                                            <RowDefinition Height="20"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                    <Image Source="songgray.png" HeightRequest="70"
+                                           Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"/>
+                                    <Label Text="{Binding TrackName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="16" TextColor="White" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                <Label Text="{Binding AlbumName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" FontAttributes="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding ArtistName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" FontAttributes="Bold" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="Genres" IconImageSource="genregreen.png">
+        <ContentPage.Content>
+            <StackLayout>
+                <SearchBar Margin="0,15,0,15" x:Name="searchBarGenres"
+                   SearchCommand="{Binding SearchCommandGenres}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBarGenres}}"
+                           BackgroundColor="WhiteSmoke" TextColor="Black"/>
+                <ListView ItemsSource="{Binding QueryGenres}" SelectedItem="{Binding SelectedGenre}" Margin="0,20,0,10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                    <Label Text="{Binding GenreName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center"
+                                FontSize="16" TextColor="White" FontAttributes="Bold" HeightRequest="50"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="Users" IconImageSource="profilegreen.png">
+        <ContentPage.Content>
+            <StackLayout>
+                <SearchBar Margin="0,15,0,15" x:Name="searchBarUsers"
+                   SearchCommand="{Binding SearchCommandUsers}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBarUsers}}"
+                           BackgroundColor="WhiteSmoke" TextColor="Black"/>
+                <ListView ItemsSource="{Binding QueryUsers}" SelectedItem="{Binding SelectedUser}" Margin="0,20,0,10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="100">
+                                <Grid Padding="0,0,0,15">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding UserPhoto,Converter={StaticResource imgConv}}"
+                                        Grid.Row="0" Grid.Column="0" HeightRequest="70" VerticalOptions="Center"/>
+                                    <Label Text="{Binding Username}"
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center" VerticalOptions="Center"
+                                FontSize="16" TextColor="White" FontAttributes="Bold"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="Tracklists" IconImageSource="playlisticon.png">
+        <ContentPage.Content>
+            <StackLayout>
+                <SearchBar Margin="0,15,0,15" x:Name="searchBarTracklists"
+                   SearchCommand="{Binding SearchCommandTracklists}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBarTracklists}}"
+                           BackgroundColor="WhiteSmoke" TextColor="Black"/>
+                <ListView ItemsSource="{Binding QueryTracklists}" ItemSelected="VisitTracklist" SelectedItem="{Binding SelectedTracklist}" Margin="0,20,0,10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="200">
+                                <Grid Padding="0,15,0,15">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="playlistgray.png"
+                                       Grid.RowSpan="3" Grid.Row="0" Grid.Column="0" HeightRequest="100" WidthRequest="150" VerticalOptions="Center"/>
+                                    <Label Text="{Binding TracklistName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center"
+                                FontSize="16" TextColor="White" FontAttributes="Bold"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"/>
+                                    <Label Text="{Binding Username}" 
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" Grid.Column="1" FontAttributes="Bold" Grid.ColumnSpan="2" Grid.Row="1"/>
+                                    <Label Text="{Binding NumberOfTracks}"
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" Grid.Column="1" Grid.Row="2"/>
+                                    <Label Text="{Binding ListDateCreated}"
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="EndAndExpand"
+                                FontSize="13" TextColor="White" Grid.Column="2" Grid.Row="2"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Margin="15,15,15,15" BackgroundColor="LightGray" Command="{Binding AccessPrivateTracklistCommand}" TextColor="Black" Text="Access a Private Tracklist" CornerRadius="10"/>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="Album Lists" IconImageSource="albumlistgreen.png">
+        <ContentPage.Content>
+            <StackLayout>
+                <SearchBar Margin="0,15,0,15" x:Name="searchBarAlbumLists"
+                   SearchCommand="{Binding SearchCommandAlbumLists}"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBarAlbumLists}}"
+                           BackgroundColor="WhiteSmoke" TextColor="Black"/>
+                <ListView ItemsSource="{Binding QueryAlbumLists}" ItemSelected="VisitAlbumList" SelectedItem="{Binding SelectedAlbumList}" Margin="0,20,0,10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="200">
+                                <Grid Padding="0,15,0,15">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="albumlistgray.png"
+                                       Grid.RowSpan="3" Grid.Row="0" Grid.Column="0" HeightRequest="100" WidthRequest="150" VerticalOptions="Center"/>
+                                    <Label Text="{Binding AlbumListName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center"
+                                FontSize="16" TextColor="White" FontAttributes="Bold"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"/>
+                                    <Label Text="{Binding Username}" 
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" Grid.Column="1" FontAttributes="Bold" Grid.ColumnSpan="2" Grid.Row="1"/>
+                                    <Label Text="{Binding NumberOfAlbums}"
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" Grid.Column="1" Grid.Row="2"/>
+                                    <Label Text="{Binding ListDateCreated}"
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="EndAndExpand"
+                                FontSize="13" TextColor="White" Grid.Column="2" Grid.Row="2"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Margin="15,15,15,15" BackgroundColor="LightGray" TextColor="Black" Command="{Binding AccessPrivateAlbumListCommand}" Text="Access a Private Album List" CornerRadius="10"/>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+
+</xf:BottomBarPage>

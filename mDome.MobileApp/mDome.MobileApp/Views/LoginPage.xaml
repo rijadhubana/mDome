@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.LoginPage">
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <RelativeLayout>
+            <Image Source="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}" Aspect="AspectFill"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width}"
+                   RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height}"/>
+            <Grid RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width}"
+                   RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height}">
+                <StackLayout>
+                    <Image Source="{local:ImageResource mDome.MobileApp.Images.mdomelogo.png}"
+                       WidthRequest="300" HorizontalOptions="Center" VerticalOptions="Start" Margin="20,50,20,20" />
+                </StackLayout>
+                <StackLayout VerticalOptions="CenterAndExpand" Padding="20,150,20,20">
+                    <Label Text="Username: " FontSize="20" TextColor="White"></Label>
+                    <Entry TextColor="Black" Text="{Binding Username}"></Entry>
+                    <Label Text="Password: " FontSize="20" TextColor="White"></Label>
+                    <Entry TextColor="Black" IsPassword="True" Text="{Binding Password}"></Entry>
+                    <Label FontSize="20" TextColor="White">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="New here?  " />
+                                <Span Text="Register"
+                  TextColor="MediumAquamarine"
+                  TextDecorations="None" FontAttributes="Bold" FontSize="20">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Button Command="{Binding LoginCommand}" CornerRadius="15" Text="Login" FontSize="15" BackgroundColor="LightGray"></Button>
+                    <Label IsVisible="{Binding IsBusy}" TextColor="White" Text="Working..."></Label>
+                </StackLayout>
+
+            </Grid>
+        </RelativeLayout>
+    </ContentPage.Content>
+</ContentPage>

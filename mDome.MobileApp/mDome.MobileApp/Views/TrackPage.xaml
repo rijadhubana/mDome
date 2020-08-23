@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.TrackPage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:TrackViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView HeightRequest="5000">
+        <StackLayout>
+            <StackLayout>
+                    <WebView Source="{Binding WebViewSource}" HeightRequest="300" WidthRequest="500"/>
+            </StackLayout>
+            <StackLayout Margin="15,0,15,0">
+                <Label Text="{Binding TrackName}" TextColor="White" FontSize="15" FontAttributes="Bold"
+                       HorizontalOptions="StartAndExpand"/>
+                <Label Text="{Binding TrackViews}" TextColor="White" FontSize="13"
+                       HorizontalOptions="StartAndExpand"/>
+                <Label Text="{Binding AlbumName}" TextColor="White" FontSize="13"
+                       HorizontalOptions="StartAndExpand"/>
+                <Label Text="{Binding ArtistName}" TextColor="White" FontSize="13"
+                       HorizontalOptions="StartAndExpand"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0" Grid.Row="0">
+                            <Image Source="{Binding LikeSource}"  HorizontalOptions="Center" HeightRequest="40" >
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding LikeCommand}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Label Text="{Binding NumberOfLikes}" HorizontalOptions="Center" TextColor="WhiteSmoke" FontSize="15" FontAttributes="Bold"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Grid.Row="0">
+                            <Image Source="{Binding DislikeSource}" HorizontalOptions="Center" HeightRequest="40">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding DislikeCommand}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Label Text="{Binding NumberOfDislikes}" HorizontalOptions="Center" TextColor="WhiteSmoke" FontSize="15" FontAttributes="Bold"/>
+                        </StackLayout>
+                        <Button Margin="10,0,10,0" BackgroundColor="LightGray" TextColor="Black" CornerRadius="15" Text="Visit Artist Page" Grid.Row="1" Grid.Column="0"/>
+                        <Button Margin="10,0,10,0" BackgroundColor="LightGray" TextColor="Black" CornerRadius="15" Text="Visit Album Page"  Grid.Row="1" Grid.Column="1"/>
+                        <Button Margin="10,0,10,0" BackgroundColor="LightGray" TextColor="Black" CornerRadius="15" Text="Add to Tracklist"  Grid.Row="1" Grid.Column="2"/>
+                    </Grid>
+                    <Label Text="Lyrics: " TextColor="White" FontSize="13" FontAttributes="Bold"
+                       HorizontalOptions="StartAndExpand"/>
+                    <Label Text="{Binding LoadedTrack.TrackLyrics}" TextColor="White" FontSize="13"
+                       HorizontalOptions="StartAndExpand"/>
+            </StackLayout>
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

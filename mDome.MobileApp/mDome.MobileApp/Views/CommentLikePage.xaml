@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xf:BottomBarPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.CommentLikePage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}" BarTextColor="White">
+  <!--Pages can be added as references or inline-->
+    <xf:BottomBarPage.BindingContext>
+        <vm:CommentsLikesViewModel/>
+    </xf:BottomBarPage.BindingContext>
+    <xf:BottomBarPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </xf:BottomBarPage.Resources>
+    <ContentPage Title="Comments" IconImageSource="commentsgreen.png">
+        <ContentPage.Content>
+            <StackLayout>
+                <ListView ItemsSource="{Binding Comments}" ItemSelected="VisitUserViaComment" SelectedItem="{Binding SelectedCommenter}" Margin="0,20,0,10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="200">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding CommenterPhoto,Converter={StaticResource imgConv}}"
+                                       Grid.RowSpan="3" Grid.Row="0" Grid.Column="0" HeightRequest="70" VerticalOptions="Center"/>
+                                <Label Text="{Binding CommenterName}"
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center"
+                                FontSize="16" TextColor="White" FontAttributes="Bold"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"/>
+                                <Label Text="{Binding CommentText}" 
+                                LineBreakMode="WordWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+                                <Label Text="{Binding CommentDate}"
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="End"
+                                FontSize="13" TextColor="White" Grid.Column="2" Grid.Row="3"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Entry Text="{Binding NewCommentText}" Placeholder="Add new comment..." BackgroundColor="WhiteSmoke" TextColor="Black"/>
+            <Button Command="{Binding SubmitCommentCommand}" BackgroundColor="LightGray" CornerRadius="10" Text="Submit Comment" Margin="0,0,0,10"/>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="Likes" IconImageSource="alreadyliked.png">
+        <ListView ItemsSource="{Binding Likes}" ItemSelected="VisitUserViaLike" SelectedItem="{Binding SelectedUser}" Margin="0,20,0,10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="100">
+                        <Grid Padding="0,0,0,15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding UserPhoto,Converter={StaticResource imgConv}}"
+                                        Grid.Row="0" Grid.Column="0" HeightRequest="70" VerticalOptions="Center"/>
+                            <Label Text="{Binding Username}"
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center" VerticalOptions="Center"
+                                FontSize="16" TextColor="White" FontAttributes="Bold"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage>
+</xf:BottomBarPage>

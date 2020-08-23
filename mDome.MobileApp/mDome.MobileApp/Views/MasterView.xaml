@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:mDome.MobileApp" 
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.MasterView" Title="mDome v1" BackgroundImageSource="darkbluemenu.jpg">
+    <ContentPage.BindingContext>
+        <vm:MasterViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+
+                <Image Aspect="AspectFill"
+                Source="{Binding Wallpaper,Converter={StaticResource imgConv}}"
+                Grid.ColumnSpan="5"
+                Grid.RowSpan="4"
+                Opacity="0.6" />
+                <Image Source="{Binding ProfilePhoto,Converter={StaticResource imgConv}}" HeightRequest="80" WidthRequest="80" 
+                Grid.Column="1" 
+                Grid.Row="1"
+                HorizontalOptions="Start"
+                VerticalOptions="End"/>
+
+                <StackLayout VerticalOptions="CenterAndExpand" Grid.Row="1" Margin="10,0,0,0"
+                Grid.Column="2" Grid.ColumnSpan="3" Orientation="Vertical">
+                    <Label
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                TextColor="White"
+                Text="{Binding Username}"/>
+
+                    <Label 
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                TextColor="White" Text="{Binding Email}"/>
+                </StackLayout>
+            </Grid>
+            <ListView SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+                <ListView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>News Feed</x:String>
+                        <x:String>My Profile</x:String>
+                        <x:String>Search</x:String>
+                        <x:String>Followers/Following</x:String>
+                        <x:String>My Playlists/Album Lists</x:String>
+                        <x:String>History</x:String>
+                        <x:String>Notifications</x:String>
+                        <x:String>Report a Problem</x:String>
+                        <x:String>Logout</x:String>
+                    </x:Array>
+                </ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Tapped="ViewCell_Tapped">
+                            <StackLayout Padding="5" Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding Path=.}"
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" TextColor="White"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

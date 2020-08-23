@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.AddNewPostPage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.BindingContext>
+        <vm:AddPostViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <ScrollView HeightRequest="5000">
+        <StackLayout Margin="20,5,20,5">
+            <Label Text="Post Title" TextColor="White" FontSize="16"/>
+            <Entry BackgroundColor="WhiteSmoke" Text="{Binding PostTitle}" TextColor="Black"/>
+            <Label Text="Post Text" TextColor="White" FontSize="16"/>
+            <Editor HeightRequest="200" Text="{Binding PostText}" BackgroundColor="WhiteSmoke"/>
+                <Grid Margin="10,10,10,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Tap the button to the right if this post is related to an specific artist"
+                           LineBreakMode="WordWrap" VerticalOptions="Center" TextColor="White" Grid.Column="0" Grid.Row="0" FontSize="13"/>
+                    <Label Text="Tap on image to upload a new image for the post"
+                           LineBreakMode="WordWrap" VerticalOptions="Center" TextColor="White" Grid.Column="0" Grid.Row="1" FontSize="13"/>
+                    <Button BackgroundColor="LightGray" Text="{Binding PlaceholderArtist.ArtistName}" TextColor="Black"
+                            VerticalOptions="Center" Grid.Column="1" Grid.Row="0" Command="{Binding SelectArtistCommand}"/>
+                    <Image Source="{Binding PostImageSource}"
+                           HeightRequest="80" Grid.Column="1" Grid.Row="1">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UploadImageCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+                <Button Margin="10,0,10,0" Command="{Binding SubmitPostCommand}" Text="Submit" TextColor="Black" BackgroundColor="LightGray"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
