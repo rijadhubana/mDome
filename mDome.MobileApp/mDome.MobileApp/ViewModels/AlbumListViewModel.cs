@@ -6,6 +6,7 @@ using mDome.Model.Requests;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -227,7 +228,8 @@ namespace mDome.MobileApp.ViewModels
             {
                 await _albumListService.Delete<AlbumList>(ThisAlbumListId);
                 await Application.Current.MainPage.DisplayAlert("Success", "Album list successfully deleted! You will now be redirected to My Tracklists/My Album Lists page.", "Ok");
-                Application.Current.MainPage = new MasterPage(new NavigationPage(new MyTracklistsAlbumlistsPage()));
+                var aps = Application.Current.MainPage as MasterPage;
+                await aps.MenuNavigate("My Tracklists/Album Lists");
             }
 
         }
@@ -250,16 +252,18 @@ namespace mDome.MobileApp.ViewModels
                     AlbumListType = SelectedAlbumListType,
                     AlbumListDescription=AlbumListDescription
                 };
-                try
+                var check = await _albumListService.Get<List<AlbumList>>(new AlbumListSearchRequest()
                 {
-                    await _albumListService.Update<AlbumList>(ThisAlbumListId, request);
-                    await Application.Current.MainPage.DisplayAlert("Success", "Changes Submitted", "Ok");
-                }
-                catch (Exception ex)
+                    AlbumListName = AlbumListName,
+                    UniqueKey = UniqueKey
+                });
+                if (check.Where(a=>a.AlbumListId!=ThisAlbumListId).FirstOrDefault()!=null)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Error", "Combination already exists. Please change the list name or unique key.", "OK");
                     return;
                 }
+                    await _albumListService.Update<AlbumList>(ThisAlbumListId, request);
+                    await Application.Current.MainPage.DisplayAlert("Success", "Changes Submitted", "Ok");
             }
 
         }

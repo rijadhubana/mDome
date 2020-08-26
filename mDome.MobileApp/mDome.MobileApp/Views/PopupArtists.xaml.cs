@@ -32,5 +32,11 @@ namespace mDome.MobileApp.Views
             _selectedArtist = await _artistService.GetById<Model.Artist>(model.selectedArtist.ArtistId);
             await PopupNavigation.Instance.PopAsync();
         }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            _selectedArtist = new Model.Artist() { ArtistId = 0, ArtistName = "Not Selected" };
+            await PopupNavigation.Instance.PopAsync();
+        }
     }
 }

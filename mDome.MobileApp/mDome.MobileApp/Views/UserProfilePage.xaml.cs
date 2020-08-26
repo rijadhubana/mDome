@@ -73,5 +73,10 @@ namespace mDome.MobileApp.Views
         {
             await Navigation.PushAsync(new FeaturedTracklistsPage(vm.UserId));
         }
+
+        private async void FeaturedAlbumLists(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new FeaturedAlbumListsPage(vm.UserId));
+        }
     }
 }

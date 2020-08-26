@@ -32,6 +32,12 @@ namespace mDome.MobileApp.ViewModels
             get { return _password; }
             set { SetProperty(ref _password, value); }
         }
+        private void SetAPIServiceNull()
+        {
+            APIService.Username = "";
+            APIService.Password = "";
+            APIService.loggedProfile = null;
+        }
         async Task Login()
         {
             try
@@ -41,11 +47,19 @@ namespace mDome.MobileApp.ViewModels
                 APIService.Password = Password;
                 var result = await _userService.Get<List<Model.UserProfile>>(new UserProfileSearchRequest() { Username = APIService.Username });
                 APIService.loggedProfile = result.First();
+                if (APIService.loggedProfile.SuspendedFlag==true)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Your account has been suspended. Please contact " +
+                        "the administrator for further details", "OK");
+                    SetAPIServiceNull();
+                    return;
+                }
                 Application.Current.MainPage = new MasterPage(new NavigationPage(new NewsFeedPage()));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Wrong username or password", "OK");
+                SetAPIServiceNull();
                 IsBusy = false;
                 return;
             }

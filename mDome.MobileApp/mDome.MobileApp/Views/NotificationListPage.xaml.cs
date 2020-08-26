@@ -1,4 +1,6 @@
-﻿using System;
+﻿using mDome.MobileApp.ViewModels;
+using mDome.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,12 @@ namespace mDome.MobileApp.Views
         public NotificationListPage()
         {
             InitializeComponent();
+            BindingContext = vm = new NotificationsViewModel();
+        }
+        NotificationsViewModel vm;
+        private void DeleteNotification(object sender, SelectedItemChangedEventArgs e)
+        {
+            vm.DeleteNotificationCommand.Execute(null);
         }
     }
 }

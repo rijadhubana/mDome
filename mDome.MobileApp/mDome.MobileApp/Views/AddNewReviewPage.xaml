@@ -69,6 +69,10 @@
                         </StackLayout>
                     </StackLayout>
                 </Grid>
+                <Label TextColor="White" FontSize="12" FontAttributes="Bold" HorizontalOptions="Center"
+                       Text="Note: Picking the same song in both categories will result in it being in neither one."/>
+                <Label TextColor="White" FontSize="12" FontAttributes="Bold" HorizontalOptions="Center"
+                       Text="Reviews cannot be deleted!"/>
                 <Label Text="Rate this Album" TextColor="White" FontSize="13"/>
                 <Picker TextColor="Black" BackgroundColor="WhiteSmoke"
                             SelectedItem="{Binding Rating}">

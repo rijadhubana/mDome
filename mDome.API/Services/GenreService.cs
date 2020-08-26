@@ -27,5 +27,14 @@ namespace mDome.API.Services
             var list = query.ToList();
             return _mapper.Map<List<Model.Genre>>(list);
         }
+        public override Model.Genre Delete(int Id)
+        {
+            _context.ArtistGenre.RemoveRange(_context.ArtistGenre.Where(a => a.GenreId == Id));
+            _context.SaveChanges();
+            var entity = _context.Genre.Find(Id);
+            _context.Genre.Remove(entity);
+            _context.SaveChanges();
+            return _mapper.Map<Model.Genre>(entity);
+        }
     }
 }

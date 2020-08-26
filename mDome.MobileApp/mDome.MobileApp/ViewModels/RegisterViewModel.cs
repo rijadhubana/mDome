@@ -308,7 +308,9 @@ namespace mDome.MobileApp.ViewModels
             popUp.CallbackEvent += (object sender, object e) => 
             {
                 placeholderAlbum = (Model.Album)e;
-                if (placeholderAlbum.AlbumId==Album1.AlbumId || placeholderAlbum.AlbumId==Album2.AlbumId || placeholderAlbum.AlbumId==Album3.AlbumId)
+                if ((placeholderAlbum.AlbumId==Album1.AlbumId&&placeholderAlbum.AlbumName!="Not Selected") || 
+                (placeholderAlbum.AlbumId==Album2.AlbumId && placeholderAlbum.AlbumName != "Not Selected") || 
+                (placeholderAlbum.AlbumId==Album3.AlbumId && placeholderAlbum.AlbumName != "Not Selected"))
                     Application.Current.MainPage.DisplayAlert("Error","You can't feature an album more than once!",  "OK");
                 else
                 {
@@ -329,7 +331,9 @@ namespace mDome.MobileApp.ViewModels
             popUp.CallbackEvent += (object sender, object e) =>
             {
                 placeholderArtist = (Model.Artist)e;
-                if (placeholderArtist.ArtistId == Artist1.ArtistId || placeholderArtist.ArtistId == Artist2.ArtistId || placeholderArtist.ArtistId == Artist3.ArtistId)
+                if ((placeholderArtist.ArtistId == Artist1.ArtistId&&placeholderArtist.ArtistName!="Not Selected") ||
+                (placeholderArtist.ArtistId == Artist2.ArtistId&& placeholderArtist.ArtistName != "Not Selected") || 
+                (placeholderArtist.ArtistId == Artist3.ArtistId && placeholderArtist.ArtistName != "Not Selected"))
                     Application.Current.MainPage.DisplayAlert("Error", "You can't feature an artist more than once!", "OK");
                 else
                 {
@@ -452,8 +456,6 @@ namespace mDome.MobileApp.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", "Passwords do not match", "OK");
                 return;
             }
-            try
-                {
                     var request = new UserProfileUpsertRequest()
                     {
                         Username = _username,
@@ -475,6 +477,12 @@ namespace mDome.MobileApp.ViewModels
                 }
                 else
                 {
+                    var check = await _userService.Get<List<UserProfile>>(new UserProfileSearchRequest() { Username = request.Username });
+                    if (check.Count>0)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error", "Username already taken!", "OK");
+                        return;
+                    }
                     var returnedUser = await _userService.Insert<Model.UserProfile>(request);
                     await GenerateTracklists(returnedUser.UserId);
                     await Application.Current.MainPage.DisplayAlert("Success", "You have successfully registered your account! You will now be redirected to login page.", "OK");
@@ -483,11 +491,6 @@ namespace mDome.MobileApp.ViewModels
                 APIService.Username = "";
                 APIService.Password = "";
                 Application.Current.MainPage = new LoginPage();
-                }
-                catch (Exception ex)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
-                }
             }
         }
 }

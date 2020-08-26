@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:mDome.MobileApp"
              xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
              mc:Ignorable="d"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
              x:Class="mDome.MobileApp.Views.LoginPage">
     <ContentPage.BindingContext>
         <vm:LoginViewModel/>
@@ -26,13 +27,18 @@
                     <Entry TextColor="Black" Text="{Binding Username}"></Entry>
                     <Label Text="Password: " FontSize="20" TextColor="White"></Label>
                     <Entry TextColor="Black" IsPassword="True" Text="{Binding Password}"></Entry>
-                    <Label FontSize="20" TextColor="White">
+                    <Label FontSize="20" TextColor="White" touch:TouchEff.PressedAnimationDuration="800"
+                  touch:TouchEff.RegularAnimationDuration="800"
+                  touch:TouchEff.PressedScale="0.8"
+                  touch:TouchEff.PressedOpacity="0.6"
+                  touch:TouchEff.RippleCount="-1">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="New here?  " />
                                 <Span Text="Register"
                   TextColor="MediumAquamarine"
-                  TextDecorations="None" FontAttributes="Bold" FontSize="20">
+                  TextDecorations="None" FontAttributes="Bold" FontSize="20"
+                  >
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
                                     </Span.GestureRecognizers>

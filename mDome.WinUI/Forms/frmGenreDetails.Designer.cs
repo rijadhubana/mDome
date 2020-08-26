@@ -35,6 +35,7 @@
             this.txtGenreDesc = new System.Windows.Forms.TextBox();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnDeleteGenre = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,7 +75,7 @@
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(16, 282);
+            this.btnSubmit.Location = new System.Drawing.Point(16, 328);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(304, 42);
             this.btnSubmit.TabIndex = 4;
@@ -86,11 +87,23 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // btnDeleteGenre
+            // 
+            this.btnDeleteGenre.Enabled = false;
+            this.btnDeleteGenre.Location = new System.Drawing.Point(16, 267);
+            this.btnDeleteGenre.Name = "btnDeleteGenre";
+            this.btnDeleteGenre.Size = new System.Drawing.Size(304, 42);
+            this.btnDeleteGenre.TabIndex = 5;
+            this.btnDeleteGenre.Text = "Delete Genre";
+            this.btnDeleteGenre.UseVisualStyleBackColor = true;
+            this.btnDeleteGenre.Click += new System.EventHandler(this.btnDeleteGenre_Click);
+            // 
             // frmGenreDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 351);
+            this.ClientSize = new System.Drawing.Size(354, 385);
+            this.Controls.Add(this.btnDeleteGenre);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.txtGenreDesc);
             this.Controls.Add(this.txtGenreName);
@@ -113,5 +126,6 @@
         private System.Windows.Forms.TextBox txtGenreDesc;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Button btnDeleteGenre;
     }
 }

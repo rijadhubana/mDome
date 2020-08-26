@@ -33,6 +33,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvTracks = new System.Windows.Forms.DataGridView();
+            this.TrackId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrackName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrackNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtAlbumName = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtDateReleased = new System.Windows.Forms.TextBox();
@@ -44,9 +47,7 @@
             this.btnSubmitAlbum = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.TrackId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TrackName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TrackNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDeleteAlbum = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTracks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAlbumPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -94,96 +95,9 @@
             this.dgvTracks.RowHeadersWidth = 51;
             this.dgvTracks.RowTemplate.Height = 24;
             this.dgvTracks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTracks.Size = new System.Drawing.Size(312, 385);
+            this.dgvTracks.Size = new System.Drawing.Size(312, 478);
             this.dgvTracks.TabIndex = 4;
             this.dgvTracks.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgvTracks_MouseDoubleClick);
-            // 
-            // txtAlbumName
-            // 
-            this.txtAlbumName.Location = new System.Drawing.Point(16, 62);
-            this.txtAlbumName.Name = "txtAlbumName";
-            this.txtAlbumName.Size = new System.Drawing.Size(252, 22);
-            this.txtAlbumName.TabIndex = 5;
-            this.txtAlbumName.Validating += new System.ComponentModel.CancelEventHandler(this.txtAlbumName_Validating);
-            // 
-            // txtDescription
-            // 
-            this.txtDescription.Location = new System.Drawing.Point(16, 118);
-            this.txtDescription.Multiline = true;
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(252, 101);
-            this.txtDescription.TabIndex = 6;
-            // 
-            // txtDateReleased
-            // 
-            this.txtDateReleased.Location = new System.Drawing.Point(16, 257);
-            this.txtDateReleased.Name = "txtDateReleased";
-            this.txtDateReleased.Size = new System.Drawing.Size(252, 22);
-            this.txtDateReleased.TabIndex = 8;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 236);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(102, 17);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Date Released";
-            // 
-            // pbAlbumPhoto
-            // 
-            this.pbAlbumPhoto.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.pbAlbumPhoto.Location = new System.Drawing.Point(16, 298);
-            this.pbAlbumPhoto.Name = "pbAlbumPhoto";
-            this.pbAlbumPhoto.Size = new System.Drawing.Size(140, 140);
-            this.pbAlbumPhoto.TabIndex = 9;
-            this.pbAlbumPhoto.TabStop = false;
-            // 
-            // txtImgPath
-            // 
-            this.txtImgPath.Location = new System.Drawing.Point(180, 376);
-            this.txtImgPath.Name = "txtImgPath";
-            this.txtImgPath.Size = new System.Drawing.Size(274, 22);
-            this.txtImgPath.TabIndex = 10;
-            // 
-            // btnAddPhoto
-            // 
-            this.btnAddPhoto.Location = new System.Drawing.Point(180, 341);
-            this.btnAddPhoto.Name = "btnAddPhoto";
-            this.btnAddPhoto.Size = new System.Drawing.Size(94, 29);
-            this.btnAddPhoto.TabIndex = 11;
-            this.btnAddPhoto.Text = "Add Photo";
-            this.btnAddPhoto.UseVisualStyleBackColor = true;
-            this.btnAddPhoto.Click += new System.EventHandler(this.btnAddPhoto_Click);
-            // 
-            // btnAddTrack
-            // 
-            this.btnAddTrack.Enabled = false;
-            this.btnAddTrack.Location = new System.Drawing.Point(481, 404);
-            this.btnAddTrack.Name = "btnAddTrack";
-            this.btnAddTrack.Size = new System.Drawing.Size(312, 35);
-            this.btnAddTrack.TabIndex = 12;
-            this.btnAddTrack.Text = "Add New Track";
-            this.btnAddTrack.UseVisualStyleBackColor = true;
-            this.btnAddTrack.Click += new System.EventHandler(this.btnAddTrack_Click);
-            // 
-            // btnSubmitAlbum
-            // 
-            this.btnSubmitAlbum.Location = new System.Drawing.Point(180, 404);
-            this.btnSubmitAlbum.Name = "btnSubmitAlbum";
-            this.btnSubmitAlbum.Size = new System.Drawing.Size(274, 35);
-            this.btnSubmitAlbum.TabIndex = 13;
-            this.btnSubmitAlbum.Text = "Submit";
-            this.btnSubmitAlbum.UseVisualStyleBackColor = true;
-            this.btnSubmitAlbum.Click += new System.EventHandler(this.btnSubmitAlbum_Click);
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.ContainerControl = this;
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog1";
             // 
             // TrackId
             // 
@@ -213,11 +127,110 @@
             this.TrackNumber.ReadOnly = true;
             this.TrackNumber.Width = 125;
             // 
+            // txtAlbumName
+            // 
+            this.txtAlbumName.Location = new System.Drawing.Point(16, 62);
+            this.txtAlbumName.Name = "txtAlbumName";
+            this.txtAlbumName.Size = new System.Drawing.Size(229, 22);
+            this.txtAlbumName.TabIndex = 5;
+            this.txtAlbumName.Validating += new System.ComponentModel.CancelEventHandler(this.txtAlbumName_Validating);
+            // 
+            // txtDescription
+            // 
+            this.txtDescription.Location = new System.Drawing.Point(16, 118);
+            this.txtDescription.Multiline = true;
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(229, 101);
+            this.txtDescription.TabIndex = 6;
+            // 
+            // txtDateReleased
+            // 
+            this.txtDateReleased.Location = new System.Drawing.Point(16, 257);
+            this.txtDateReleased.Name = "txtDateReleased";
+            this.txtDateReleased.Size = new System.Drawing.Size(229, 22);
+            this.txtDateReleased.TabIndex = 8;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 236);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(102, 17);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Date Released";
+            // 
+            // pbAlbumPhoto
+            // 
+            this.pbAlbumPhoto.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pbAlbumPhoto.Location = new System.Drawing.Point(16, 298);
+            this.pbAlbumPhoto.Name = "pbAlbumPhoto";
+            this.pbAlbumPhoto.Size = new System.Drawing.Size(140, 140);
+            this.pbAlbumPhoto.TabIndex = 9;
+            this.pbAlbumPhoto.TabStop = false;
+            // 
+            // txtImgPath
+            // 
+            this.txtImgPath.Location = new System.Drawing.Point(16, 491);
+            this.txtImgPath.Name = "txtImgPath";
+            this.txtImgPath.Size = new System.Drawing.Size(229, 22);
+            this.txtImgPath.TabIndex = 10;
+            // 
+            // btnAddPhoto
+            // 
+            this.btnAddPhoto.Location = new System.Drawing.Point(16, 456);
+            this.btnAddPhoto.Name = "btnAddPhoto";
+            this.btnAddPhoto.Size = new System.Drawing.Size(94, 29);
+            this.btnAddPhoto.TabIndex = 11;
+            this.btnAddPhoto.Text = "Add Photo";
+            this.btnAddPhoto.UseVisualStyleBackColor = true;
+            this.btnAddPhoto.Click += new System.EventHandler(this.btnAddPhoto_Click);
+            // 
+            // btnAddTrack
+            // 
+            this.btnAddTrack.Enabled = false;
+            this.btnAddTrack.Location = new System.Drawing.Point(481, 519);
+            this.btnAddTrack.Name = "btnAddTrack";
+            this.btnAddTrack.Size = new System.Drawing.Size(312, 35);
+            this.btnAddTrack.TabIndex = 12;
+            this.btnAddTrack.Text = "Add New Track";
+            this.btnAddTrack.UseVisualStyleBackColor = true;
+            this.btnAddTrack.Click += new System.EventHandler(this.btnAddTrack_Click);
+            // 
+            // btnSubmitAlbum
+            // 
+            this.btnSubmitAlbum.Location = new System.Drawing.Point(16, 519);
+            this.btnSubmitAlbum.Name = "btnSubmitAlbum";
+            this.btnSubmitAlbum.Size = new System.Drawing.Size(229, 35);
+            this.btnSubmitAlbum.TabIndex = 13;
+            this.btnSubmitAlbum.Text = "Submit";
+            this.btnSubmitAlbum.UseVisualStyleBackColor = true;
+            this.btnSubmitAlbum.Click += new System.EventHandler(this.btnSubmitAlbum_Click);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
+            // 
+            // btnDeleteAlbum
+            // 
+            this.btnDeleteAlbum.Enabled = false;
+            this.btnDeleteAlbum.Location = new System.Drawing.Point(275, 519);
+            this.btnDeleteAlbum.Name = "btnDeleteAlbum";
+            this.btnDeleteAlbum.Size = new System.Drawing.Size(171, 35);
+            this.btnDeleteAlbum.TabIndex = 14;
+            this.btnDeleteAlbum.Text = "Delete Album";
+            this.btnDeleteAlbum.UseVisualStyleBackColor = true;
+            this.btnDeleteAlbum.Click += new System.EventHandler(this.btnDeleteAlbum_Click);
+            // 
             // frmAlbumDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 573);
+            this.Controls.Add(this.btnDeleteAlbum);
             this.Controls.Add(this.btnSubmitAlbum);
             this.Controls.Add(this.btnAddTrack);
             this.Controls.Add(this.btnAddPhoto);
@@ -262,5 +275,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackId;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackName;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackNumber;
+        private System.Windows.Forms.Button btnDeleteAlbum;
     }
 }

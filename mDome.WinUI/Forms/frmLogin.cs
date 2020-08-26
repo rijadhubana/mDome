@@ -1,4 +1,6 @@
-﻿using System;
+﻿using mDome.Model;
+using mDome.Model.Requests;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -50,9 +52,23 @@ namespace mDome.WinUI.Forms
             {
                 APIService.Username = txtUsername.Text;
                 APIService.Password = txtPassword.Text;
-                await _adminService.Get<dynamic>(null);
-                var frmIndex = new frmIndex();
-                frmIndex.Show();
+                List<AdministratorLogin> list = await _adminService.Get<List<AdministratorLogin>>(new AdminSearchRequest()
+                {
+                     AdminName=txtUsername.Text
+                });
+                if (list.Count == 0)
+                {
+                    MessageBox.Show("Wrong username or password!");
+                    APIService.Username = "";
+                    APIService.Password = "";
+                    return;
+                }
+                else
+                {
+                    var frmIndex = new frmIndex();
+                    frmIndex.Show();
+                }
+                
             }
             catch (Exception ex)
             {

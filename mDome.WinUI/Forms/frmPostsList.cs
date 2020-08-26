@@ -85,14 +85,26 @@ namespace mDome.WinUI.Forms
         private void btnAddPost_Click(object sender, EventArgs e)
         {
             frmPostDetails frm = new frmPostDetails();
+            frm.refreshHandler += async (object s, object q) =>
+            {
+                await LoadPosts();
+            };
             frm.Show();
         }
 
         private void dgvPosts_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var id = dgvPosts.SelectedRows[0].Cells[0].Value;
-            frmPostDetails frm = new frmPostDetails(int.Parse(id.ToString()));
-            frm.Show();
+            try
+            {
+                var id = dgvPosts.SelectedRows[0].Cells[0].Value;
+                frmPostDetails frm = new frmPostDetails(int.Parse(id.ToString()));
+                frm.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Item unavailable");
+            }
+    
         }
     }
 }

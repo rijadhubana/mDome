@@ -21,5 +21,16 @@ namespace mDome.MobileApp.Views
             vm.InitCommand.Execute(null);
         }
         TrackViewModel vm;
+
+        private async void VisitArtist(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ArtistPage(vm.ThisArtist.ArtistId));
+        }
+
+        private async void VisitAlbum(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AlbumPage(vm.ThisAlbum.AlbumId));
+
+        }
     }
 }

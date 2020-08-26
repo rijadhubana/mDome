@@ -7,5 +7,6 @@ namespace mDome.Model.Requests
     public class RequestSearchRequest
     {
         public string RequestText { get; set; }
+        public int? UserId { get; set; }
     }
 }

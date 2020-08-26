@@ -26,6 +26,10 @@ namespace mDome.WinUI.Forms
 
         private async void frmAdministratorList_Load(object sender, EventArgs e)
         {
+            await AdminsLoad();
+        }
+        private async Task AdminsLoad()
+        {
             var result = await _adminService.Get<List<Model.AdministratorLogin>>(null);
             dgvAdmins.AutoGenerateColumns = false;
             dgvAdmins.DataSource = result;
@@ -33,9 +37,20 @@ namespace mDome.WinUI.Forms
 
         private void dgvAdmins_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            try
+            { 
             var id = dgvAdmins.SelectedRows[0].Cells[0].Value;
             frmAdminDetails frm = new frmAdminDetails(int.Parse(id.ToString()));
+            frm.refreshHandler += async (object s, object q) =>
+            {
+                await AdminsLoad();
+            };
             frm.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Item unavailable");
+            }
         }
     }
 }

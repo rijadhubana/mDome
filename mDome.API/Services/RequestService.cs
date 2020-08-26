@@ -4,6 +4,7 @@ using mDome.Model.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace mDome.API.Services
@@ -19,6 +20,10 @@ namespace mDome.API.Services
             if (!string.IsNullOrWhiteSpace(search?.RequestText))
             {
                 query = query.Where(x => x.RequestText.Contains(search.RequestText));
+            }
+            if (search.UserId.HasValue)
+            {
+                query = query.Where(x => x.UserId == search.UserId);
             }
             query = query.OrderBy(x => x.RequestDate);
             var list = query.ToList();

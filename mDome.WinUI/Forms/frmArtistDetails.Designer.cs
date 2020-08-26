@@ -46,6 +46,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnAlbums = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnDeleteArtist = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -62,7 +63,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(465, 172);
+            this.label2.Location = new System.Drawing.Point(506, 172);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 17);
             this.label2.TabIndex = 1;
@@ -99,7 +100,7 @@
             // 
             this.txtArtistName.Location = new System.Drawing.Point(16, 71);
             this.txtArtistName.Name = "txtArtistName";
-            this.txtArtistName.Size = new System.Drawing.Size(320, 22);
+            this.txtArtistName.Size = new System.Drawing.Size(268, 22);
             this.txtArtistName.TabIndex = 5;
             this.txtArtistName.Validating += new System.ComponentModel.CancelEventHandler(this.txtArtistName_Validating);
             // 
@@ -108,7 +109,7 @@
             this.txtArtistBio.Location = new System.Drawing.Point(16, 126);
             this.txtArtistBio.Multiline = true;
             this.txtArtistBio.Name = "txtArtistBio";
-            this.txtArtistBio.Size = new System.Drawing.Size(320, 108);
+            this.txtArtistBio.Size = new System.Drawing.Size(279, 108);
             this.txtArtistBio.TabIndex = 6;
             // 
             // txtMembers
@@ -116,13 +117,13 @@
             this.txtMembers.Location = new System.Drawing.Point(16, 262);
             this.txtMembers.Multiline = true;
             this.txtMembers.Name = "txtMembers";
-            this.txtMembers.Size = new System.Drawing.Size(320, 108);
+            this.txtMembers.Size = new System.Drawing.Size(279, 108);
             this.txtMembers.TabIndex = 7;
             // 
             // pbPhoto
             // 
             this.pbPhoto.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.pbPhoto.Location = new System.Drawing.Point(549, 13);
+            this.pbPhoto.Location = new System.Drawing.Point(580, 12);
             this.pbPhoto.Name = "pbPhoto";
             this.pbPhoto.Size = new System.Drawing.Size(140, 140);
             this.pbPhoto.TabIndex = 8;
@@ -130,9 +131,9 @@
             // 
             // txtPhoto
             // 
-            this.txtPhoto.Location = new System.Drawing.Point(468, 192);
+            this.txtPhoto.Location = new System.Drawing.Point(509, 192);
             this.txtPhoto.Name = "txtPhoto";
-            this.txtPhoto.Size = new System.Drawing.Size(320, 22);
+            this.txtPhoto.Size = new System.Drawing.Size(279, 22);
             this.txtPhoto.TabIndex = 9;
             // 
             // btnAddPhoto
@@ -148,15 +149,15 @@
             // clbGenres
             // 
             this.clbGenres.FormattingEnabled = true;
-            this.clbGenres.Location = new System.Drawing.Point(468, 247);
+            this.clbGenres.Location = new System.Drawing.Point(509, 247);
             this.clbGenres.Name = "clbGenres";
-            this.clbGenres.Size = new System.Drawing.Size(320, 123);
+            this.clbGenres.Size = new System.Drawing.Size(279, 123);
             this.clbGenres.TabIndex = 11;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(465, 227);
+            this.label6.Location = new System.Drawing.Point(506, 227);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 17);
             this.label6.TabIndex = 12;
@@ -164,9 +165,9 @@
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(468, 389);
+            this.btnSubmit.Location = new System.Drawing.Point(509, 389);
             this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(320, 39);
+            this.btnSubmit.Size = new System.Drawing.Size(279, 39);
             this.btnSubmit.TabIndex = 13;
             this.btnSubmit.Text = "Submit";
             this.btnSubmit.UseVisualStyleBackColor = true;
@@ -181,7 +182,7 @@
             this.btnAlbums.Enabled = false;
             this.btnAlbums.Location = new System.Drawing.Point(16, 389);
             this.btnAlbums.Name = "btnAlbums";
-            this.btnAlbums.Size = new System.Drawing.Size(320, 39);
+            this.btnAlbums.Size = new System.Drawing.Size(279, 39);
             this.btnAlbums.TabIndex = 14;
             this.btnAlbums.Text = "Albums";
             this.btnAlbums.UseVisualStyleBackColor = true;
@@ -191,11 +192,23 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // btnDeleteArtist
+            // 
+            this.btnDeleteArtist.Enabled = false;
+            this.btnDeleteArtist.Location = new System.Drawing.Point(328, 389);
+            this.btnDeleteArtist.Name = "btnDeleteArtist";
+            this.btnDeleteArtist.Size = new System.Drawing.Size(153, 39);
+            this.btnDeleteArtist.TabIndex = 15;
+            this.btnDeleteArtist.Text = "Delete Artist";
+            this.btnDeleteArtist.UseVisualStyleBackColor = true;
+            this.btnDeleteArtist.Click += new System.EventHandler(this.btnDeleteArtist_Click);
+            // 
             // frmArtistDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(802, 474);
+            this.Controls.Add(this.btnDeleteArtist);
             this.Controls.Add(this.btnAlbums);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.label6);
@@ -240,5 +253,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btnAlbums;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Button btnDeleteArtist;
     }
 }

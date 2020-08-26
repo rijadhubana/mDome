@@ -47,9 +47,20 @@ namespace mDome.WinUI
 
         private void dgvGenres_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var id = dgvGenres.SelectedRows[0].Cells[0].Value;
-            frmGenreDetails frm = new frmGenreDetails(int.Parse(id.ToString()));
-            frm.Show();
+            try
+            {
+                var id = dgvGenres.SelectedRows[0].Cells[0].Value;
+                frmGenreDetails frm = new frmGenreDetails(int.Parse(id.ToString()));
+                frm.refreshHandler += async (object s, object q) =>
+                {
+                    await LoadGenres("");
+                };
+                frm.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Item unavailabel");
+            }
         }
     }
 }

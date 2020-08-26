@@ -46,14 +46,29 @@ namespace mDome.WinUI.Forms
         private void btnAddAlbum_Click(object sender, EventArgs e)
         {
             frmAlbumDetails frm = new frmAlbumDetails((int)_artistId);
+            frm.refreshHandler += async (object s, object q) =>
+            {
+                await LoadAlbums("");
+            };
             frm.Show();
         }
 
         private void dgvAlbums_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            try
+            { 
             var id = dgvAlbums.SelectedRows[0].Cells[0].Value;
             frmAlbumDetails frm = new frmAlbumDetails((int)_artistId,int.Parse(id.ToString()));
+            frm.refreshHandler += async (object s, object q) =>
+            {
+                await LoadAlbums("");
+            };
             frm.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Item unavailable");
+            }
         }
     }
 }

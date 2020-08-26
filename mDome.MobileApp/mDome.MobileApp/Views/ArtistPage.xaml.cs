@@ -54,7 +54,7 @@ namespace mDome.MobileApp.Views
 
         private async void AllTracksPage(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AllTracksPage(vm.ArtistId));
+            await Navigation.PushAsync(new AllTracksPage(vm.ArtistId,null));
         }
 
         private async void VisitReviews(object sender, EventArgs e)

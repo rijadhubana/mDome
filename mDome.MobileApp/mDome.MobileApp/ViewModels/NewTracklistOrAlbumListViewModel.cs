@@ -150,17 +150,19 @@ namespace mDome.MobileApp.ViewModels
                         UniqueKey = UniqueKey,
                         UserId = APIService.loggedProfile.UserId
                     };
-                    try
+                    var check = await _albumListService.Get<List<AlbumList>>(new AlbumListSearchRequest()
                     {
+                        AlbumListName = Name,
+                        UniqueKey = UniqueKey
+                    });
+                    if (check.Count>0)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error", "Combination already exists. Please change the list name or unique key.", "OK");
+                        return;
+                    }
                         var result = await _albumListService.Insert<AlbumList>(request);
                         await Application.Current.MainPage.DisplayAlert("Success", "New album list successfully added! To customize the list" +
                             " visit the My playlists/Album Lists tab.","OK");
-                    }
-                    catch (Exception ex)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Error", "not possible", "OK");
-                        return;
-                    }
                 }
                 else
                 {
@@ -172,17 +174,20 @@ namespace mDome.MobileApp.ViewModels
                         UniqueKey = UniqueKey,
                         UserId = APIService.loggedProfile.UserId
                     };
-                    try
+                     var check = await _tracklistService.Get<List<Tracklist>>(new TracklistSearchRequest()
+                        {
+                            TracklistName = Name,
+                            UniqueKey = UniqueKey
+                        });
+                    if (check.Count>0)
                     {
+                        await Application.Current.MainPage.DisplayAlert("Error", "Combination already exists. Please change the list name or unique key.", "OK");
+                        return;
+                    }
                         var result = await _tracklistService.Insert<Tracklist>(request);
                         await Application.Current.MainPage.DisplayAlert("Success", "New tracklist successfully added! To customize the list" +
                             " visit the My Tracklists/Album Lists tab.", "OK");
-                    }
-                    catch (Exception ex)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
-                        return;
-                    }
+                        
                 }
             }
         }

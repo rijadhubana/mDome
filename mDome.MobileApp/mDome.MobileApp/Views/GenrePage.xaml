@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.GenrePage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imgConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:GenreViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView HeightRequest="5000">
+            <StackLayout>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Aspect="AspectFill"
+                Source="{local:ImageResource mDome.MobileApp.Images.wallpaper.png}"
+                Grid.ColumnSpan="3" Grid.Column="0"
+                Grid.RowSpan="3" Grid.Row="0"
+                Opacity="0.6" />
+                    <Frame 
+           HeightRequest="150"
+           WidthRequest="150"
+           HorizontalOptions="Center"
+           Padding="0"
+           IsClippedToBounds="True" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3">
+                        <Image Source="genregray.png"
+           HorizontalOptions="Center"
+           VerticalOptions="Center" />
+                    </Frame>
+                    <Label Text="{Binding LoadedGenre.GenreName}" TextColor="White" FontSize="16" FontAttributes="Bold"
+                   HorizontalOptions="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2"/>
+                </Grid>
+                <StackLayout Margin="10,10,10,10">
+                    <Label Text="{Binding LoadedGenre.GenreDescription}" TextColor="White" FontSize="13" HorizontalOptions="Center"/>
+                </StackLayout>
+                <Label Text="Popular artists on mDome" TextColor="White" FontSize="15" HorizontalOptions="StartAndExpand"
+                       FontAttributes="Bold" Margin="15,15,0,15"/>
+                <StackLayout  Margin="15,0,15,0" BindableLayout.ItemsSource="{Binding PopularArtistsList}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Margin="0,0,0,10"
+                                                 touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="VisitArtist"/>
+                                </StackLayout.GestureRecognizers>
+                                <Label Text="{Binding ArtistId}" IsVisible="False"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="33"/>
+                                        <RowDefinition Height="33"/>
+                                        <RowDefinition Height="33"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ArtistPhoto,Converter={StaticResource imgConv}}" HeightRequest="100"
+                                           Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"/>
+                                    <Label Text="{Binding ArtistName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="16" TextColor="White" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding ArtistGenresInString}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding ArtistMembers}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <Label Text="Random artists in genre" FontAttributes="Bold" TextColor="White" FontSize="15" HorizontalOptions="StartAndExpand" Margin="15,15,0,15"/>
+                <StackLayout  Margin="15,0,15,0" BindableLayout.ItemsSource="{Binding RandomArtistsList}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Margin="0,0,0,10"
+                                                 touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="VisitArtist"/>
+                                </StackLayout.GestureRecognizers>
+                                <Label Text="{Binding ArtistId}" IsVisible="False"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="33"/>
+                                        <RowDefinition Height="33"/>
+                                        <RowDefinition Height="33"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ArtistPhoto,Converter={StaticResource imgConv}}" HeightRequest="100"
+                                           Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"/>
+                                    <Label Text="{Binding ArtistName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="16" TextColor="White" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding ArtistGenresInString}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="13" TextColor="White" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding ArtistMembers}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <Label Text="All artists in genre" TextColor="MediumAquamarine" FontSize="15" FontAttributes="Bold"
+                       Margin="0,15,15,15" HorizontalOptions="End" touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="VisitAllArtists"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Text="Popular tracks on mDome" TextColor="White" FontSize="15" FontAttributes="Bold"
+                   HorizontalOptions="StartAndExpand" Margin="15,15,0,15"/>
+                <StackLayout  Margin="15,0,15,0" BindableLayout.ItemsSource="{Binding PopularTracks}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="VisitTrack"/>
+                                </StackLayout.GestureRecognizers>
+                                <Label Text="{Binding TrackId}" IsVisible="False"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="songgray.png" HeightRequest="70"
+                                           Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"/>
+                                    <Label Text="{Binding TrackName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="16" TextColor="White" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding AlbumName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" FontAttributes="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding ArtistName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" FontAttributes="Bold" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <Label Text="Random tracks in genre" TextColor="White" FontSize="15" FontAttributes="Bold"
+                   HorizontalOptions="StartAndExpand" Margin="15,15,0,15"/>
+                <StackLayout  Margin="15,0,15,0" BindableLayout.ItemsSource="{Binding RandomTracks}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="VisitTrack"/>
+                                </StackLayout.GestureRecognizers>
+                                <Label Text="{Binding TrackId}" IsVisible="False"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="20"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="songgray.png" HeightRequest="70"
+                                           Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"/>
+                                    <Label Text="{Binding TrackName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="16" TextColor="White" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding AlbumName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" FontAttributes="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                    <Label Text="{Binding ArtistName}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="StartAndExpand"
+                                FontSize="12" TextColor="White" FontAttributes="Bold" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <Label Text="All tracks in genre" TextColor="MediumAquamarine" FontSize="15" FontAttributes="Bold"
+                       Margin="0,15,15,15" HorizontalOptions="End" touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="VisitAllTracks"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

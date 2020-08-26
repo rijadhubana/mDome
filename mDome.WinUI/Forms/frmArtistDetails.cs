@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static mDome.WinUI.Helper;
 
 namespace mDome.WinUI.Forms
 {
@@ -18,6 +19,8 @@ namespace mDome.WinUI.Forms
         private readonly APIService _artistService = new APIService("Artist");
         private readonly APIService _artistGenreService = new APIService("ArtistGenre");
         private readonly int? _id = null;
+        public event EventHandler<object> refreshHandler;
+        public event EventHandler<object> deleteHandlerArtist;
         public frmArtistDetails(int? id = null)
         {
             _id = id;
@@ -56,6 +59,7 @@ namespace mDome.WinUI.Forms
                 requestHold.ArtistPhoto = artist.ArtistPhoto;
                 requestHold.ArtistPhotoThumb = artist.ArtistPhotoThumb;
                 btnAlbums.Enabled = true;
+                btnDeleteArtist.Enabled = true;
             }
         }
 
@@ -86,7 +90,14 @@ namespace mDome.WinUI.Forms
                     }
                     if (_id.HasValue)
                         await _artistService.Update<Model.Artist>(_id, req);
-                    else await _artistService.Insert<Model.Artist>(req);
+                    else
+                    {
+                        await _artistService.Insert<Model.Artist>(req);
+                        refreshHandler?.Invoke(this, null);
+                        MessageBox.Show("Task successful");
+                        this.Close();
+                    }
+                    refreshHandler?.Invoke(this, null);
                     MessageBox.Show("Task successful");
                 }
             }
@@ -110,6 +121,21 @@ namespace mDome.WinUI.Forms
         {
             frmAlbums frm = new frmAlbums(_id);
             frm.Show();
+        }
+
+        private async void btnDeleteArtist_Click(object sender, EventArgs e)
+        {
+            string promptValue = Prompt.ShowDialog("Are you sure you want to remove this artist?" +
+                " Type your password to confirm.", "Confirm");
+            if (APIService.Password == promptValue)
+            {
+                //await _artistService.Delete<Model.Artist>(_id);
+                //refreshHandler?.Invoke(this, null);
+                //MessageBox.Show("Task successful");
+                //this.Close();
+                deleteHandlerArtist?.Invoke(this, _id);
+            }
+            else MessageBox.Show("Password incorrect");
         }
     }
 }

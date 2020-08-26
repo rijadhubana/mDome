@@ -21,6 +21,7 @@ namespace mDome.WinUI.Forms
         private readonly APIService _userService = new APIService("UserProfile");
         private readonly APIService _albumService = new APIService("Album");
         private readonly APIService _notificationService = new APIService("Notification");
+        public event EventHandler<object> refreshHandler;
         public frmReviewDetails(int id)
         {
             _reviewId = id;
@@ -61,6 +62,7 @@ namespace mDome.WinUI.Forms
                         NotifText = txtNotify.Text
                     };
                     await _notificationService.Insert<Model.Notification>(requestAdd);
+                    refreshHandler?.Invoke(this, null);
                     MessageBox.Show("Task successful");
                     this.Close();
                 }

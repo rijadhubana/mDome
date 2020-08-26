@@ -38,10 +38,22 @@ namespace mDome.WinUI.Forms
 
         private async void dgvRequests_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var id = dgvRequests.SelectedRows[0].Cells[0].Value;
-            var selectedRequest = await _requestService.GetById<Model.Request>(int.Parse(id.ToString()));
-            frmRequestDetails frm = new frmRequestDetails(selectedRequest);
-            frm.Show();
+            try
+            {
+                var id = dgvRequests.SelectedRows[0].Cells[0].Value;
+                var selectedRequest = await _requestService.GetById<Model.Request>(int.Parse(id.ToString()));
+                frmRequestDetails frm = new frmRequestDetails(selectedRequest);
+                frm.refreshHandler += async (object s, object q) =>
+                {
+                    await LoadRequests(txtSearch.Text);
+                };
+                frm.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Item unavailable");
+            }
+            
         }
     }
 }

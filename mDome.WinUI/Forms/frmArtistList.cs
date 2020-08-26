@@ -1,4 +1,5 @@
-﻿using mDome.Model.Requests;
+﻿using mDome.Model;
+using mDome.Model.Requests;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,14 +80,49 @@ namespace mDome.WinUI.Forms
 
         private void dgvArtists_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            try
+            { 
             var id = dgvArtists.SelectedRows[0].Cells[0].Value;
             frmArtistDetails frm = new frmArtistDetails(int.Parse(id.ToString()));
+            frm.refreshHandler += async (object s, object q) =>
+            {
+                await LoadArtists(0,"");
+            };
+            frm.deleteHandlerArtist += async (object s, object q) =>
+            {
+                frm.Close();
+                int _id = (int)q;
+                try
+                {
+                    List<Artist> allArtists = await _artistService.Get<List<Artist>>(null);
+                    allArtists.Remove(allArtists.Where(a => a.ArtistId == _id).First());
+                    dgvArtists.DataSource = allArtists;
+                    await _artistService.Delete<Model.Artist>(_id);
+                    MessageBox.Show("Artist successfully deleted");
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Error, please close all other windows that have any relation to artist.");
+                }
+
+            };
             frm.Show();
-        }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Item unavailable");
+            }
+}
 
         private void btnAddArtist_Click(object sender, EventArgs e)
         {
             frmArtistDetails frm = new frmArtistDetails();
+            frm.refreshHandler += async (object s, object q) =>
+            {
+                await LoadArtists(0, "");
+            };
+            
             frm.Show();
         }
     }

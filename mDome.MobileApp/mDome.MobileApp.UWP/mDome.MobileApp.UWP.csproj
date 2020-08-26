@@ -122,6 +122,7 @@
     <Content Include="Assets\dislike.png" />
     <Content Include="Assets\followers.png" />
     <Content Include="Assets\following.png" />
+    <Content Include="Assets\genregray.png" />
     <Content Include="Assets\genregreen.png" />
     <Content Include="Assets\like.png" />
     <Content Include="Assets\none.png" />
@@ -139,6 +140,7 @@
     <Content Include="dislike.png" />
     <Content Include="followers.png" />
     <Content Include="following.png" />
+    <Content Include="genregray.png" />
     <Content Include="genregreen.png" />
     <Content Include="like.png" />
     <Content Include="none.png" />

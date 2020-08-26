@@ -11,5 +11,6 @@ namespace mDome.MobileApp.Helper
         public string ArtistMembers { get; set; }
         public string ArtistGenresInString { get; set; }
         public byte[] ArtistPhoto { get; set; }
+        public int SumTrackViews { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using mDome.MobileApp.Helper;
+using mDome.MobileApp.Views;
 using mDome.Model;
 using mDome.Model.Requests;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +26,13 @@ namespace mDome.MobileApp.ViewModels
             InitCommand = new Command(async () => await Init());
             LikeCommand = new Command(async () => await Like());
             DislikeCommand = new Command(async () => await Dislike());
+            AddToTracklistCommand = new Command(async () => await AddToTracklist());
         }
         public ICommand InitCommand { get; set; }
         public ICommand LikeCommand { get; set; }
         public ICommand DislikeCommand { get; set; }
+        public ICommand AddToTracklistCommand { get; set; }
+
         public int TrackId { get; set; }
         Track _loadedTrack;
         public Track LoadedTrack
@@ -170,6 +175,30 @@ namespace mDome.MobileApp.ViewModels
                 _numberOfDislikes = value;
                 OnPropertyChanged("NumberOfDislikes");
             }
+        }
+        private async Task AddToTracklist()
+        {
+            var popUp = new PopupAddToTracklist(TrackId);
+            int placeholderId;
+            popUp.CallbackEvent += async (object sender, object e) =>
+            {
+                placeholderId = (int)e;
+                if (placeholderId == 0)
+                    return;
+                else
+                {
+                    TracklistTrackUpsertRequest req = new TracklistTrackUpsertRequest()
+                    {
+                        TrackId = TrackId,
+                        TracklistId = placeholderId,
+                        DateAdded = DateTime.Now
+                    };
+                   await _tracklistTrackService.Insert<TracklistTrack>(req);
+                   await Application.Current.MainPage.DisplayAlert("Success", "Track successfully added to tracklist!", "OK");
+                }
+
+            };
+            await PopupNavigation.Instance.PushAsync(popUp);
         }
         private async Task AddOrRemoveFromLikedTracks(bool remove = false)
         {

@@ -25,6 +25,7 @@ namespace mDome.WinUI.Forms
         private readonly int? _albumId;
         private readonly int? _artistId;
         private string _artistName;
+        public event EventHandler<object> refreshHandler;
         public frmTrackDetails(int artistId,int albumId,int? trackId=null)
         {
             _artistId = artistId;
@@ -63,7 +64,13 @@ namespace mDome.WinUI.Forms
                 btnDelete.Enabled = true;
             }
         }
-
+        private void SetPropertiesNull()
+        {
+            txtTrackName.Text = "";
+            txtTrackNumber.Text = "";
+            txtYtid.Text = "";
+            txtLyrics.Text = "";
+        }
         private async void btnFetch_Click(object sender, EventArgs e)
         {
             if (this.ValidateChildren())
@@ -114,7 +121,9 @@ namespace mDome.WinUI.Forms
                 {
                     request.TrackViews = 0;
                     await _trackService.Insert<Model.Track>(request);
+                    SetPropertiesNull();
                 }
+                refreshHandler?.Invoke(this, null);
                 MessageBox.Show("Task successful");
             }
             
@@ -137,6 +146,7 @@ namespace mDome.WinUI.Forms
             if (confirmResult == DialogResult.Yes)
             {
                 await _trackService.Delete<Model.Track>(_trackId);
+                refreshHandler?.Invoke(this, null);
                 MessageBox.Show("Task successful");
                 this.Close();
             }

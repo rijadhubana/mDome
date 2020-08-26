@@ -48,6 +48,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-      </StackLayout>
+        <Button BackgroundColor="Firebrick" Text="Cancel" TextColor="White" Clicked="Button_Clicked"/>
+    </StackLayout>
 </pages:PopupPage>

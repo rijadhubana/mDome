@@ -35,13 +35,12 @@ namespace mDome.WinUI.Forms
             };
             if (albumId==null && ratingFrom==null && ratingTo==null)
             {
-                var result = await _albumService.Get<List<Model.Review>>(null);
-                if (result.Count == 0)
+                var result = await _reviewService.Get<List<Model.Review>>(null);
                 dgvReviews.DataSource = result;
             }
             else
             {
-                var result = await _albumService.Get<List<Model.Review>>(request);
+                var result = await _reviewService.Get<List<Model.Review>>(request);
                 dgvReviews.DataSource = result;
             }
             
@@ -112,9 +111,21 @@ namespace mDome.WinUI.Forms
 
         private void dgvReviews_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var id = dgvReviews.SelectedRows[0].Cells[0].Value;
-            frmReviewDetails frm = new frmReviewDetails(int.Parse(id.ToString()));
-            frm.Show();
+            try
+            {
+                var id = dgvReviews.SelectedRows[0].Cells[0].Value;
+                frmReviewDetails frm = new frmReviewDetails(int.Parse(id.ToString()));
+                frm.refreshHandler += async (object s, object q) =>
+                {
+                    await LoadReviews();
+                };
+                frm.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Item unavailable");
+            }
+            
         }
     }
 }

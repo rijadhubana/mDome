@@ -18,9 +18,11 @@ namespace mDome.MobileApp.ViewModels
         public NotificationsViewModel()
         {
             InitCommand = new Command(async () => await Init());
+            DeleteNotificationCommand = new Command(async () => await DeleteNotification());
             InitCommand.Execute(null);
         }
         public ICommand InitCommand { get; set; }
+        public ICommand DeleteNotificationCommand { get; set; }
         public ObservableCollectionFast<Notification> NotificationList { get; set; } = new ObservableCollectionFast<Notification>();
         string _notificationNumber;
         public string NotificationNumber
@@ -36,6 +38,7 @@ namespace mDome.MobileApp.ViewModels
                 OnPropertyChanged("NotificationNumber");
             }
         }
+        public int NotifInt { get; set; }
         Model.Notification _selectedNotification;
         public Model.Notification SelectedNotification
         {
@@ -56,7 +59,16 @@ namespace mDome.MobileApp.ViewModels
             { UserId = APIService.loggedProfile.UserId });
             var sorted = notifications.OrderByDescending(a => a.NotifDateTime).ToList();
             NotificationList.AddRange(sorted);
-            NotificationNumber = "Notifications: " + notifications.Count.ToString();
+            NotifInt = notifications.Count;
+            NotificationNumber = "Notifications: " + NotifInt.ToString();
+        }
+        private async Task DeleteNotification()
+        {
+            NotificationList.Remove(SelectedNotification);
+            await _notificationService.Delete<Notification>(SelectedNotification.NotificationId);
+            SelectedNotification = null;
+            NotifInt --;
+            NotificationNumber = "Notifications: " + NotifInt.ToString();
         }
     }
 }

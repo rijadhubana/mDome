@@ -86,7 +86,7 @@
                     <Label Text="{Binding NumberOfDislikes}" HorizontalOptions="Center" TextColor="WhiteSmoke" FontSize="15" FontAttributes="Bold"/>
                 </StackLayout>
                 <Button Margin="20,0,20,0" BackgroundColor="LightGray" Clicked="VisitArtist" TextColor="Black" CornerRadius="15" Text="Visit Artist Page" Grid.Row="1" Grid.Column="0"/>
-                <Button Margin="20,0,20,0" BackgroundColor="LightGray" TextColor="Black" CornerRadius="15" Text="Add to Album List"  Grid.Row="1" Grid.Column="1"/>
+                <Button Margin="20,0,20,0" BackgroundColor="LightGray" Command="{Binding AddToAlbumListCommand}" TextColor="Black" CornerRadius="15" Text="Add to Album List"  Grid.Row="1" Grid.Column="1"/>
                 <Button Margin="20,0,20,0" BackgroundColor="LightGray" Clicked="ReviewThisAlbum" TextColor="Black" CornerRadius="15" Text="Review This Album"  Grid.Row="2" Grid.Column="0"/>
                 <Button Margin="20,0,20,0" BackgroundColor="LightGray" Clicked="RelatedReviews" TextColor="Black" CornerRadius="15" Text="Related Reviews"  Grid.Row="2" Grid.Column="1"/>
 

@@ -28,26 +28,52 @@ namespace mDome.API.Services
             var list = query.ToList();
             return _mapper.Map<List<Model.Album>>(list);
         }
-        public override Model.Album Delete(int Id)
+        public override Model.Album Delete(int albumId)
         {
-            var entity = _context.Album.Find(Id);
-            _context.AlbumListAlbum.RemoveRange(_context.AlbumListAlbum.Where(a => a.AlbumId == entity.AlbumId));
+            //deleting everything related to selected album 1.likes
+            _context.UserAlbumVote.RemoveRange(_context.UserAlbumVote.Where(a => a.AlbumId == albumId));
             _context.SaveChanges();
-            _context.Review.RemoveRange(_context.Review.Where(a => a.AlbumId == entity.AlbumId));
-            _context.SaveChanges();
-            List<Track> list = _context.Track.Where(a => a.AlbumId == entity.AlbumId).ToList();
-            foreach (var item in list)
+            //review related (postlike,postcomments,post,reviews)
+            var listReviews = _context.Review.Where(a => a.AlbumId == albumId).ToList();
+            foreach (var item in listReviews)
             {
-                var entityTr = item;
-                _context.TracklistTrack.RemoveRange(_context.TracklistTrack.Where(a => a.TrackId == item.TrackId));
+                //only one post is related to a single review
+                var post = _context.Post.Where(a => a.ReviewRelatedId == item.ReviewId).FirstOrDefault();
+                _context.UserLikePost.RemoveRange(_context.UserLikePost.Where(a => a.PostId == post.PostId));
+                _context.UserCommentPost.RemoveRange(_context.UserCommentPost.Where(a => a.PostId == post.PostId));
+                _context.SaveChanges();
+                _context.Remove(post);
+                _context.Remove(item);
+                _context.SaveChanges();
+            }
+            //deleting album from albumlists
+            _context.AlbumListAlbum.RemoveRange(_context.AlbumListAlbum.Where(a => a.AlbumId == albumId));
+            _context.SaveChanges();
+            //tracks and tracklistTracks, set recommendedalbums to null 
+            var tracks = _context.Track.Where(a => a.AlbumId == albumId).ToList();
+            foreach (var item in tracks)
+            {
                 _context.UserTrackVote.RemoveRange(_context.UserTrackVote.Where(a => a.TrackId == item.TrackId));
-                _context.Track.Remove(entityTr);
+                _context.TracklistTrack.RemoveRange(_context.TracklistTrack.Where(a => a.TrackId == item.TrackId));
+                _context.Track.Remove(item);
             }
             _context.SaveChanges();
-            var x = entity;
+            var listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum1 == albumId);
+            foreach (var item in listUsers)
+                item.RecommendedAlbum1 = null;
+            _context.SaveChanges();
+            listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum2 == albumId);
+            foreach (var item in listUsers)
+                item.RecommendedAlbum2 = null;
+            _context.SaveChanges();
+            listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum3 == albumId);
+            foreach (var item in listUsers)
+                item.RecommendedAlbum3 = null;
+            _context.SaveChanges();
+            var entity = _context.Album.Find(albumId);
             _context.Album.Remove(entity);
             _context.SaveChanges();
-            return _mapper.Map<Model.Album>(x);
+            return _mapper.Map<Model.Album>(entity);
         }
     }
 }

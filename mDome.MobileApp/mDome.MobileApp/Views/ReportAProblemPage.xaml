@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mDome.MobileApp.Views.ReportAProblemPage"
+             xmlns:local="clr-namespace:mDome.MobileApp"
+             xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
+    <ContentPage.BindingContext>
+        <vm:ReportViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Margin="10,10,10,10">
+            <Label FontSize="16" FontAttributes="Bold" TextColor="WhiteSmoke" Text="{Binding OpenReportsString}"/>
+            <Label FontSize="13" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center" 
+                   Text="Note: After your requests/reports have been completed, the administrator's reply will be available in the 'Notifications' page"/>
+            <ListView ItemsSource="{Binding Reports}" Margin="0,20,0,10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="200">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="{Binding RequestText}"
+                                LineBreakMode="WordWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" HorizontalOptions="Center"
+                                FontSize="15" TextColor="White" FontAttributes="Bold" Grid.Row="0"/>
+                                <Label Text="{Binding RequestDate}"
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}" HorizontalOptions="End"
+                                FontSize="13" TextColor="White" Grid.Row="1"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button BackgroundColor="LightGray" Command="{Binding NewRequestCommand}" CornerRadius="15" Text="New Request/Report" TextColor="Black"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

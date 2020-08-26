@@ -17,6 +17,7 @@ namespace mDome.WinUI.Forms
     {
         private int? _adminId=null;
         private readonly APIService _adminService = new APIService("AdministratorLogin");
+        public event EventHandler<object> refreshHandler;
         public frmAdminDetails(int? adminId=null)
         {
             _adminId = adminId;
@@ -101,6 +102,7 @@ namespace mDome.WinUI.Forms
                 try
                 {
                     await _adminService.Insert<Model.AdministratorLogin>(request);
+                    refreshHandler?.Invoke(this, null);
                     MessageBox.Show("Task successful");
 
                 }
@@ -119,6 +121,7 @@ namespace mDome.WinUI.Forms
             if (APIService.Password == promptValue)
             {
                 await _adminService.Delete<Model.AdministratorLogin>(_adminId);
+                refreshHandler?.Invoke(this, null);
                 MessageBox.Show("Task successful");
                 this.Close();
             }

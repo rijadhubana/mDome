@@ -155,7 +155,8 @@ namespace mDome.MobileApp.ViewModels
             {
                 await _tracklistService.Delete<Tracklist>(ThisTracklistId);
                 await Application.Current.MainPage.DisplayAlert("Success", "Tracklist successfully deleted! You will now be redirected to My Tracklists page.", "Ok");
-                Application.Current.MainPage = new MasterPage(new NavigationPage(new MyTracklistsAlbumlistsPage()));
+                var aps = Application.Current.MainPage as MasterPage;
+                await aps.MenuNavigate("My Tracklists/Album Lists");
             }
                    
         }
@@ -264,16 +265,18 @@ namespace mDome.MobileApp.ViewModels
                     UserId = APIService.loggedProfile.UserId,
                     TracklistType = SelectedTracklistType
                 };
-                try
+                var check = await _tracklistService.Get<List<Tracklist>>(new TracklistSearchRequest()
                 {
-                    await _tracklistService.Update<Tracklist>(ThisTracklistId, request);
-                    await Application.Current.MainPage.DisplayAlert("Success", "Changes Submitted", "Ok");
-                }
-                catch (Exception ex)
+                    TracklistName = TracklistName,
+                    UniqueKey = UniqueKey
+                });
+                if (check.Where(a => a.TracklistId != ThisTracklistId).FirstOrDefault() != null)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Error", "Combination already exists. Please change the list name or unique key.", "OK");
                     return;
                 }
+                    await _tracklistService.Update<Tracklist>(ThisTracklistId, request);
+                    await Application.Current.MainPage.DisplayAlert("Success", "Changes Submitted", "Ok");
             }
 
         }

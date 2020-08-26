@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static mDome.WinUI.Helper;
 
 namespace mDome.WinUI.Forms
 {
@@ -19,6 +20,7 @@ namespace mDome.WinUI.Forms
         private readonly int _artistId;
         private readonly APIService _albumService = new APIService("Album");
         private readonly APIService _trackService = new APIService("Track");
+        public event EventHandler<object> refreshHandler;
         public frmAlbumDetails(int artistId,int? albumId = null)
         {
             _albumId = albumId;
@@ -42,6 +44,7 @@ namespace mDome.WinUI.Forms
                 pbAlbumPhoto.Image = Helper.ResizeImage(imgThumb, 120, 120);
                 btnAddTrack.Enabled = true;
                 await LoadTracks((int)_albumId);
+                btnDeleteAlbum.Enabled = true;
             }
         }
         private async Task LoadTracks(int albumId)
@@ -116,7 +119,11 @@ namespace mDome.WinUI.Forms
                     {
                         req.AlbumGeneratedRating = 0;
                         await _albumService.Insert<Model.Album>(req);
+                        refreshHandler?.Invoke(this, null);
+                        MessageBox.Show("Task successful");
+                        this.Close();
                     }
+                    refreshHandler?.Invoke(this, null);
                     MessageBox.Show("Task successful");
                 }
             }
@@ -126,14 +133,44 @@ namespace mDome.WinUI.Forms
         private void btnAddTrack_Click(object sender, EventArgs e)
         {
             frmTrackDetails frm = new frmTrackDetails(_artistId, (int)_albumId, null);
+            frm.refreshHandler += async (object s, object q) =>
+            {
+                await LoadTracks((int)_albumId);
+            };
             frm.Show();
         }
 
         private void dgvTracks_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var id = dgvTracks.SelectedRows[0].Cells[0].Value;
-            frmTrackDetails frm = new frmTrackDetails((int)_artistId,(int)_albumId, int.Parse(id.ToString()));
-            frm.Show();
+            try
+            {
+                var id = dgvTracks.SelectedRows[0].Cells[0].Value;
+                frmTrackDetails frm = new frmTrackDetails((int)_artistId, (int)_albumId, int.Parse(id.ToString()));
+                frm.refreshHandler += async (object s, object q) =>
+                {
+                    await LoadTracks((int)_albumId);
+                };
+                frm.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Item unavailable");
+            }
+            
+        }
+
+        private async void btnDeleteAlbum_Click(object sender, EventArgs e)
+        {
+            string promptValue = Prompt.ShowDialog("Are you sure you want to remove this album?" +
+                " Type your password to confirm.", "Confirm");
+            if (APIService.Password == promptValue)
+            {
+                await _albumService.Delete<Model.Album>(_albumId);
+                refreshHandler?.Invoke(this, null);
+                MessageBox.Show("Task successful");
+                this.Close();
+            }
+            else MessageBox.Show("Password incorrect");
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static mDome.WinUI.Helper;
 
 namespace mDome.WinUI.Forms
 {
@@ -15,6 +16,7 @@ namespace mDome.WinUI.Forms
     {
         private readonly APIService _genreService = new APIService("Genre");
         private int? _genreId;
+        public event EventHandler<object> refreshHandler;
         public frmGenreDetails(int? id = null)
         {
             InitializeComponent();
@@ -28,6 +30,7 @@ namespace mDome.WinUI.Forms
                 var selectedGenre = await _genreService.GetById<Model.Genre>(_genreId);
                 txtGenreName.Text = selectedGenre.GenreName;
                 txtGenreDesc.Text = selectedGenre.GenreDescription;
+                btnDeleteGenre.Enabled = true;
             }
         }
 
@@ -58,8 +61,23 @@ namespace mDome.WinUI.Forms
                     await _genreService.Update<Model.Genre>(_genreId, request);
                 }
                 else await _genreService.Insert<Model.Genre>(request);
+                refreshHandler?.Invoke(this, null);
                 MessageBox.Show("Task successful");
             }
+        }
+
+        private async void btnDeleteGenre_Click(object sender, EventArgs e)
+        {
+            string promptValue = Prompt.ShowDialog("Are you sure you want to remove this genre?" +
+                " Type your password to confirm.", "Confirm");
+            if (APIService.Password == promptValue)
+            {
+                await _genreService.Delete<Model.Genre>(_genreId);
+                refreshHandler?.Invoke(this, null);
+                MessageBox.Show("Task successful");
+                this.Close();
+            }
+            else MessageBox.Show("Password incorrect");
         }
     }
 }

@@ -220,4 +220,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\songgray.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\genregray.png" />
+  </ItemGroup>
 </Project>

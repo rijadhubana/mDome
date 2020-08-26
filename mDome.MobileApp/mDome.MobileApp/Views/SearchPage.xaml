@@ -164,7 +164,7 @@
                    SearchCommand="{Binding SearchCommandGenres}"
                    SearchCommandParameter="{Binding Text, Source={x:Reference searchBarGenres}}"
                            BackgroundColor="WhiteSmoke" TextColor="Black"/>
-                <ListView ItemsSource="{Binding QueryGenres}" SelectedItem="{Binding SelectedGenre}" Margin="0,20,0,10">
+                <ListView ItemsSource="{Binding QueryGenres}" ItemSelected="VisitGenre" SelectedItem="{Binding SelectedGenre}" Margin="0,20,0,10">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -186,7 +186,7 @@
                    SearchCommand="{Binding SearchCommandUsers}"
                    SearchCommandParameter="{Binding Text, Source={x:Reference searchBarUsers}}"
                            BackgroundColor="WhiteSmoke" TextColor="Black"/>
-                <ListView ItemsSource="{Binding QueryUsers}" SelectedItem="{Binding SelectedUser}" Margin="0,20,0,10">
+                <ListView ItemsSource="{Binding QueryUsers}" ItemSelected="VisitUser" SelectedItem="{Binding SelectedUser}" Margin="0,20,0,10">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell Height="100">

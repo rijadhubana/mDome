@@ -6,7 +6,8 @@
              mc:Ignorable="d"
              xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
              xmlns:local="clr-namespace:mDome.MobileApp"
-             x:Class="mDome.MobileApp.Views.RegisterPage">
+             x:Class="mDome.MobileApp.Views.RegisterPage"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect">
     <ContentPage.BindingContext>
         <vm:RegisterViewModel/>
     </ContentPage.BindingContext>
@@ -22,7 +23,12 @@
                 <StackLayout VerticalOptions="Start" Padding="20,20,20,20">
                         <Image Source="{local:ImageResource mDome.MobileApp.Images.mdomelogo.png}"
                        WidthRequest="200" HorizontalOptions="Center" Margin="0,0,0,70" />
-                        <Label FontSize="17" TextColor="White" Padding="0,0,0,20" IsVisible="{Binding EnableUsernameEmail}">
+                        <Label FontSize="17" TextColor="White" Padding="0,0,0,20" IsVisible="{Binding EnableUsernameEmail}"
+                  touch:TouchEff.PressedAnimationDuration="800"
+                  touch:TouchEff.RegularAnimationDuration="800"
+                  touch:TouchEff.PressedScale="0.8"
+                  touch:TouchEff.PressedOpacity="0.6"
+                  touch:TouchEff.RippleCount="-1">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Back to login page"

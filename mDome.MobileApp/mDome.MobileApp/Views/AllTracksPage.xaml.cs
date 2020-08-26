@@ -13,11 +13,12 @@ namespace mDome.MobileApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AllTracksPage : ContentPage
     {
-        public AllTracksPage(int artistId)
+        public AllTracksPage(int? artistId,int? genreId)
         {
             InitializeComponent();
             BindingContext = vm = new AllTracksViewModel();
             vm.ThisArtistId = artistId;
+            vm.ThisGenreId = genreId;
             vm.InitCommand.Execute(null);
         }
         AllTracksViewModel vm;

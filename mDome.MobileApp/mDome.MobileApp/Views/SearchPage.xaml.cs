@@ -57,5 +57,15 @@ namespace mDome.MobileApp.Views
         {
             await Navigation.PushAsync(new AlbumListPage(vm.SelectedAlbumList.AlbumListId));
         }
+
+        private async void VisitUser(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushAsync(new UserProfilePage(vm.SelectedUser.UserId));
+        }
+
+        private async void VisitGenre(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushAsync(new GenrePage(vm.SelectedGenre.GenreId));
+        }
     }
 }

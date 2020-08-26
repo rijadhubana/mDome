@@ -31,5 +31,11 @@ namespace mDome.MobileApp.Views
             _selectedAlbum = await _albumService.GetById<Model.Album>(model.selectedAlbum.AlbumId);
             await PopupNavigation.Instance.PopAsync();
         }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            _selectedAlbum = new Model.Album { AlbumId = 0, AlbumName = "Not Selected" };
+            await PopupNavigation.Instance.PopAsync();
+        }
     }
 }

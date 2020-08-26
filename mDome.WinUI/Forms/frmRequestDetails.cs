@@ -16,6 +16,7 @@ namespace mDome.WinUI.Forms
         private Model.Request _selectedRequest;
         private readonly APIService _requestService = new APIService("Request");
         private readonly APIService _notificationService = new APIService("Notification");
+        public event EventHandler<object> refreshHandler;
         public frmRequestDetails(Model.Request request)
         {
             _selectedRequest = request;
@@ -58,6 +59,7 @@ namespace mDome.WinUI.Forms
                     };
                     await _notificationService.Insert<Model.Notification>(requestAdd);
                     await _requestService.Delete<Model.Request>(_selectedRequest.RequestId);
+                    refreshHandler?.Invoke(this,null);
                     this.Close();
                 }
                     

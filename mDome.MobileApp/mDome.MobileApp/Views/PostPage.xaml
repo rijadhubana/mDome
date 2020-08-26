@@ -71,7 +71,7 @@
                 <Button BackgroundColor="LightGray" TextColor="Black" CornerRadius="15" Clicked="VisitArtist" IsEnabled="{Binding VisitArtist}" Text="Visit Artist Page" Grid.Row="1" Grid.Column="0"/>
                 <Button BackgroundColor="LightGray" Clicked="VisitUserPage" TextColor="Black" CornerRadius="15" Text="Visit User Profile" IsEnabled="{Binding VisitUser}" Grid.Row="1" Grid.Column="1"/>
                 <Button BackgroundColor="LightGray" Clicked="VisitAlbum" TextColor="Black" CornerRadius="15" Text="Visit Album Page" IsEnabled="{Binding VisitAlbum}" Grid.Row="1" Grid.Column="2"/>
-                 <Button CornerRadius="15" BackgroundColor="LightGray" TextColor="Black" Text="Delete Post" IsEnabled="{Binding DeleteVisible}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
+                <Button CornerRadius="15" Command="{Binding DeletePostCommand}" BackgroundColor="LightGray" TextColor="Black" Text="Delete Post" IsEnabled="{Binding DeleteVisible}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
 
                 </Grid>
             </StackLayout>

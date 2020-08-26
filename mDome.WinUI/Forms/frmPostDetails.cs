@@ -18,6 +18,7 @@ namespace mDome.WinUI.Forms
         private int? _postId = null;
         private readonly APIService _postService = new APIService("Post");
         private readonly APIService _artistService = new APIService("Artist");
+        public event EventHandler<object> refreshHandler;
         public frmPostDetails(int? postId = null)
         {
             _postId = postId;
@@ -112,6 +113,7 @@ namespace mDome.WinUI.Forms
                     request.UserRelatedId = null;
                     await _postService.Insert<Model.Post>(request);
                     MessageBox.Show("Task successful");
+                    refreshHandler?.Invoke(this, null);
                     this.Close();
                 }
             }
@@ -157,6 +159,7 @@ namespace mDome.WinUI.Forms
                 {
                     await _postService.Delete<Model.Post>(_postId);
                     MessageBox.Show("Task successful");
+                    refreshHandler?.Invoke(this, null);
                     this.Close();
                 }
                 catch (Exception ex)

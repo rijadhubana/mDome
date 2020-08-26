@@ -175,7 +175,7 @@
                         <Button CornerRadius="15" Grid.Row="0" Grid.Column="0" Clicked="RelatedPosts" BackgroundColor="LightGray" Text="Posts" TextColor="Black" FontSize="15" />
                         <Button CornerRadius="15" Grid.Row="0" Grid.Column="1" Clicked="RelatedReviews" BackgroundColor="LightGray" Text="Reviews" TextColor="Black" FontSize="15"/>
                         <Button CornerRadius="15" Grid.Row="1" Grid.Column="0" Clicked="FeaturedTracklists" BackgroundColor="LightGray" Text="Featured Tracklists" TextColor="Black" />
-                        <Button CornerRadius="15" Grid.Row="1" Grid.Column="1" BackgroundColor="LightGray" Text="Featured Album Lists" TextColor="Black"/>
+                        <Button CornerRadius="15" Grid.Row="1" Grid.Column="1" Clicked="FeaturedAlbumLists" BackgroundColor="LightGray" Text="Featured Album Lists" TextColor="Black"/>
                     </Grid>
                 </StackLayout>
             </ScrollView>

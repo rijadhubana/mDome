@@ -60,14 +60,14 @@
                 TextColor="White" Text="{Binding Email}"/>
                 </StackLayout>
             </Grid>
-            <ListView SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+            <ListView SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" ItemSelected="MenuItemTapped">
                 <ListView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>News Feed</x:String>
                         <x:String>My Profile</x:String>
                         <x:String>Search</x:String>
                         <x:String>Followers/Following</x:String>
-                        <x:String>My Playlists/Album Lists</x:String>
+                        <x:String>My Tracklists/Album Lists</x:String>
                         <x:String>History</x:String>
                         <x:String>Notifications</x:String>
                         <x:String>Report a Problem</x:String>
@@ -76,7 +76,7 @@
                 </ListView.ItemsSource>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Tapped="ViewCell_Tapped">
+                        <ViewCell>
                             <StackLayout Padding="5" Orientation="Horizontal">
                                 <StackLayout Orientation="Vertical">
                                     <Label Text="{Binding Path=.}"

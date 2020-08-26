@@ -1,7 +1,9 @@
 ﻿using mDome.MobileApp.Helper;
 using mDome.MobileApp.ViewModels;
+using mDome.MobileApp.Views;
 using mDome.Model;
 using mDome.Model.Requests;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,10 +28,12 @@ namespace mDome.MobileApp.ViewModels
             InitCommand = new Command(async () => await Init());
             LikeCommand = new Command(async () => await Like());
             DislikeCommand = new Command(async () => await Dislike());
+            AddToAlbumListCommand = new Command(async () => await AddToAlbumList());
         }
         public ICommand InitCommand { get; set; }
         public ICommand LikeCommand { get; set; }
         public ICommand DislikeCommand { get; set; }
+        public ICommand AddToAlbumListCommand { get; set; }
         public int AlbumId { get; set; }
         Model.Album _loadedAlbum;
         public Model.Album LoadedAlbum
@@ -171,6 +175,28 @@ namespace mDome.MobileApp.ViewModels
                 _selectedTrack = value;
                 OnPropertyChanged("SelectedTrack");
             }
+        }
+        private async Task AddToAlbumList()
+        {
+            var popUp = new PopupAddToAlbumList(AlbumId);
+            int placeholderId;
+            popUp.CallbackEvent += async (object sender, object e) =>
+            {
+                placeholderId = (int)e;
+                if (placeholderId == 0)
+                    return;
+                else
+                {
+                    AlbumListAlbumUpsertRequest req = new AlbumListAlbumUpsertRequest()
+                    {
+                        AlbumId = AlbumId,
+                        AlbumListId = placeholderId
+                    };
+                    await _albumListAlbumService.Insert<AlbumListAlbum>(req);
+                    await Application.Current.MainPage.DisplayAlert("Success", "Album successfully added to album list!", "OK");
+                }
+            };
+            await PopupNavigation.Instance.PushAsync(popUp);
         }
         private async Task AddOrRemoveFromLikedAlbums(bool remove=false)
         {

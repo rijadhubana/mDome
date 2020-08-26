@@ -1,4 +1,5 @@
 ﻿using mDome.MobileApp.Helper;
+using mDome.MobileApp.Views;
 using mDome.Model;
 using mDome.Model.Requests;
 using System;
@@ -27,12 +28,14 @@ namespace mDome.MobileApp.ViewModels
             LikeCommand = new Command(async () => await Like());
             DislikeCommand = new Command(async () => await Dislike());
             SetButtonsProperty = new Command(async () => await SetButtons());
+            DeletePostCommand = new Command(async () => await DeletePost());
         }
         public ICommand InitCommand { get; set; }
         public ICommand SetLikeDislikeCommand { get; set; }
         public ICommand SetButtonsProperty { get; set; }
         public ICommand LikeCommand { get; set; }
         public ICommand DislikeCommand { get; set; }
+        public ICommand DeletePostCommand { get; set; }
         private async Task SetButtons()
         {
             var postLocal = await _postService.GetById<Model.Post>(loadedPost.PostId);
@@ -49,7 +52,7 @@ namespace mDome.MobileApp.ViewModels
                 VisitArtist = true;
             if (UserRelatedId.HasValue)
                 VisitUser = true;
-            if (UserRelatedId.HasValue && UserRelatedId == APIService.loggedProfile.UserId)
+            if (UserRelatedId.HasValue && UserRelatedId == APIService.loggedProfile.UserId && AlbumRelatedId==null)
                 DeleteVisible = true;
         }
         private async Task Init()
@@ -179,6 +182,19 @@ namespace mDome.MobileApp.ViewModels
             {
                 LikeSource = ImageSource.FromFile("like.png");
                 DislikeSource = ImageSource.FromFile("alreadydisliked.png");
+            }
+        }
+        private async Task DeletePost()
+        {
+            bool answer = await Application.Current.MainPage.DisplayAlert("Confirm", "Are you sure you want to remove this post?", "Yes", "No");
+            if (answer == false)
+                return;
+            else
+            {
+                await _postService.Delete<Post>(thisPostId);
+                await Application.Current.MainPage.DisplayAlert("Success", "Post successfully deleted! You will now be redirected to the News Feed page.", "Ok");
+                var aps = Application.Current.MainPage as MasterPage;
+                await aps.MenuNavigate("News Feed");
             }
         }
         public int thisPostId { get; set; }
