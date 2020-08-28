@@ -52,6 +52,7 @@ namespace mDome.MobileApp.ViewModels
                     await Application.Current.MainPage.DisplayAlert("Error", "Your account has been suspended. Please contact " +
                         "the administrator for further details", "OK");
                     SetAPIServiceNull();
+                    IsBusy = false;
                     return;
                 }
                 Application.Current.MainPage = new MasterPage(new NavigationPage(new NewsFeedPage()));

@@ -70,7 +70,12 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackLayout Grid.Column="0" Grid.Row="0">
-                    <Image Source="{Binding LikeSource}"  HorizontalOptions="Center" HeightRequest="40" >
+                        <Image Source="{Binding LikeSource}"  HorizontalOptions="Center" HeightRequest="40"  
+                                                 touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LikeCommand}"/>
                         </Image.GestureRecognizers>
@@ -78,7 +83,12 @@
                     <Label Text="{Binding NumberOfLikes}" HorizontalOptions="Center" TextColor="WhiteSmoke" FontSize="15" FontAttributes="Bold"/>
                 </StackLayout>
                 <StackLayout Grid.Column="1" Grid.Row="0">
-                    <Image Source="{Binding DislikeSource}" HorizontalOptions="Center" HeightRequest="40">
+                        <Image Source="{Binding DislikeSource}" HorizontalOptions="Center" HeightRequest="40" 
+                                                 touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding DislikeCommand}"/>
                         </Image.GestureRecognizers>

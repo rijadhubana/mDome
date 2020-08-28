@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPostsList));
             this.dgvPosts = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbArtists = new System.Windows.Forms.ComboBox();
@@ -144,8 +145,9 @@
             this.Controls.Add(this.cmbArtists);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvPosts);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmPostsList";
-            this.Text = "frmPostsList";
+            this.Text = "Post List";
             this.Load += new System.EventHandler(this.frmPostsList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPosts)).EndInit();
             this.ResumeLayout(false);

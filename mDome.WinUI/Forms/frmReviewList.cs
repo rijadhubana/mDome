@@ -83,7 +83,7 @@ namespace mDome.WinUI.Forms
             int? ratingTo = null;
             if (!string.IsNullOrWhiteSpace(txtRatingFrom.Text))
                 ratingFrom = int.Parse(txtRatingFrom.Text);
-            if (!string.IsNullOrWhiteSpace(lbl.Text))
+            if (!string.IsNullOrWhiteSpace(txtRatingTo.Text))
                 ratingTo = int.Parse(txtRatingTo.Text);
             var idObj = cmbAlbums.SelectedValue;
             if (int.TryParse(idObj.ToString(), out int id))

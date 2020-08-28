@@ -30,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGenreList));
             this.lblGenres = new System.Windows.Forms.Label();
             this.dgvGenres = new System.Windows.Forms.DataGridView();
             this.GenreId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -134,8 +135,9 @@
             this.Controls.Add(this.txtGenreSearch);
             this.Controls.Add(this.dgvGenres);
             this.Controls.Add(this.lblGenres);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmGenreList";
-            this.Text = "frmGenreList";
+            this.Text = "Genre List";
             this.Load += new System.EventHandler(this.frmGenreList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGenres)).EndInit();
             this.ResumeLayout(false);

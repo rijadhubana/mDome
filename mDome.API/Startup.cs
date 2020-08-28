@@ -19,6 +19,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Hangfire;
+using Hangfire.MemoryStorage;
 
 namespace mDome.API
 {
@@ -34,6 +36,11 @@ namespace mDome.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHangfire(config =>
+            config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+            .UseSimpleAssemblyNameTypeSerializer().
+            UseDefaultTypeSerializer().UseMemoryStorage());
+            services.AddHangfireServer();
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
             {
@@ -90,13 +97,16 @@ namespace mDome.API
             services.AddScoped<ICRUDService<Model.AlbumListAlbum, AlbumListAlbumSearchRequest, AlbumListAlbumUpsertRequest, AlbumListAlbumUpsertRequest>, AlbumListAlbumService>();
             services.AddScoped<ICRUDService<Model.UserAlbumVote, UserAlbumVoteSearchRequest, UserAlbumVoteUpsertRequest, UserAlbumVoteUpsertRequest>, UserAlbumVoteService>();
             services.AddScoped<ICRUDService<Model.UserTrackVote, UserTrackVoteSearchRequest, UserTrackVoteUpsertRequest, UserTrackVoteUpsertRequest>, UserTrackVoteService>();
-
             #endregion
+            services.AddScoped<IRecommendService, RecommendService>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
+            IBackgroundJobClient backgroundJobClient,
+             IRecurringJobManager recurringJobManager,
+             IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -112,12 +122,18 @@ namespace mDome.API
             app.UseAuthorization();
             app.UseRouting();
 
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            app.UseHangfireDashboard();
+            //backgroundJobClient.Enqueue(() => serviceProvider.GetService<IRecommendService>().RefreshDiscoveryQueues());
+            recurringJobManager.AddOrUpdate(
+                "Refresh Discovery Queues", () => serviceProvider.GetService<IRecommendService>
+                ().RefreshDiscoveryQueues(), Cron.Daily());
         }
     }
 }

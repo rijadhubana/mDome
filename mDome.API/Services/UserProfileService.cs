@@ -43,16 +43,16 @@ namespace mDome.API.Services
         public override Model.UserProfile Insert(UserProfileUpsertRequest request)
         {
             var entity = _mapper.Map<Database.UserProfile>(request);
-            if (request.PasswordClearText != request.PasswordClearTextConfirm)
-            {
-                throw new Exception("Passwords do not match!");
-            }
-            if (_context.AdministratorLogin.Where(a => a.AdminName == request.Username).FirstOrDefault() != null 
-                || _context.UserProfile.Where(a=>a.Username==request.Username).FirstOrDefault() !=null
-                || _context.UserProfile.Where(a=>a.Email==request.Email).FirstOrDefault()!=null)
-            {
-                throw new Exception("A user with the same name or email already exists!");
-            }
+            //if (request.PasswordClearText != request.PasswordClearTextConfirm)
+            //{
+            //    throw new Exception("Passwords do not match!");
+            //}
+            //if (_context.AdministratorLogin.Where(a => a.AdminName == request.Username).FirstOrDefault() != null 
+            //    || _context.UserProfile.Where(a=>a.Username==request.Username).FirstOrDefault() !=null
+            //    || _context.UserProfile.Where(a=>a.Email==request.Email).FirstOrDefault()!=null)
+            //{
+            //    throw new Exception("A user with the same name or email already exists!");
+            //}
             entity.PasswordSalt = Helper.Methods.GenerateSalt();
             entity.PasswordHash = Helper.Methods.GenerateHash(entity.PasswordSalt, request.PasswordClearText);
             _context.UserProfile.Add(entity);
@@ -61,18 +61,27 @@ namespace mDome.API.Services
         }
         public override Model.UserProfile Update(int id, UserProfileUpsertRequest request)
         {
-            var entity = _context.UserProfile.Find(id);
-            if (request.PasswordClearText != request.PasswordClearTextConfirm)
+            if (request.IsUpdateByAdmin.HasValue)
             {
-                throw new Exception("Passwords do not match!");
+                var aEntity = _context.UserProfile.Find(id);
+                _context.Set<Database.UserProfile>().Attach(aEntity);
+                _mapper.Map(request, aEntity);
+                aEntity.PasswordHash = request.PwHash;
+                aEntity.PasswordSalt = request.PwSalt;
+                _context.SaveChanges();
+                return _mapper.Map<Model.UserProfile>(aEntity);
             }
+            var entity = _context.UserProfile.Find(id);
+            //if (request.PasswordClearText != request.PasswordClearTextConfirm)
+            //{
+            //    throw new Exception("Passwords do not match!");
+            //}
             _context.Set<Database.UserProfile>().Attach(entity);
             _mapper.Map(request, entity);
             entity.PasswordSalt = Helper.Methods.GenerateSalt();
             entity.PasswordHash = Helper.Methods.GenerateHash(entity.PasswordSalt, request.PasswordClearText);
             _context.SaveChanges();
             return _mapper.Map<Model.UserProfile>(entity);
-
         }
     }
 }

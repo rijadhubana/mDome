@@ -79,36 +79,37 @@
             // genresToolStripMenuItem
             // 
             this.genresToolStripMenuItem.Name = "genresToolStripMenuItem";
-            this.genresToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.genresToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
             this.genresToolStripMenuItem.Text = "Genres";
             this.genresToolStripMenuItem.Click += new System.EventHandler(this.genresToolStripMenuItem_Click);
             // 
             // artistsToolStripMenuItem
             // 
             this.artistsToolStripMenuItem.Name = "artistsToolStripMenuItem";
-            this.artistsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.artistsToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
             this.artistsToolStripMenuItem.Text = "Artists";
             this.artistsToolStripMenuItem.Click += new System.EventHandler(this.artistsToolStripMenuItem_Click);
             // 
             // reviewsToolStripMenuItem
             // 
             this.reviewsToolStripMenuItem.Name = "reviewsToolStripMenuItem";
-            this.reviewsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.reviewsToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
             this.reviewsToolStripMenuItem.Text = "Reviews";
             this.reviewsToolStripMenuItem.Click += new System.EventHandler(this.reviewsToolStripMenuItem_Click);
             // 
             // postsToolStripMenuItem
             // 
             this.postsToolStripMenuItem.Name = "postsToolStripMenuItem";
-            this.postsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.postsToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
             this.postsToolStripMenuItem.Text = "Posts";
             this.postsToolStripMenuItem.Click += new System.EventHandler(this.postsToolStripMenuItem_Click);
             // 
             // reportsToolStripMenuItem
             // 
             this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
             this.reportsToolStripMenuItem.Text = "Reports";
+            this.reportsToolStripMenuItem.Click += new System.EventHandler(this.reportsToolStripMenuItem_Click);
             // 
             // usersToolStripMenuItem
             // 
@@ -132,6 +133,7 @@
             this.userListToolStripMenuItem.Name = "userListToolStripMenuItem";
             this.userListToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.userListToolStripMenuItem.Text = "User List";
+            this.userListToolStripMenuItem.Click += new System.EventHandler(this.userListToolStripMenuItem_Click);
             // 
             // administratorsToolStripMenuItem
             // 

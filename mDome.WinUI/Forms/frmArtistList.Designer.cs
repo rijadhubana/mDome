@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmArtistList));
             this.dgvArtists = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNameSearch = new System.Windows.Forms.TextBox();
@@ -130,6 +131,7 @@
             this.Controls.Add(this.txtNameSearch);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvArtists);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmArtistList";
             this.Text = "Artists";
             this.Load += new System.EventHandler(this.frmArtistList_Load);

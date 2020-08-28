@@ -84,7 +84,7 @@ namespace mDome.WinUI.Forms
                     };
                     if (req.ArtistPhoto == null)
                     {
-                        Image placeholder = Image.FromFile("C:\\Users\\rijad\\source\\repos\\mDome\\mDome.WinUI\\placeholder.jpg");
+                        Image placeholder = Image.FromFile(Helper.GetImagePath("placeholder.jpg"));
                         req.ArtistPhoto = Helper.ImageToByteArray(placeholder);
                         req.ArtistPhotoThumb = Helper.ImageToByteArray(Helper.ResizeImage(placeholder, 120, 120));
                     }
@@ -123,16 +123,12 @@ namespace mDome.WinUI.Forms
             frm.Show();
         }
 
-        private async void btnDeleteArtist_Click(object sender, EventArgs e)
+        private void btnDeleteArtist_Click(object sender, EventArgs e)
         {
             string promptValue = Prompt.ShowDialog("Are you sure you want to remove this artist?" +
                 " Type your password to confirm.", "Confirm");
             if (APIService.Password == promptValue)
             {
-                //await _artistService.Delete<Model.Artist>(_id);
-                //refreshHandler?.Invoke(this, null);
-                //MessageBox.Show("Task successful");
-                //this.Close();
                 deleteHandlerArtist?.Invoke(this, _id);
             }
             else MessageBox.Show("Password incorrect");

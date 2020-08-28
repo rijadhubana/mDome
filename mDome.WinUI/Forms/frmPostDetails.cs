@@ -103,9 +103,9 @@ namespace mDome.WinUI.Forms
                 if (this.ValidateChildren())
                 {
                     request.IsGlobal = chbGlobal.Checked;
-                    request.Opphoto = File.ReadAllBytes("C:\\Users\\rijad\\source\\repos\\mDome\\mDome.WinUI\\adminIcon.png");
+                    request.Opphoto = File.ReadAllBytes(Helper.GetImagePath("adminIcon.png"));
                     if (request.PostPhoto == null)
-                        request.PostPhoto = File.ReadAllBytes("C:\\Users\\rijad\\source\\repos\\mDome\\mDome.WinUI\\placeholder.jpg");
+                        request.PostPhoto = File.ReadAllBytes(Helper.GetImagePath("placeholder.jpg"));
                     request.PostDateTime = DateTime.Now;
                     request.PostText = txtPostText.Text;
                     request.PostTitle = txtTitle.Text;

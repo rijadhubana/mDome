@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReviewList));
             this.dgvReviews = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -173,8 +174,9 @@
             this.Controls.Add(this.txtAlbumSearch);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvReviews);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmReviewList";
-            this.Text = "frmReviewList";
+            this.Text = "Review List";
             this.Load += new System.EventHandler(this.frmReviewList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReviews)).EndInit();
             this.ResumeLayout(false);

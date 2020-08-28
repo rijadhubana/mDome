@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdministratorList));
             this.dgvAdmins = new System.Windows.Forms.DataGridView();
             this.AdministratorId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AdministratorName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -100,8 +101,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dgvAdmins);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmAdministratorList";
-            this.Text = "frmAdministratorList";
+            this.Text = "Administrator List";
             this.Load += new System.EventHandler(this.frmAdministratorList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).EndInit();
             this.ResumeLayout(false);

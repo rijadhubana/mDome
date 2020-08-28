@@ -26,5 +26,8 @@ namespace mDome.Model.Requests
         public int? RecommendedArtist3 { get; set; }
         public byte[] UserPhoto { get; set; }
         public byte[] UserWallpaper { get; set; }
+        public bool? IsUpdateByAdmin { get; set; } = null;
+        public string PwHash { get; set; } = "";
+        public string PwSalt { get; set; } = "";
     }
 }

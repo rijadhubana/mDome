@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRequestPanel));
             this.dgvRequests = new System.Windows.Forms.DataGridView();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.RequestId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RequestText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameOfUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RequestDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRequests)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,32 +59,6 @@
             this.dgvRequests.Size = new System.Drawing.Size(775, 352);
             this.dgvRequests.TabIndex = 0;
             this.dgvRequests.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgvRequests_MouseDoubleClick);
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(13, 44);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(188, 22);
-            this.txtSearch.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 17);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Request Panel";
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(219, 44);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(102, 23);
-            this.btnSearch.TabIndex = 3;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // RequestId
             // 
@@ -122,6 +97,32 @@
             this.RequestDate.ReadOnly = true;
             this.RequestDate.Width = 125;
             // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(13, 44);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(188, 22);
+            this.txtSearch.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 17);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Request Panel";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(219, 44);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(102, 23);
+            this.btnSearch.TabIndex = 3;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // frmRequestPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -131,8 +132,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.dgvRequests);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmRequestPanel";
-            this.Text = "frmRequestPanel";
+            this.Text = "Request Panel";
             this.Load += new System.EventHandler(this.frmRequestPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRequests)).EndInit();
             this.ResumeLayout(false);

@@ -27,10 +27,11 @@ namespace mDome.MobileApp.ViewModels
         readonly APIService _userService = new APIService("UserProfile");
         readonly APIService _tracklistService = new APIService("Tracklist");
         readonly APIService _albumListService = new APIService("AlbumList");
+        readonly APIService _administratorLoginService = new APIService("AdministratorLogin");
         public RegisterViewModel()
         {
-            APIService.Username = "Ayz";
-            APIService.Password = "Ayz";
+            APIService.Username = "user";
+            APIService.Password = "user";
             BackToLoginCommand = new Command(BackToLogin);
             UploadProfileCommand = new Command(async () => await UploadProfilePicture());
             UploadWallpaperCommand = new Command(async () => await UploadWallpaper());
@@ -471,14 +472,16 @@ namespace mDome.MobileApp.ViewModels
                     SetRecommended(request);
                 if (EditProfile==true)
                 {
+                    request.RegisteredAt = APIService.loggedProfile.RegisteredAt;
                     await _userService.Update<Model.UserProfile>(APIService.loggedProfile.UserId,request);
                     await Application.Current.MainPage.DisplayAlert("Success", "Profile updated! Please relog for the actions to take change", "OK");
 
                 }
                 else
                 {
-                    var check = await _userService.Get<List<UserProfile>>(new UserProfileSearchRequest() { Username = request.Username });
-                    if (check.Count>0)
+                    var check = await _userService.Get<List<UserProfile>>(new UserProfileSearchRequest() { Username = request.Username, Email=request.Email });
+                    var check2 = await _administratorLoginService.Get<List<AdministratorLogin>>(new AdminSearchRequest() { AdminName=request.Username});
+                    if (check.Count>0 || check2.Count>0)
                     {
                         await Application.Current.MainPage.DisplayAlert("Error", "Username already taken!", "OK");
                         return;

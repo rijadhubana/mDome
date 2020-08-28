@@ -8,6 +8,7 @@
              xmlns:local="clr-namespace:mDome.MobileApp"
              xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
              xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
+             xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
              BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}">
     <ContentPage.BindingContext>
         <vm:AddPostViewModel/>
@@ -36,7 +37,11 @@
                     <Button BackgroundColor="LightGray" Text="{Binding PlaceholderArtist.ArtistName}" TextColor="Black"
                             VerticalOptions="Center" Grid.Column="1" Grid.Row="0" Command="{Binding SelectArtistCommand}"/>
                     <Image Source="{Binding PostImageSource}"
-                           HeightRequest="80" Grid.Column="1" Grid.Row="1">
+                           HeightRequest="80" Grid.Column="1" Grid.Row="1"                                                 touch:TouchEff.PressedAnimationDuration="800"
+                                                 touch:TouchEff.RegularAnimationDuration="800"
+                                                 touch:TouchEff.PressedScale="0.92"
+                                                 touch:TouchEff.PressedOpacity="0.6"
+                                                 touch:TouchEff.RippleCount="-1">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding UploadImageCommand}"/>
                         </Image.GestureRecognizers>

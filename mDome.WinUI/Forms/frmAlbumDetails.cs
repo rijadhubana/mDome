@@ -107,7 +107,7 @@ namespace mDome.WinUI.Forms
                     };
                     if (req.AlbumPhoto == null)
                     {
-                        Image placeholder = Image.FromFile("C:\\Users\\rijad\\source\\repos\\mDome\\mDome.WinUI\\placeholder.jpg");
+                        Image placeholder = Image.FromFile(Helper.GetImagePath("placeholder.jpg"));
                         req.AlbumPhoto = Helper.ImageToByteArray(placeholder);
                         req.AlbumPhotoThumb = Helper.ImageToByteArray(Helper.ResizeImage(placeholder, 120, 120));
                     }

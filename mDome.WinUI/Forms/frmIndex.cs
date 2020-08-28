@@ -159,5 +159,19 @@ namespace mDome.WinUI
             frm.MdiParent = this;
             frm.Show();
         }
+
+        private void reportsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmReport frm = new frmReport();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void userListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmUserList frm = new frmUserList();
+            frm.MdiParent = this;
+            frm.Show();
+        }
     }
 }
