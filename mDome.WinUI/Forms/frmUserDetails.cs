@@ -15,8 +15,8 @@ namespace mDome.WinUI.Forms
 {
     public partial class frmUserDetails : Form
     {
-        public event EventHandler<object> refreshHandler;
         private int _userId;
+        public event EventHandler<object> refreshHandler;
         private readonly APIService _userService = new APIService("UserProfile");
         private UserProfile loadedProfile;
         public frmUserDetails(int userId)
@@ -94,6 +94,7 @@ namespace mDome.WinUI.Forms
                     txtSuspended.Text = "No";
                     btnSuspend.Text = "Suspend User";
                 }
+                refreshHandler?.Invoke(this, null);
             }
                
         }

@@ -1,5 +1,4 @@
-﻿using BottomBar.XamarinForms;
-using mDome.MobileApp.ViewModels;
+﻿using mDome.MobileApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ using Xamarin.Forms.Xaml;
 namespace mDome.MobileApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CommentLikePage : BottomBarPage
+    public partial class CommentLikePage : TabbedPage
     {
         public CommentLikePage(int postId)
         {

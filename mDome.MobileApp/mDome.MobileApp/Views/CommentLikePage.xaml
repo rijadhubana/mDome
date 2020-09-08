@@ -1,24 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<xf:BottomBarPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="mDome.MobileApp.Views.CommentLikePage"
              xmlns:local="clr-namespace:mDome.MobileApp"
-             xmlns:xf="clr-namespace:BottomBar.XamarinForms;assembly=BottomBar.XamarinForms"
              xmlns:vm="clr-namespace:mDome.MobileApp.ViewModels"
              xmlns:converters="clr-namespace:mDome.MobileApp.Converters"
              BackgroundImageSource="{local:ImageResource mDome.MobileApp.Images.gradient.jpg}" BarTextColor="White">
   <!--Pages can be added as references or inline-->
-    <xf:BottomBarPage.BindingContext>
+    <TabbedPage.BindingContext>
         <vm:CommentsLikesViewModel/>
-    </xf:BottomBarPage.BindingContext>
-    <xf:BottomBarPage.Resources>
+    </TabbedPage.BindingContext>
+    <TabbedPage.Resources>
         <ResourceDictionary>
             <converters:ImageConverter x:Key="imgConv"/>
         </ResourceDictionary>
-    </xf:BottomBarPage.Resources>
+    </TabbedPage.Resources>
     <ContentPage Title="Comments" IconImageSource="commentsgreen.png">
         <ContentPage.Content>
             <StackLayout>
@@ -87,4 +86,4 @@
             </ListView.ItemTemplate>
         </ListView>
     </ContentPage>
-</xf:BottomBarPage>
+</TabbedPage>

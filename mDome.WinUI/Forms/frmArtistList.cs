@@ -100,9 +100,8 @@ namespace mDome.WinUI.Forms
                     await _artistService.Delete<Model.Artist>(_id);
                     MessageBox.Show("Artist successfully deleted");
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-
                     MessageBox.Show("Error, please close all other windows that have any relation to artist.");
                 }
 
