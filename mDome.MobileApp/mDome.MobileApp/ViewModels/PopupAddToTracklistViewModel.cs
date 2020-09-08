@@ -1,5 +1,7 @@
-﻿using mDome.Model;
+﻿using mDome.MobileApp.Views;
+using mDome.Model;
 using mDome.Model.Requests;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +21,9 @@ namespace mDome.MobileApp.ViewModels
         {
             InitCommand = new Command(async () => await Init());
             SearchCommand = new Command<string>(Search);
+            NewTracklistCommand = new Command(async () => await AddNewTracklist());
         }
+        public ICommand NewTracklistCommand { get; set; }
         public ICommand InitCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public int ThisTrackId { get; set; }
@@ -38,6 +42,17 @@ namespace mDome.MobileApp.ViewModels
                 _selectedTracklist = value;
                 OnPropertyChanged("SelectedTracklist");
             }
+        }
+        private async Task AddNewTracklist()
+        {
+            var popUp = new PopupAddOnTheFlyList(false);
+            popUp.CallbackEvent += async (object sender, object e) =>
+            {
+                AllTracklists.Clear();
+                Tracklists.Clear();
+                await Init();
+            };
+            await PopupNavigation.Instance.PushAsync(popUp);
         }
         private void Search(string searchQuery)
         {

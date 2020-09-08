@@ -36,5 +36,6 @@ namespace mDome.MobileApp.Views
             _selectedTracklistId = vm.SelectedTracklist.TracklistId;
             await PopupNavigation.Instance.PopAsync();
         }
+
     }
 }

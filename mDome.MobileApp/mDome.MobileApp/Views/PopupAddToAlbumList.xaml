@@ -40,8 +40,6 @@
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="16" TextColor="Black"/>
-                                    <Label Text="By" TextColor="White"
-                                FontSize="16"/>
                                     <Label Text="{Binding AlbumListType}" 
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
@@ -52,6 +50,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button BackgroundColor="Teal" Text="Add New Album List" TextColor="White" Command="{Binding NewAlbumListCommand}"/>
             <Button BackgroundColor="Firebrick" Text="Cancel" TextColor="White" Clicked="Button_Clicked"/>
         </StackLayout>
     </pages:PopupPage.Content>

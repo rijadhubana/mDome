@@ -1,0 +1,26 @@
+[
+  {
+    "administratorId": 1,
+    "adminName": "Rikeyhhh",
+    "passwordHash": "Tbdqgt713wLDwY5Pz7LVNyV9eFY=",
+    "passwordSalt": "uoM/RJQWNl7Mzf38ZnADoQ=="
+  },
+  {
+    "administratorId": 5,
+    "adminName": "Lelouch",
+    "passwordHash": "OQB8XVeuyiDkwjZ3BUuv0wgoOPY=",
+    "passwordSalt": "70gLY7McbKEODlIsBo4UjA=="
+  },
+  {
+    "administratorId": 6,
+    "adminName": "admin",
+    "passwordHash": "/OhZGZMFg1SEpRQUhhrVfIgl9UI=",
+    "passwordSalt": "3qeO+rNzZ7LoNwciF6mr+g=="
+  },
+  {
+    "administratorId": 7,
+    "adminName": "desktop",
+    "passwordHash": "P+I3dZu2iDPneRSuPQtkK8ZA/qk=",
+    "passwordSalt": "uwolxpfefJu24t6lRgacjg=="
+  }
+]

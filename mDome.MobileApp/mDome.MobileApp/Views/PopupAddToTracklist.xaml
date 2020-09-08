@@ -50,6 +50,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button BackgroundColor="Teal" Text="Create New Tracklist" TextColor="White" Command="{Binding NewTracklistCommand}"/>
             <Button BackgroundColor="Firebrick" Text="Cancel" TextColor="White" Clicked="Button_Clicked"/>
         </StackLayout>
     </pages:PopupPage.Content>

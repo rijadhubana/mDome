@@ -1,5 +1,7 @@
-﻿using mDome.Model;
+﻿using mDome.MobileApp.Views;
+using mDome.Model;
 using mDome.Model.Requests;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Web.AtomPub;
 using Xamarin.Forms;
 
 namespace mDome.MobileApp.ViewModels
@@ -19,9 +22,11 @@ namespace mDome.MobileApp.ViewModels
         {
             InitCommand = new Command(async () => await Init());
             SearchCommand = new Command<string>(Search);
+            NewAlbumListCommand = new Command(async () => await AddNewAlbumList());
         }
         public ICommand InitCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand NewAlbumListCommand { get; set; }
         public int ThisAlbumId { get; set; }
         public ObservableCollection<AlbumList> AllAlbumLists { get; set; } = new ObservableCollection<AlbumList>();
         public ObservableCollection<AlbumList> AlbumLists { get; set; } = new ObservableCollection<AlbumList>();
@@ -47,6 +52,17 @@ namespace mDome.MobileApp.ViewModels
                 if (item.AlbumListName.ToLower().Contains(searchQuery.ToLower()))
                     AlbumLists.Add(item);
             }
+        }
+        private async Task AddNewAlbumList()
+        {
+            var popUp = new PopupAddOnTheFlyList(true);
+            popUp.CallbackEvent += async (object sender, object e) =>
+            {
+                AllAlbumLists.Clear();
+                AlbumLists.Clear();
+                await Init();
+            };
+            await PopupNavigation.Instance.PushAsync(popUp);
         }
         private async Task Init()
         {

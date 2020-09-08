@@ -1,0 +1,50 @@
+[
+  {
+    "tracklistId": 20,
+    "tracklistName": "History",
+    "listDateCreated": "2020-08-27T19:01:41.49",
+    "userId": 7,
+    "uniqueKey": "x3yfzFrBT0K40sIPJ/",
+    "tracklistType": "Private"
+  },
+  {
+    "tracklistId": 21,
+    "tracklistName": "My Discovery Queue",
+    "listDateCreated": "2020-08-27T19:01:41.81",
+    "userId": 7,
+    "uniqueKey": "9sf6HCSuGUO6DEBgZe",
+    "tracklistType": "Private"
+  },
+  {
+    "tracklistId": 22,
+    "tracklistName": "Liked Tracks",
+    "listDateCreated": "2020-08-27T19:01:41.897",
+    "userId": 7,
+    "uniqueKey": "mwJ2vSbfgE6rpDF6sk",
+    "tracklistType": "Private"
+  },
+  {
+    "tracklistId": 25,
+    "tracklistName": "History",
+    "listDateCreated": "2020-09-07T10:44:52.51",
+    "userId": 8,
+    "uniqueKey": "WORVyCl6XUa8RVJDfF",
+    "tracklistType": "Private"
+  },
+  {
+    "tracklistId": 26,
+    "tracklistName": "My Discovery Queue",
+    "listDateCreated": "2020-09-07T10:44:52.72",
+    "userId": 8,
+    "uniqueKey": "7lZuAydF4UqE/yNm0T",
+    "tracklistType": "Private"
+  },
+  {
+    "tracklistId": 27,
+    "tracklistName": "Liked Tracks",
+    "listDateCreated": "2020-09-07T10:44:52.823",
+    "userId": 8,
+    "uniqueKey": "EW5+HFCitkeFWmyaJk",
+    "tracklistType": "Private"
+  }
+]

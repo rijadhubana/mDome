@@ -1,0 +1,47 @@
+[
+  {
+    "genreId": 6,
+    "genreName": "Alternative Rock",
+    "genreDescription": null
+  },
+  {
+    "genreId": 9,
+    "genreName": "Experimental Rock",
+    "genreDescription": ""
+  },
+  {
+    "genreId": 10,
+    "genreName": "Indie",
+    "genreDescription": ""
+  },
+  {
+    "genreId": 4,
+    "genreName": "Industrial",
+    "genreDescription": null
+  },
+  {
+    "genreId": 8,
+    "genreName": "Noise Rock",
+    "genreDescription": "Noise rock (sometimes called noise punk) is a noise-oriented style of experimental rock that spun off from punk rock in the 1980s. Drawing on movements such as minimalism, industrial music, and New York hardcore, artists indulge in extreme levels of distortion through the use of electric guitars and, less frequently, electronic instrumentation, either to provide percussive sounds or to contribute to the overall arrangement."
+  },
+  {
+    "genreId": 5,
+    "genreName": "Post-Punk",
+    "genreDescription": null
+  },
+  {
+    "genreId": 3,
+    "genreName": "Post-Rock",
+    "genreDescription": "Post-rock is a form of experimental rock characterized by a focus on exploring textures and timbre over traditional rock song structures, chords, or riffs. Post-rock artists are often instrumental, typically combining rock instrumentation with electronics."
+  },
+  {
+    "genreId": 2,
+    "genreName": "Shoegaze",
+    "genreDescription": null
+  },
+  {
+    "genreId": 1,
+    "genreName": "Synthpop",
+    "genreDescription": null
+  }
+]

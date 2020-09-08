@@ -1,0 +1,58 @@
+[
+  {
+    "genreId": 2,
+    "artistId": 1
+  },
+  {
+    "genreId": 3,
+    "artistId": 2
+  },
+  {
+    "genreId": 3,
+    "artistId": 7
+  },
+  {
+    "genreId": 5,
+    "artistId": 1
+  },
+  {
+    "genreId": 5,
+    "artistId": 3
+  },
+  {
+    "genreId": 5,
+    "artistId": 6
+  },
+  {
+    "genreId": 6,
+    "artistId": 1
+  },
+  {
+    "genreId": 6,
+    "artistId": 3
+  },
+  {
+    "genreId": 8,
+    "artistId": 1
+  },
+  {
+    "genreId": 8,
+    "artistId": 7
+  },
+  {
+    "genreId": 9,
+    "artistId": 2
+  },
+  {
+    "genreId": 9,
+    "artistId": 7
+  },
+  {
+    "genreId": 10,
+    "artistId": 3
+  },
+  {
+    "genreId": 10,
+    "artistId": 6
+  }
+]

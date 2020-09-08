@@ -1,0 +1,20 @@
+[
+  {
+    "albumListId": 8,
+    "albumListName": "Liked Albums",
+    "listDateCreated": "2020-08-27T19:01:42.01",
+    "userId": 7,
+    "uniqueKey": "+JRFlS5pD0uKJwh+EM",
+    "albumListType": "Private",
+    "albumListDescription": ""
+  },
+  {
+    "albumListId": 10,
+    "albumListName": "Liked Albums",
+    "listDateCreated": "2020-09-07T10:44:52.893",
+    "userId": 8,
+    "uniqueKey": "k3w7JVyq3U+5bZbNwk",
+    "albumListType": "Private",
+    "albumListDescription": ""
+  }
+]

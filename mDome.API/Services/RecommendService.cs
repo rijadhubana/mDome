@@ -3,6 +3,7 @@ using mDome.API.ML;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.ML;
 using Microsoft.ML.Trainers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,89 +23,96 @@ namespace mDome.API.Services
 
         public void RefreshDiscoveryQueues()
         {
-            if (mlcontext == null)
+            try
             {
-                mlcontext = new MLContext();
-                var contextData = _context.UserProfile.Include("UserTrackVote").ToList();
-                var data = new List<TrackRecommendEntry>();
-                foreach (var item in contextData)
+                if (mlcontext == null)
                 {
-                    var distinctTrackId = item.UserTrackVote.Where(a=>a.Liked==true).Select(a => a.TrackId).ToList();
-                    foreach (var x in distinctTrackId)
+                    mlcontext = new MLContext();
+                    var contextData = _context.UserProfile.Include("UserTrackVote").ToList();
+                    var data = new List<TrackRecommendEntry>();
+                    foreach (var item in contextData)
                     {
-                        var overlappingLikesUsers = _context.UserTrackVote.Where(a => a.TrackId == x && a.UserId != item.UserId 
-                        && a.Liked==true).Select(a=>a.UserId).Distinct().ToList();
-                        var relatedItems = item.UserTrackVote.Where(a => a.TrackId != x).ToList();
-                        foreach (var y in overlappingLikesUsers)
+                        var distinctTrackId = item.UserTrackVote.Where(a => a.Liked == true).Select(a => a.TrackId).ToList();
+                        foreach (var x in distinctTrackId)
                         {
-                            relatedItems.ForEach(a =>
+                            var overlappingLikesUsers = _context.UserTrackVote.Where(a => a.TrackId == x && a.UserId != item.UserId
+                            && a.Liked == true).Select(a => a.UserId).Distinct().ToList();
+                            var relatedItems = item.UserTrackVote.Where(a => a.TrackId != x).ToList();
+                            foreach (var y in overlappingLikesUsers)
                             {
-                                if (a.Liked == true)
+                                relatedItems.ForEach(a =>
                                 {
-                                    data.Add(new TrackRecommendEntry()
+                                    if (a.Liked == true)
                                     {
-                                        TrackId = (uint)x,
-                                        UserId = (uint)y
-                                    });
-                                }
-                            });
+                                        data.Add(new TrackRecommendEntry()
+                                        {
+                                            TrackId = (uint)x,
+                                            UserId = (uint)y
+                                        });
+                                    }
+                                });
+                            }
+
                         }
-                        
                     }
+                    var traindata = mlcontext.Data.LoadFromEnumerable(data);
+                    MatrixFactorizationTrainer.Options options = new MatrixFactorizationTrainer.Options();
+                    options.MatrixColumnIndexColumnName = nameof(TrackRecommendEntry.TrackId);
+                    options.MatrixRowIndexColumnName = nameof(TrackRecommendEntry.UserId);
+                    options.LabelColumnName = "Label";
+                    options.LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass;
+                    options.Alpha = 0.01;
+                    options.Lambda = 0.025;
+                    options.C = 0.00001;
+                    var est = mlcontext.Recommendation().Trainers.MatrixFactorization(options);
+                    model = est.Fit(traindata);
                 }
-                var traindata = mlcontext.Data.LoadFromEnumerable(data);
-                MatrixFactorizationTrainer.Options options = new MatrixFactorizationTrainer.Options();
-                options.MatrixColumnIndexColumnName = nameof(TrackRecommendEntry.TrackId);
-                options.MatrixRowIndexColumnName = nameof(TrackRecommendEntry.UserId);
-                options.LabelColumnName = "Label";
-                options.LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass;
-                options.Alpha = 0.01;
-                options.Lambda = 0.025;
-                options.C = 0.00001;
-                var est = mlcontext.Recommendation().Trainers.MatrixFactorization(options);
-                model = est.Fit(traindata);
-            }
-            var allUsers = _context.UserProfile.ToList();
-            var allTracks = _context.Track.ToList();
-            foreach (var item in allUsers)
-            {
-                var predictionResult = new List<Tuple<Track, float>>();
-                foreach (var x in allTracks)
+                var allUsers = _context.UserProfile.ToList();
+                var allTracks = _context.Track.ToList();
+                foreach (var item in allUsers)
                 {
-                    var predictionengine = mlcontext.Model.CreatePredictionEngine<TrackRecommendEntry, TrackPrediction>(model);
-                    var prediction = predictionengine.Predict(
-                                             new TrackRecommendEntry()
-                                             {
-                                                 UserId = (uint)item.UserId,
-                                                 TrackId = (uint)x.TrackId
-                                             });
-                    predictionResult.Add(new Tuple<Track, float>(x, prediction.Score));
-                }
-                var finalResult = predictionResult.OrderByDescending(x => x.Item2).Select(x => x.Item1).ToList();
-                var usersDiscoveryQueueId = _context.Tracklist.Where(a => a.UserId == item.UserId && a.TracklistName == "My Discovery Queue").
-                    Select(a=>a.TracklistId).FirstOrDefault();
-                var usersHistoryId = _context.Tracklist.Where(a => a.UserId == item.UserId && a.TracklistName == "History").
-                    Select(a => a.TracklistId).FirstOrDefault();
-                var tracksInHistory = _context.TracklistTrack.Where(a => a.TracklistId == usersHistoryId).ToList();
-                foreach (var x in tracksInHistory)
-                {
-                    finalResult.Remove(_context.Track.Find(x.TrackId));
-                }
-                finalResult = finalResult.Take(10).ToList();
-                _context.TracklistTrack.RemoveRange(_context.TracklistTrack.Where(a => a.TracklistId == usersDiscoveryQueueId));
-                _context.SaveChanges();
-                foreach (var x in finalResult)
-                {
-                    _context.TracklistTrack.Add(new TracklistTrack
+                    var predictionResult = new List<Tuple<Track, float>>();
+                    foreach (var x in allTracks)
                     {
-                        DateAdded = DateTime.Now,
-                        TracklistId = usersDiscoveryQueueId,
-                        TrackId = x.TrackId
-                    });
+                        var predictionengine = mlcontext.Model.CreatePredictionEngine<TrackRecommendEntry, TrackPrediction>(model);
+                        var prediction = predictionengine.Predict(
+                                                 new TrackRecommendEntry()
+                                                 {
+                                                     UserId = (uint)item.UserId,
+                                                     TrackId = (uint)x.TrackId
+                                                 });
+                        predictionResult.Add(new Tuple<Track, float>(x, prediction.Score));
+                    }
+                    var finalResult = predictionResult.OrderByDescending(x => x.Item2).Select(x => x.Item1).ToList();
+                    var usersDiscoveryQueueId = _context.Tracklist.Where(a => a.UserId == item.UserId && a.TracklistName == "My Discovery Queue").
+                        Select(a => a.TracklistId).FirstOrDefault();
+                    var usersHistoryId = _context.Tracklist.Where(a => a.UserId == item.UserId && a.TracklistName == "History").
+                        Select(a => a.TracklistId).FirstOrDefault();
+                    var tracksInHistory = _context.TracklistTrack.Where(a => a.TracklistId == usersHistoryId).ToList();
+                    foreach (var x in tracksInHistory)
+                    {
+                        finalResult.Remove(_context.Track.Find(x.TrackId));
+                    }
+                    finalResult = finalResult.Take(10).ToList();
+                    _context.TracklistTrack.RemoveRange(_context.TracklistTrack.Where(a => a.TracklistId == usersDiscoveryQueueId));
+                    _context.SaveChanges();
+                    foreach (var x in finalResult)
+                    {
+                        _context.TracklistTrack.Add(new TracklistTrack
+                        {
+                            DateAdded = DateTime.Now,
+                            TracklistId = usersDiscoveryQueueId,
+                            TrackId = x.TrackId
+                        });
+                    }
+                    _context.SaveChanges();
                 }
-                _context.SaveChanges();
+
             }
-                
-        }
+            catch (Exception)
+            {
+
+            }
+        } 
     }
 }

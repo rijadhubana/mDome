@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +31,25 @@ namespace mDome.API.Helper
             HashAlgorithm algorithm = HashAlgorithm.Create("SHA1");
             byte[] inArray = algorithm.ComputeHash(dst);
             return Convert.ToBase64String(inArray);
+        }
+        public static string GetFilePathJsonData(string fileName)
+        {
+            //string basedir = AppDomain.CurrentDomain.BaseDirectory;
+            //string exeFile = (new System.Uri(Assembly.GetEntryAssembly().CodeBase)).AbsolutePath;
+            string exeFile = AppDomain.CurrentDomain.BaseDirectory;
+            string exeDir = Path.GetDirectoryName(exeFile);
+            //string fullPath = Path.Combine(exeDir, "..\\..\\.." +"\\DataSeedJson\\"+ fileName);
+            string fullPath = exeDir.ToString() + "\\DataSeedJson\\" + fileName;
+            return fullPath;
+        }
+        public static List<T> LoadJsonFromFile<T>(string fileName)
+       {
+            using (StreamReader r = new StreamReader(GetFilePathJsonData(fileName)))
+            {
+                string json = r.ReadToEnd();
+                List<T> items = JsonConvert.DeserializeObject<List<T>>(json);
+                return items;
+            }
         }
 
     }

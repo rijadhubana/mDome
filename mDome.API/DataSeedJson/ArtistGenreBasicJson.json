@@ -1,0 +1,26 @@
+[
+  {
+    "genreId": 2,
+    "artistId": 1
+  },
+  {
+    "genreId": 5,
+    "artistId": 1
+  },
+  {
+    "genreId": 6,
+    "artistId": 1
+  },
+  {
+    "genreId": 8,
+    "artistId": 1
+  },
+  {
+    "genreId": 3,
+    "artistId": 2
+  },
+  {
+    "genreId": 9,
+    "artistId": 2
+  }
+]
