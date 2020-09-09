@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mDome.Model.Requests;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,11 +29,22 @@ namespace mDome.WinUI.Forms
         {
             await AdminsLoad();
         }
-        private async Task AdminsLoad()
+        private async Task AdminsLoad(string searchQuery="")
         {
-            var result = await _adminService.Get<List<Model.AdministratorLogin>>(null);
             dgvAdmins.AutoGenerateColumns = false;
-            dgvAdmins.DataSource = result;
+            if (searchQuery=="")
+            {
+                var result = await _adminService.Get<List<Model.AdministratorLogin>>(null);
+                dgvAdmins.DataSource = result;
+            }
+            else
+            {
+                var result = await _adminService.Get<List<Model.AdministratorLogin>>(new AdminSearchRequest()
+                {
+                    AdminName = searchQuery
+                });
+                dgvAdmins.DataSource = result;
+            }
         }
 
         private void dgvAdmins_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -51,6 +63,11 @@ namespace mDome.WinUI.Forms
             {
                 MessageBox.Show("Item unavailable");
             }
+        }
+
+        private async void btnSearch_Click(object sender, EventArgs e)
+        {
+            await AdminsLoad(txtAdminSearch.Text);
         }
     }
 }

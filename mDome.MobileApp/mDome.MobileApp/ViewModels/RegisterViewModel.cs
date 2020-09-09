@@ -388,7 +388,7 @@ namespace mDome.MobileApp.ViewModels
             if (_album2.AlbumId != 0)
                 request.RecommendedAlbum2 = _album2.AlbumId;
             else request.RecommendedAlbum2 = null;
-            if (_album1.AlbumId != 0)
+            if (_album3.AlbumId != 0)
                 request.RecommendedAlbum3 = _album3.AlbumId;
             else request.RecommendedAlbum3 = null;
             if (_artist1.ArtistId != 0)

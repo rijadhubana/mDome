@@ -19,7 +19,7 @@ namespace mDome.API.Services
             var query = _context.AdministratorLogin.AsQueryable();
             if (!string.IsNullOrWhiteSpace(search?.AdminName))
             {
-                query = query.Where(x => x.AdminName == search.AdminName);
+                query = query.Where(x => x.AdminName.ToLower().Contains(search.AdminName.ToLower()));
             }
             var list = query.ToList();
             return _mapper.Map<List<Model.AdministratorLogin>>(list);

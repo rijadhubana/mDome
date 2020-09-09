@@ -34,6 +34,8 @@
             this.AdministratorName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtAdminSearch = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdmins)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,7 +78,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(13, 37);
+            this.btnAdd.Location = new System.Drawing.Point(13, 444);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(240, 31);
             this.btnAdd.TabIndex = 1;
@@ -93,11 +95,30 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Administrators";
             // 
+            // txtAdminSearch
+            // 
+            this.txtAdminSearch.Location = new System.Drawing.Point(13, 46);
+            this.txtAdminSearch.Name = "txtAdminSearch";
+            this.txtAdminSearch.Size = new System.Drawing.Size(146, 22);
+            this.txtAdminSearch.TabIndex = 3;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(178, 38);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 30);
+            this.btnSearch.TabIndex = 4;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // frmAdministratorList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(276, 450);
+            this.ClientSize = new System.Drawing.Size(276, 484);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.txtAdminSearch);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dgvAdmins);
@@ -118,5 +139,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn AdministratorId;
         private System.Windows.Forms.DataGridViewTextBoxColumn AdministratorName;
+        private System.Windows.Forms.TextBox txtAdminSearch;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
