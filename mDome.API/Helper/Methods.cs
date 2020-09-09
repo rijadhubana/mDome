@@ -34,12 +34,9 @@ namespace mDome.API.Helper
         }
         public static string GetFilePathJsonData(string fileName)
         {
-            //string basedir = AppDomain.CurrentDomain.BaseDirectory;
-            //string exeFile = (new System.Uri(Assembly.GetEntryAssembly().CodeBase)).AbsolutePath;
             string exeFile = AppDomain.CurrentDomain.BaseDirectory;
             string exeDir = Path.GetDirectoryName(exeFile);
-            //string fullPath = Path.Combine(exeDir, "..\\..\\.." +"\\DataSeedJson\\"+ fileName);
-            string fullPath = exeDir.ToString() + "\\DataSeedJson\\" + fileName;
+            string fullPath = exeDir.ToString() + "/DataSeedJson/" + fileName;
             return fullPath;
         }
         public static List<T> LoadJsonFromFile<T>(string fileName)
