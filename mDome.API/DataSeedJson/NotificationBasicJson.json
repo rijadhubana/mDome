@@ -1,0 +1,14 @@
+[
+  {
+    "notificationId": 9,
+    "notifText": "This is a notification",
+    "notifDateTime": "2020-09-10T10:37:04.89",
+    "userId": 8
+  },
+  {
+    "notificationId": 10,
+    "notifText": "This is another notification",
+    "notifDateTime": "2020-09-10T10:37:04.89",
+    "userId": 8
+  }
+]

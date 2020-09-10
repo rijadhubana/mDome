@@ -33,6 +33,10 @@ namespace mDome.API.Database
                 ("AlbumListBasicJson.json"));
             modelBuilder.Entity<Tracklist>().HasData(Helper.Methods.LoadJsonFromFile<Tracklist>
                 ("TracklistBasicJson.json"));
+            modelBuilder.Entity<Request>().HasData(Helper.Methods.LoadJsonFromFile<Request>
+                ("RequestBasicJson.json"));
+            modelBuilder.Entity<Notification>().HasData(Helper.Methods.LoadJsonFromFile<Notification>
+                ("NotificationBasicJson.json"));
         }
     }
 }
