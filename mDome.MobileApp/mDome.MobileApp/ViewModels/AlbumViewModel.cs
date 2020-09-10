@@ -350,6 +350,11 @@ namespace mDome.MobileApp.ViewModels
         private async Task SetWebViewSource()
         {
             var TracksFromAlbum = await _trackService.Get<List<Model.Track>>(new TrackSearchRequest() { AlbumId = AlbumId });
+            if (TracksFromAlbum.Count==0)
+            {
+                WebViewString = "https://www.youtube.com/embed/";
+                return;
+            }
             WebViewString = "https://www.youtube.com/embed/" + TracksFromAlbum.ElementAt(0).TrackYoutubeId + "?playlist=";
             foreach (var item in TracksFromAlbum)
             {

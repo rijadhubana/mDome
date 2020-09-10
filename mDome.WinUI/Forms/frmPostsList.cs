@@ -48,9 +48,18 @@ namespace mDome.WinUI.Forms
         }
         private async Task LoadPosts(int? artistId = null, int? userId=null, bool? chbChecked=null)
         {
-            var result = await _postService.Get<List<Model.Post>>(new PostSearchRequest()
-            { ArtistRelatedId = artistId, IsGlobal = chbChecked, UserRelatedId = userId });
-            dgvPosts.DataSource = result;
+            if (artistId==null && userId==null && chbChecked==null)
+            {
+                var result = _postService.Get<List<Model.Post>>(null);
+                dgvPosts.DataSource = result;
+            }
+            else
+            {
+                var result = await _postService.Get<List<Model.Post>>(new PostSearchRequest()
+                { ArtistRelatedId = artistId, IsGlobal = chbChecked, UserRelatedId = userId });
+                dgvPosts.DataSource = result;
+            }
+            
         }
         private async void cmbArtists_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -87,7 +96,7 @@ namespace mDome.WinUI.Forms
             frmPostDetails frm = new frmPostDetails();
             frm.refreshHandler += async (object s, object q) =>
             {
-                await LoadPosts();
+                await LoadPosts(_artistId,_userId,_chbChecked);
             };
             frm.Show();
         }
@@ -98,6 +107,10 @@ namespace mDome.WinUI.Forms
             {
                 var id = dgvPosts.SelectedRows[0].Cells[0].Value;
                 frmPostDetails frm = new frmPostDetails(int.Parse(id.ToString()));
+                frm.refreshHandler += async (object s, object q) =>
+                {
+                    await LoadPosts(_artistId, _userId, _chbChecked);
+                };
                 frm.Show();
             }
             catch (Exception)

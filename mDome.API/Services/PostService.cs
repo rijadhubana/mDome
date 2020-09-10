@@ -43,6 +43,11 @@ namespace mDome.API.Services
             _context.SaveChanges();
             var entity = _context.Post.Find(Id);
             var x = entity;
+            if (entity.ReviewRelatedId.HasValue)
+            {
+                _context.Review.Remove(_context.Review.Find(entity.ReviewRelatedId));
+                _context.SaveChanges();
+            }
             _context.Post.Remove(entity);
             _context.SaveChanges();
             return _mapper.Map<Model.Post>(x);
