@@ -70,7 +70,7 @@ namespace mDome.API.Services
                 _context.UserAlbumVote.RemoveRange(_context.UserAlbumVote.Where(a => a.AlbumId == albumId));
                 _context.SaveChanges();
                 //review related (postlike,postcomments,post,reviews)
-                var listReviews = _context.Review.Where(a => a.AlbumId == albumId);
+                var listReviews = _context.Review.Where(a => a.AlbumId == albumId).ToList();
                 foreach (var item in listReviews)
                 {
                     //only one post is related to a single review
@@ -94,15 +94,15 @@ namespace mDome.API.Services
                     _context.Track.Remove(item);
                 }
                 _context.SaveChanges();
-                var listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum1 == albumId);
+                var listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum1 == albumId).ToList();
                 foreach (var item in listUsers)
                     item.RecommendedAlbum1 = null;
                 _context.SaveChanges();
-                listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum2 == albumId);
+                listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum2 == albumId).ToList();
                 foreach (var item in listUsers)
                     item.RecommendedAlbum2 = null;
                 _context.SaveChanges();
-                listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum3 == albumId);
+                listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum3 == albumId).ToList();
                 foreach (var item in listUsers)
                     item.RecommendedAlbum3 = null;
                 _context.SaveChanges();
@@ -110,7 +110,7 @@ namespace mDome.API.Services
                 _context.SaveChanges();
             }
             //deleting all artist related posts 
-            var listPosts = _context.Post.Where(a => a.ArtistRelatedId == artistId);
+            var listPosts = _context.Post.Where(a => a.ArtistRelatedId == artistId).ToList();
             foreach (var item in listPosts)
             {
                 _context.UserLikePost.RemoveRange(_context.UserLikePost.Where(a => a.PostId == item.PostId));
@@ -123,15 +123,15 @@ namespace mDome.API.Services
             _context.ArtistGenre.RemoveRange(_context.ArtistGenre.Where(a => a.ArtistId == artistId));
             _context.UserFollowsArtist.RemoveRange(_context.UserFollowsArtist.Where(a => a.ArtistId == artistId));
             _context.SaveChanges();
-            var listUsersA = _context.UserProfile.Where(a => a.RecommendedArtist1 == artistId);
+            var listUsersA = _context.UserProfile.Where(a => a.RecommendedArtist1 == artistId).ToList();
             foreach (var item in listUsersA)
                 item.RecommendedArtist1 = null;
             _context.SaveChanges();
-            listUsersA = _context.UserProfile.Where(a => a.RecommendedArtist2 == artistId);
+            listUsersA = _context.UserProfile.Where(a => a.RecommendedArtist2 == artistId).ToList();
             foreach (var item in listUsersA)
                 item.RecommendedArtist2 = null;
             _context.SaveChanges();
-            listUsersA = _context.UserProfile.Where(a => a.RecommendedArtist3 == artistId);
+            listUsersA = _context.UserProfile.Where(a => a.RecommendedArtist3 == artistId).ToList();
             foreach (var item in listUsersA)
                 item.RecommendedArtist3 = null;
             _context.SaveChanges();

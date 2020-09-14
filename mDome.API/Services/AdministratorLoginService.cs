@@ -39,14 +39,6 @@ namespace mDome.API.Services
         public override Model.AdministratorLogin Insert(AdminUpsertRequest request)
         {
             var entity = _mapper.Map<Database.AdministratorLogin>(request);
-            if (request.PasswordClear != request.PasswordClearConfirm)
-            {
-                throw new Exception("Passwords do not match!");
-            }
-            if (_context.AdministratorLogin.Where(a=>a.AdminName==request.AdminName).FirstOrDefault()!=null)
-            {
-                throw new Exception("An administrator with the same name already exists!");
-            }
             entity.PasswordSalt = Helper.Methods.GenerateSalt();
             entity.PasswordHash = Helper.Methods.GenerateHash(entity.PasswordSalt, request.PasswordClear);
             _context.AdministratorLogin.Add(entity);
@@ -57,14 +49,6 @@ namespace mDome.API.Services
         {
             var entity = _context.AdministratorLogin.Find(id);
             _mapper.Map(request, entity);
-            if (request.PasswordClear != request.PasswordClearConfirm)
-            {
-                throw new Exception("Passwords do not match!");
-            }
-            if (_context.AdministratorLogin.Where(a => a.AdminName == request.AdminName).FirstOrDefault() != null)
-            {
-                throw new Exception("An administrator with the same name already exists!");
-            }
             entity.PasswordSalt = Helper.Methods.GenerateSalt();
             entity.PasswordHash = Helper.Methods.GenerateHash(entity.PasswordSalt, request.PasswordClear);
             entity.AdminName = request.AdminName;

@@ -93,23 +93,26 @@ namespace mDome.WinUI.Forms
         {
             if (this.ValidateChildren())
             {
+                if (txtPassword.Text != txtPasswordConfirm.Text)
+                {
+                    MessageBox.Show("Passwords do not match");
+                    return;
+                }
                 AdminUpsertRequest request = new AdminUpsertRequest()
                 {
                     AdminName = txtName.Text,
                     PasswordClear = txtPassword.Text,
                     PasswordClearConfirm = txtPasswordConfirm.Text
                 };
-                try
+                var adminList = await _adminService.Get<List<AdministratorLogin>>(null);
+                if (adminList.Where(x=>x.AdminName==request.AdminName)!=null)
                 {
-                    await _adminService.Insert<Model.AdministratorLogin>(request);
-                    refreshHandler?.Invoke(this, null);
-                    MessageBox.Show("Task successful");
-
+                    MessageBox.Show("Admin with same name already exists!");
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                }
+                await _adminService.Insert<Model.AdministratorLogin>(request);
+                refreshHandler?.Invoke(this, null);
+                MessageBox.Show("Task successful");
                 this.Close();
             }
         }

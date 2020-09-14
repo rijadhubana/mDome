@@ -38,10 +38,6 @@ namespace mDome.API.Services
         public override Model.AlbumList Insert(AlbumListUpsertRequest request)
         {
             var entity = _mapper.Map<Database.AlbumList>(request);
-            if (_context.AlbumList.Where(a => a.AlbumListName == request.AlbumListName && a.UniqueKey == request.UniqueKey).FirstOrDefault() != null)
-            {
-                throw new Exception("Please change the unique key or tracklist name.");
-            }
             _context.AlbumList.Add(entity);
             _context.SaveChanges();
             return _mapper.Map<Model.AlbumList>(entity);
@@ -49,9 +45,6 @@ namespace mDome.API.Services
         public override Model.AlbumList Update(int id, AlbumListUpsertRequest request)
         {
             var entity = _context.AlbumList.Find(id);
-            if (_context.AlbumList.Where(a => a.AlbumListName == request.AlbumListName && a.UniqueKey == request.UniqueKey
-            && a.AlbumListId != id).FirstOrDefault() != null)
-                throw new Exception("Please change the unique key or tracklist name.");
             _context.Set<Database.AlbumList>().Attach(entity);
             _mapper.Map(request, entity);
             _context.SaveChanges();

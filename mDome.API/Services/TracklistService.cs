@@ -52,10 +52,6 @@ namespace mDome.API.Services
         public override Model.Tracklist Insert(TracklistUpsertRequest request)
         {
             var entity = _mapper.Map<Database.Tracklist>(request);
-            if (_context.Tracklist.Where(a=>a.TracklistName == request.TracklistName && a.UniqueKey==request.UniqueKey).FirstOrDefault() != null)
-            {
-                throw new Exception("Please change the tracklist name or unique key!");
-            }
             _context.Tracklist.Add(entity);
             _context.SaveChanges();
             return _mapper.Map<Model.Tracklist>(entity);
@@ -63,9 +59,6 @@ namespace mDome.API.Services
         public override Model.Tracklist Update(int id, TracklistUpsertRequest request)
         {
             var entity = _context.Tracklist.Find(id);
-            if (_context.Tracklist.Where(a => a.TracklistName == request.TracklistName && a.UniqueKey == request.UniqueKey
-            && a.TracklistId != id).FirstOrDefault() != null)
-                throw new Exception("Please change the unique key or tracklist name.");
             _context.Set<Database.Tracklist>().Attach(entity);
             _mapper.Map(request, entity);
             _context.SaveChanges();

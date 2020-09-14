@@ -58,15 +58,15 @@ namespace mDome.API.Services
                 _context.Track.Remove(item);
             }
             _context.SaveChanges();
-            var listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum1 == albumId);
+            var listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum1 == albumId).ToList();
             foreach (var item in listUsers)
                 item.RecommendedAlbum1 = null;
             _context.SaveChanges();
-            listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum2 == albumId);
+            listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum2 == albumId).ToList();
             foreach (var item in listUsers)
                 item.RecommendedAlbum2 = null;
             _context.SaveChanges();
-            listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum3 == albumId);
+            listUsers = _context.UserProfile.Where(a => a.RecommendedAlbum3 == albumId).ToList();
             foreach (var item in listUsers)
                 item.RecommendedAlbum3 = null;
             _context.SaveChanges();

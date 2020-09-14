@@ -31,27 +31,39 @@ namespace mDome.WinUI.Forms
 
         private async void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (this.ValidateChildren() && txtOldPass.Text==APIService.Password)
+            if (this.ValidateChildren())
             {
+                if (txtOldPass.Text!=APIService.Password)
+                {
+                    MessageBox.Show("Incorrect old password!");
+                    return;
+                }
+                if (txtNewPass.Text != txtNewPassConfirm.Text)
+                {
+                    MessageBox.Show("Passwords do not match!");
+                    return;
+                }
                 AdminUpsertRequest request = new AdminUpsertRequest()
                 {
                     AdminName = txtName.Text,
                     PasswordClear = txtNewPass.Text,
                     PasswordClearConfirm = txtNewPassConfirm.Text
                 };
-                try
+                var adminList = await _adminService.Get<List<AdministratorLogin>>(null);
+                var check = adminList.Where(a => a.AdminName == request.AdminName).FirstOrDefault();
+                if (check!=null)
                 {
-                    await _adminService.Update<Model.AdministratorLogin>(_thisAdmin.AdministratorId,request);
-                    MessageBox.Show("Task successful");
-                    APIService.Username = request.AdminName;
-                    APIService.Password = request.PasswordClear;
+                    if (check.AdministratorId!=_thisAdmin.AdministratorId)
+                    {
+                        MessageBox.Show("Administrator with same name already exists");
+                        return;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                await _adminService.Update<Model.AdministratorLogin>(_thisAdmin.AdministratorId,request);
+                MessageBox.Show("Task successful");
+                APIService.Username = request.AdminName;
+                APIService.Password = request.PasswordClear;
                 this.Close();
-
             }
         }
 
