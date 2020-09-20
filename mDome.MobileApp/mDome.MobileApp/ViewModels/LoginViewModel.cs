@@ -13,6 +13,7 @@ namespace mDome.MobileApp.ViewModels
     class LoginViewModel : BaseViewModel
     {
         private readonly APIService _userService = new APIService("UserProfile");
+        private readonly APIService _loginLogTableService = new APIService("LoginLogTable");
         public LoginViewModel()
         {
             LoginCommand = new Command(async () => await Login());
@@ -55,6 +56,12 @@ namespace mDome.MobileApp.ViewModels
                     IsBusy = false;
                     return;
                 }
+                await _loginLogTableService.Insert<Model.LoginLogTable>(new LoginLogUpsertRequest()
+                {
+                    DateOfLogin = DateTime.Now,
+                    NameOfUser = APIService.Username,
+                    UserId = APIService.loggedProfile.UserId
+                });
                 Application.Current.MainPage = new MasterPage(new NavigationPage(new NewsFeedPage()));
             }
             catch (Exception)

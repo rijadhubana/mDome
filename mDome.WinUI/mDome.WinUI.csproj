@@ -126,6 +126,12 @@
     <Compile Include="Forms\frmChangeCredentials.Designer.cs">
       <DependentUpon>frmChangeCredentials.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDashboard.Designer.cs">
+      <DependentUpon>frmDashboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmGenreDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChangeCredentials.resx">
       <DependentUpon>frmChangeCredentials.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDashboard.resx">
+      <DependentUpon>frmDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmGenreDetails.resx">
       <DependentUpon>frmGenreDetails.cs</DependentUpon>

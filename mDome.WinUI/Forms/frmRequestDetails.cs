@@ -51,14 +51,21 @@ namespace mDome.WinUI.Forms
                                      MessageBoxButtons.YesNo);
                 if (confirmResult == DialogResult.Yes)
                 {
+                    string solved = "";
+                    if (chbSolved.Checked == true)
+                    {
+                        solved = "Request solved! Message from admin: \n";
+                    }
+                    else solved = "Request denied! Message from admin \n";
                     NotificationUpsertRequest requestAdd = new NotificationUpsertRequest()
                     {
                         UserId = _selectedRequest.UserId,
                         NotifDateTime = DateTime.Now,
-                        NotifText = txtNotify.Text
+                        NotifText = solved + txtNotify.Text
                     };
                     await _notificationService.Insert<Model.Notification>(requestAdd);
                     await _requestService.Delete<Model.Request>(_selectedRequest.RequestId);
+                    MessageBox.Show("Task successful");
                     refreshHandler?.Invoke(this,null);
                     this.Close();
                 }

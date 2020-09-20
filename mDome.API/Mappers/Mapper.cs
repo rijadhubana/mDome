@@ -54,6 +54,8 @@ namespace mDome.API.Mappers
             CreateMap<Database.UserTrackVote, UserTrackVoteUpsertRequest>().ReverseMap();
             CreateMap<Database.Review, Model.Review>();
             CreateMap<Database.Review, ReviewUpsertRequest>().ReverseMap();
+            CreateMap<Database.LoginLogTable, Model.LoginLogTable>();
+            CreateMap<Database.LoginLogTable, LoginLogUpsertRequest>().ReverseMap();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace mDome.API.Database
         public UserProfile()
         {
             AlbumList = new HashSet<AlbumList>();
+            LoginLogTable = new HashSet<LoginLogTable>();
             Notification = new HashSet<Notification>();
             Post = new HashSet<Post>();
             Request = new HashSet<Request>();
@@ -46,6 +47,7 @@ namespace mDome.API.Database
         public virtual Artist RecommendedArtist2Navigation { get; set; }
         public virtual Artist RecommendedArtist3Navigation { get; set; }
         public virtual ICollection<AlbumList> AlbumList { get; set; }
+        public virtual ICollection<LoginLogTable> LoginLogTable { get; set; }
         public virtual ICollection<Notification> Notification { get; set; }
         public virtual ICollection<Post> Post { get; set; }
         public virtual ICollection<Request> Request { get; set; }

@@ -38,6 +38,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnAddPost = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.PostId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PostTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PostDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PostPhoto = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPosts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,6 +50,11 @@
             this.dgvPosts.AllowUserToAddRows = false;
             this.dgvPosts.AllowUserToDeleteRows = false;
             this.dgvPosts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPosts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PostId,
+            this.PostTitle,
+            this.PostDateTime,
+            this.PostPhoto});
             this.dgvPosts.Location = new System.Drawing.Point(13, 232);
             this.dgvPosts.Name = "dgvPosts";
             this.dgvPosts.ReadOnly = true;
@@ -131,6 +140,43 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Search Related Parameters";
             // 
+            // PostId
+            // 
+            this.PostId.DataPropertyName = "PostId";
+            this.PostId.HeaderText = "PostId";
+            this.PostId.MinimumWidth = 6;
+            this.PostId.Name = "PostId";
+            this.PostId.ReadOnly = true;
+            this.PostId.Visible = false;
+            this.PostId.Width = 125;
+            // 
+            // PostTitle
+            // 
+            this.PostTitle.DataPropertyName = "PostTitle";
+            this.PostTitle.HeaderText = "Post Title";
+            this.PostTitle.MinimumWidth = 6;
+            this.PostTitle.Name = "PostTitle";
+            this.PostTitle.ReadOnly = true;
+            this.PostTitle.Width = 125;
+            // 
+            // PostDateTime
+            // 
+            this.PostDateTime.DataPropertyName = "PostDateTime";
+            this.PostDateTime.HeaderText = "Post Date";
+            this.PostDateTime.MinimumWidth = 6;
+            this.PostDateTime.Name = "PostDateTime";
+            this.PostDateTime.ReadOnly = true;
+            this.PostDateTime.Width = 125;
+            // 
+            // PostPhoto
+            // 
+            this.PostPhoto.DataPropertyName = "PostPhoto";
+            this.PostPhoto.HeaderText = "Post Photo";
+            this.PostPhoto.MinimumWidth = 6;
+            this.PostPhoto.Name = "PostPhoto";
+            this.PostPhoto.ReadOnly = true;
+            this.PostPhoto.Width = 125;
+            // 
             // frmPostsList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -166,5 +212,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAddPost;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PostId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PostTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PostDateTime;
+        private System.Windows.Forms.DataGridViewImageColumn PostPhoto;
     }
 }

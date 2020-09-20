@@ -37,6 +37,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnAddArtist = new System.Windows.Forms.Button();
+            this.ArtistId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArtistName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArtistMembers = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArtistPhotoThumb = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArtists)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,6 +49,11 @@
             this.dgvArtists.AllowUserToAddRows = false;
             this.dgvArtists.AllowUserToDeleteRows = false;
             this.dgvArtists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvArtists.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ArtistId,
+            this.ArtistName,
+            this.ArtistMembers,
+            this.ArtistPhotoThumb});
             this.dgvArtists.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvArtists.Location = new System.Drawing.Point(12, 249);
             this.dgvArtists.Name = "dgvArtists";
@@ -118,6 +127,43 @@
             this.btnAddArtist.UseVisualStyleBackColor = true;
             this.btnAddArtist.Click += new System.EventHandler(this.btnAddArtist_Click);
             // 
+            // ArtistId
+            // 
+            this.ArtistId.DataPropertyName = "ArtistId";
+            this.ArtistId.HeaderText = "ArtistId";
+            this.ArtistId.MinimumWidth = 6;
+            this.ArtistId.Name = "ArtistId";
+            this.ArtistId.ReadOnly = true;
+            this.ArtistId.Visible = false;
+            this.ArtistId.Width = 125;
+            // 
+            // ArtistName
+            // 
+            this.ArtistName.DataPropertyName = "ArtistName";
+            this.ArtistName.HeaderText = "Artist Name";
+            this.ArtistName.MinimumWidth = 6;
+            this.ArtistName.Name = "ArtistName";
+            this.ArtistName.ReadOnly = true;
+            this.ArtistName.Width = 125;
+            // 
+            // ArtistMembers
+            // 
+            this.ArtistMembers.DataPropertyName = "ArtistMembers";
+            this.ArtistMembers.HeaderText = "Members";
+            this.ArtistMembers.MinimumWidth = 6;
+            this.ArtistMembers.Name = "ArtistMembers";
+            this.ArtistMembers.ReadOnly = true;
+            this.ArtistMembers.Width = 125;
+            // 
+            // ArtistPhotoThumb
+            // 
+            this.ArtistPhotoThumb.DataPropertyName = "ArtistPhotoThumb";
+            this.ArtistPhotoThumb.HeaderText = "Artist Photo";
+            this.ArtistPhotoThumb.MinimumWidth = 6;
+            this.ArtistPhotoThumb.Name = "ArtistPhotoThumb";
+            this.ArtistPhotoThumb.ReadOnly = true;
+            this.ArtistPhotoThumb.Width = 125;
+            // 
             // frmArtistList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -151,5 +197,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnAddArtist;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ArtistId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ArtistName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ArtistMembers;
+        private System.Windows.Forms.DataGridViewImageColumn ArtistPhotoThumb;
     }
 }

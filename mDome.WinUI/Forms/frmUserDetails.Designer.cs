@@ -45,6 +45,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtSuspended = new System.Windows.Forms.TextBox();
             this.btnSuspend = new System.Windows.Forms.Button();
+            this.btnRecoverPassword = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbWallpaper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserPhoto)).BeginInit();
             this.SuspendLayout();
@@ -180,7 +181,7 @@
             // 
             // btnSuspend
             // 
-            this.btnSuspend.Location = new System.Drawing.Point(315, 371);
+            this.btnSuspend.Location = new System.Drawing.Point(315, 329);
             this.btnSuspend.Name = "btnSuspend";
             this.btnSuspend.Size = new System.Drawing.Size(200, 35);
             this.btnSuspend.TabIndex = 15;
@@ -188,11 +189,22 @@
             this.btnSuspend.UseVisualStyleBackColor = true;
             this.btnSuspend.Click += new System.EventHandler(this.btnSuspend_Click);
             // 
+            // btnRecoverPassword
+            // 
+            this.btnRecoverPassword.Location = new System.Drawing.Point(315, 371);
+            this.btnRecoverPassword.Name = "btnRecoverPassword";
+            this.btnRecoverPassword.Size = new System.Drawing.Size(200, 35);
+            this.btnRecoverPassword.TabIndex = 16;
+            this.btnRecoverPassword.Text = "Recover Password";
+            this.btnRecoverPassword.UseVisualStyleBackColor = true;
+            this.btnRecoverPassword.Click += new System.EventHandler(this.btnRecoverPassword_Click);
+            // 
             // frmUserDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(570, 450);
+            this.Controls.Add(this.btnRecoverPassword);
             this.Controls.Add(this.btnSuspend);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txtSuspended);
@@ -238,5 +250,6 @@
         private System.Windows.Forms.TextBox txtSuspended;
         private System.Windows.Forms.Button btnSuspend;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnRecoverPassword;
     }
 }

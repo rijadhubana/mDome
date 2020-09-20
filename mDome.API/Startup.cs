@@ -97,6 +97,7 @@ namespace mDome.API
             services.AddScoped<ICRUDService<Model.AlbumListAlbum, AlbumListAlbumSearchRequest, AlbumListAlbumUpsertRequest, AlbumListAlbumUpsertRequest>, AlbumListAlbumService>();
             services.AddScoped<ICRUDService<Model.UserAlbumVote, UserAlbumVoteSearchRequest, UserAlbumVoteUpsertRequest, UserAlbumVoteUpsertRequest>, UserAlbumVoteService>();
             services.AddScoped<ICRUDService<Model.UserTrackVote, UserTrackVoteSearchRequest, UserTrackVoteUpsertRequest, UserTrackVoteUpsertRequest>, UserTrackVoteService>();
+            services.AddScoped<ICRUDService<Model.LoginLogTable,LoginLogSearchRequest,LoginLogUpsertRequest,LoginLogUpsertRequest>,LoginLogTableService>();
             #endregion
             services.AddScoped<IRecommendService, RecommendService>();
 

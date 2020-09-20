@@ -41,6 +41,10 @@
             this.lbl = new System.Windows.Forms.Label();
             this.txtRatingTo = new System.Windows.Forms.TextBox();
             this.btnSearchReviews = new System.Windows.Forms.Button();
+            this.ReviewId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReviewText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReviewRating = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FavouriteTracks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReviews)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,6 +53,11 @@
             this.dgvReviews.AllowUserToAddRows = false;
             this.dgvReviews.AllowUserToDeleteRows = false;
             this.dgvReviews.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvReviews.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ReviewId,
+            this.ReviewText,
+            this.ReviewRating,
+            this.FavouriteTracks});
             this.dgvReviews.Location = new System.Drawing.Point(13, 176);
             this.dgvReviews.Name = "dgvReviews";
             this.dgvReviews.ReadOnly = true;
@@ -157,6 +166,43 @@
             this.btnSearchReviews.UseVisualStyleBackColor = true;
             this.btnSearchReviews.Click += new System.EventHandler(this.btnSearchReviews_Click);
             // 
+            // ReviewId
+            // 
+            this.ReviewId.DataPropertyName = "ReviewId";
+            this.ReviewId.HeaderText = "ReviewId";
+            this.ReviewId.MinimumWidth = 6;
+            this.ReviewId.Name = "ReviewId";
+            this.ReviewId.ReadOnly = true;
+            this.ReviewId.Visible = false;
+            this.ReviewId.Width = 125;
+            // 
+            // ReviewText
+            // 
+            this.ReviewText.DataPropertyName = "ReviewText";
+            this.ReviewText.HeaderText = "Review Text";
+            this.ReviewText.MinimumWidth = 6;
+            this.ReviewText.Name = "ReviewText";
+            this.ReviewText.ReadOnly = true;
+            this.ReviewText.Width = 125;
+            // 
+            // ReviewRating
+            // 
+            this.ReviewRating.DataPropertyName = "Rating";
+            this.ReviewRating.HeaderText = "Review Rating";
+            this.ReviewRating.MinimumWidth = 6;
+            this.ReviewRating.Name = "ReviewRating";
+            this.ReviewRating.ReadOnly = true;
+            this.ReviewRating.Width = 125;
+            // 
+            // FavouriteTracks
+            // 
+            this.FavouriteTracks.DataPropertyName = "FavouriteSongs";
+            this.FavouriteTracks.HeaderText = "FavouriteTracks";
+            this.FavouriteTracks.MinimumWidth = 6;
+            this.FavouriteTracks.Name = "FavouriteTracks";
+            this.FavouriteTracks.ReadOnly = true;
+            this.FavouriteTracks.Width = 125;
+            // 
             // frmReviewList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -198,5 +244,9 @@
         private System.Windows.Forms.Label lbl;
         private System.Windows.Forms.TextBox txtRatingTo;
         private System.Windows.Forms.Button btnSearchReviews;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ReviewId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ReviewText;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ReviewRating;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FavouriteTracks;
     }
 }

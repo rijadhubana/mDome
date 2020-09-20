@@ -18,7 +18,7 @@ namespace mDome.WinUI
         public frmIndex()
         {
             InitializeComponent();
-            frmAbout frm = new frmAbout();
+            frmDashboard frm = new frmDashboard();
             frm.MdiParent = this;
             frm.WindowState = FormWindowState.Maximized;
             frm.Show();
@@ -157,6 +157,13 @@ namespace mDome.WinUI
         private void userListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmUserList frm = new frmUserList();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void dashboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDashboard frm = new frmDashboard();
             frm.MdiParent = this;
             frm.Show();
         }

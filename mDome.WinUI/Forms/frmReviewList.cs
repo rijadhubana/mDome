@@ -36,11 +36,13 @@ namespace mDome.WinUI.Forms
             if (albumId==null && ratingFrom==null && ratingTo==null)
             {
                 var result = await _reviewService.Get<List<Model.Review>>(null);
+                dgvReviews.AutoGenerateColumns = false;
                 dgvReviews.DataSource = result;
             }
             else
             {
                 var result = await _reviewService.Get<List<Model.Review>>(request);
+                dgvReviews.AutoGenerateColumns = false;
                 dgvReviews.DataSource = result;
             }
             

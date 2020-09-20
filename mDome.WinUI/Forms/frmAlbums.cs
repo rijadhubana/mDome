@@ -34,6 +34,7 @@ namespace mDome.WinUI.Forms
                 AlbumName = name,
                 ArtistId = (int)_artistId
             });
+            dgvAlbums.AutoGenerateColumns = false;
             dgvAlbums.DataSource = result;
         }
 

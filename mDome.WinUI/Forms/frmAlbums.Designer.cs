@@ -35,6 +35,11 @@
             this.txtAlbumName = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnAddAlbum = new System.Windows.Forms.Button();
+            this.AlbumId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlbumName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlbumGeneratedRating = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlbumPhotoThumb = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DateReleased = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlbums)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,6 +48,12 @@
             this.dgvAlbums.AllowUserToAddRows = false;
             this.dgvAlbums.AllowUserToDeleteRows = false;
             this.dgvAlbums.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAlbums.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AlbumId,
+            this.AlbumName,
+            this.AlbumGeneratedRating,
+            this.AlbumPhotoThumb,
+            this.DateReleased});
             this.dgvAlbums.Location = new System.Drawing.Point(12, 188);
             this.dgvAlbums.Name = "dgvAlbums";
             this.dgvAlbums.ReadOnly = true;
@@ -98,6 +109,54 @@
             this.btnAddAlbum.UseVisualStyleBackColor = true;
             this.btnAddAlbum.Click += new System.EventHandler(this.btnAddAlbum_Click);
             // 
+            // AlbumId
+            // 
+            this.AlbumId.DataPropertyName = "AlbumId";
+            this.AlbumId.HeaderText = "AlbumId";
+            this.AlbumId.MinimumWidth = 6;
+            this.AlbumId.Name = "AlbumId";
+            this.AlbumId.ReadOnly = true;
+            this.AlbumId.Visible = false;
+            this.AlbumId.Width = 125;
+            // 
+            // AlbumName
+            // 
+            this.AlbumName.DataPropertyName = "AlbumName";
+            this.AlbumName.HeaderText = "Album Name";
+            this.AlbumName.MinimumWidth = 6;
+            this.AlbumName.Name = "AlbumName";
+            this.AlbumName.ReadOnly = true;
+            this.AlbumName.Width = 125;
+            // 
+            // AlbumGeneratedRating
+            // 
+            this.AlbumGeneratedRating.DataPropertyName = "AlbumGeneratedRating";
+            this.AlbumGeneratedRating.HeaderText = "Album Rating";
+            this.AlbumGeneratedRating.MinimumWidth = 6;
+            this.AlbumGeneratedRating.Name = "AlbumGeneratedRating";
+            this.AlbumGeneratedRating.ReadOnly = true;
+            this.AlbumGeneratedRating.Width = 125;
+            // 
+            // AlbumPhotoThumb
+            // 
+            this.AlbumPhotoThumb.DataPropertyName = "AlbumPhotoThumb";
+            this.AlbumPhotoThumb.HeaderText = "Album Photo";
+            this.AlbumPhotoThumb.MinimumWidth = 6;
+            this.AlbumPhotoThumb.Name = "AlbumPhotoThumb";
+            this.AlbumPhotoThumb.ReadOnly = true;
+            this.AlbumPhotoThumb.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AlbumPhotoThumb.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.AlbumPhotoThumb.Width = 125;
+            // 
+            // DateReleased
+            // 
+            this.DateReleased.DataPropertyName = "DateReleased";
+            this.DateReleased.HeaderText = "Date Released";
+            this.DateReleased.MinimumWidth = 6;
+            this.DateReleased.Name = "DateReleased";
+            this.DateReleased.ReadOnly = true;
+            this.DateReleased.Width = 125;
+            // 
             // frmAlbums
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -127,5 +186,10 @@
         private System.Windows.Forms.TextBox txtAlbumName;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnAddAlbum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlbumId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlbumName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlbumGeneratedRating;
+        private System.Windows.Forms.DataGridViewImageColumn AlbumPhotoThumb;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateReleased;
     }
 }

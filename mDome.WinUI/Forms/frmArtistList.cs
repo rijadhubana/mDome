@@ -62,6 +62,7 @@ namespace mDome.WinUI.Forms
             {
                 artistList = artistList.Where(a => a.ArtistName.StartsWith(search)).ToList();
             }
+            dgvArtists.AutoGenerateColumns = false;
             dgvArtists.DataSource = artistList;
         }
 

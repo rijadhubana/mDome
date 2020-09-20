@@ -51,12 +51,14 @@ namespace mDome.WinUI.Forms
             if (artistId==null && userId==null && chbChecked==null)
             {
                 var result = _postService.Get<List<Model.Post>>(null);
+                dgvPosts.AutoGenerateColumns = false;
                 dgvPosts.DataSource = result;
             }
             else
             {
                 var result = await _postService.Get<List<Model.Post>>(new PostSearchRequest()
                 { ArtistRelatedId = artistId, IsGlobal = chbChecked, UserRelatedId = userId });
+                dgvPosts.AutoGenerateColumns = false;
                 dgvPosts.DataSource = result;
             }
             

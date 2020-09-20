@@ -39,6 +39,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtNotify = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.chbSolved = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,11 +64,11 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(11, 395);
+            this.btnDelete.Location = new System.Drawing.Point(11, 427);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(295, 43);
             this.btnDelete.TabIndex = 2;
-            this.btnDelete.Text = "Delete And Notify User";
+            this.btnDelete.Text = "Notify User";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -120,11 +121,22 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // chbSolved
+            // 
+            this.chbSolved.AutoSize = true;
+            this.chbSolved.Location = new System.Drawing.Point(16, 396);
+            this.chbSolved.Name = "chbSolved";
+            this.chbSolved.Size = new System.Drawing.Size(128, 21);
+            this.chbSolved.TabIndex = 8;
+            this.chbSolved.Text = "Request solved";
+            this.chbSolved.UseVisualStyleBackColor = true;
+            // 
             // frmRequestDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 450);
+            this.ClientSize = new System.Drawing.Size(319, 479);
+            this.Controls.Add(this.chbSolved);
             this.Controls.Add(this.txtNotify);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtDate);
@@ -154,5 +166,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtNotify;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.CheckBox chbSolved;
     }
 }

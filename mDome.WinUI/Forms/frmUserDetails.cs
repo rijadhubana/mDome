@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static mDome.WinUI.Helper;
 
 namespace mDome.WinUI.Forms
 {
@@ -97,6 +98,39 @@ namespace mDome.WinUI.Forms
                 refreshHandler?.Invoke(this, null);
             }
                
+        }
+
+        private async void btnRecoverPassword_Click(object sender, EventArgs e)
+        {
+            string promptValue = Prompt.ShowDialog("Type in the new password for selected user", "Confirm");
+            if (promptValue!="")
+            {
+                string pwsalt = GenerateSalt();
+                string pwhash = GenerateHash(pwsalt, promptValue);
+                UserProfileUpsertRequest request = new UserProfileUpsertRequest()
+                {
+                    About = loadedProfile.About,
+                    Email = loadedProfile.Email,
+                    IsUpdateByAdmin = true,
+                    PasswordClearText = "abc",
+                    PasswordClearTextConfirm = "abc",
+                    PwSalt = pwsalt,
+                    PwHash = pwhash,
+                    RecommendedAlbum1 = loadedProfile.RecommendedAlbum1,
+                    RecommendedAlbum2 = loadedProfile.RecommendedAlbum2,
+                    RecommendedAlbum3 = loadedProfile.RecommendedAlbum3,
+                    RecommendedArtist1 = loadedProfile.RecommendedArtist1,
+                    RecommendedArtist2 = loadedProfile.RecommendedArtist2,
+                    RecommendedArtist3 = loadedProfile.RecommendedArtist3,
+                    RegisteredAt = loadedProfile.RegisteredAt,
+                    Username = loadedProfile.Username,
+                    UserPhoto = loadedProfile.UserPhoto,
+                    UserWallpaper = loadedProfile.UserWallpaper
+                };
+                await _userService.Update<UserProfile>(loadedProfile.UserId, request);
+                MessageBox.Show("Task successful.");
+            }
+
         }
     }
 }

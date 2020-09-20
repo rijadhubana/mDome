@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using System.Configuration;
 using Microsoft.Extensions.Configuration;
 
 namespace mDome.API.Database
@@ -24,6 +23,7 @@ namespace mDome.API.Database
         public virtual DbSet<Artist> Artist { get; set; }
         public virtual DbSet<ArtistGenre> ArtistGenre { get; set; }
         public virtual DbSet<Genre> Genre { get; set; }
+        public virtual DbSet<LoginLogTable> LoginLogTable { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<Request> Request { get; set; }
@@ -160,6 +160,17 @@ namespace mDome.API.Database
                 entity.Property(e => e.GenreName)
                     .IsRequired()
                     .HasMaxLength(25);
+            });
+
+            modelBuilder.Entity<LoginLogTable>(entity =>
+            {
+                entity.Property(e => e.DateOfLogin).HasColumnType("datetime");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.LoginLogTable)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LoginLogTableUserId");
             });
 
             modelBuilder.Entity<Notification>(entity =>
