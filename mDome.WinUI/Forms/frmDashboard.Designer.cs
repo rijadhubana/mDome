@@ -48,6 +48,13 @@
             this.txtSongsLiked = new System.Windows.Forms.TextBox();
             this.txtNewUsers = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lblYesterday = new System.Windows.Forms.Label();
+            this.lbl3days = new System.Windows.Forms.Label();
+            this.lbl2days = new System.Windows.Forms.Label();
+            this.txt3days = new System.Windows.Forms.TextBox();
+            this.txt2days = new System.Windows.Forms.TextBox();
+            this.txtYesterday = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogins)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSongsListened)).BeginInit();
@@ -215,11 +222,78 @@
             this.label7.TabIndex = 18;
             this.label7.Text = "Dashboard";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(120, 428);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(296, 17);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Site Traffic Overview (Visits in the last 3 days)";
+            // 
+            // lblYesterday
+            // 
+            this.lblYesterday.AutoSize = true;
+            this.lblYesterday.Location = new System.Drawing.Point(120, 459);
+            this.lblYesterday.Name = "lblYesterday";
+            this.lblYesterday.Size = new System.Drawing.Size(82, 17);
+            this.lblYesterday.TabIndex = 20;
+            this.lblYesterday.Text = "placeholder";
+            // 
+            // lbl3days
+            // 
+            this.lbl3days.AutoSize = true;
+            this.lbl3days.Location = new System.Drawing.Point(564, 459);
+            this.lbl3days.Name = "lbl3days";
+            this.lbl3days.Size = new System.Drawing.Size(82, 17);
+            this.lbl3days.TabIndex = 21;
+            this.lbl3days.Text = "placeholder";
+            // 
+            // lbl2days
+            // 
+            this.lbl2days.AutoSize = true;
+            this.lbl2days.Location = new System.Drawing.Point(335, 459);
+            this.lbl2days.Name = "lbl2days";
+            this.lbl2days.Size = new System.Drawing.Size(82, 17);
+            this.lbl2days.TabIndex = 22;
+            this.lbl2days.Text = "placeholder";
+            // 
+            // txt3days
+            // 
+            this.txt3days.Location = new System.Drawing.Point(567, 479);
+            this.txt3days.Name = "txt3days";
+            this.txt3days.ReadOnly = true;
+            this.txt3days.Size = new System.Drawing.Size(100, 22);
+            this.txt3days.TabIndex = 23;
+            // 
+            // txt2days
+            // 
+            this.txt2days.Location = new System.Drawing.Point(338, 479);
+            this.txt2days.Name = "txt2days";
+            this.txt2days.ReadOnly = true;
+            this.txt2days.Size = new System.Drawing.Size(100, 22);
+            this.txt2days.TabIndex = 24;
+            // 
+            // txtYesterday
+            // 
+            this.txtYesterday.Location = new System.Drawing.Point(123, 479);
+            this.txtYesterday.Name = "txtYesterday";
+            this.txtYesterday.ReadOnly = true;
+            this.txtYesterday.Size = new System.Drawing.Size(100, 22);
+            this.txtYesterday.TabIndex = 25;
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 578);
+            this.Controls.Add(this.txtYesterday);
+            this.Controls.Add(this.txt2days);
+            this.Controls.Add(this.txt3days);
+            this.Controls.Add(this.lbl2days);
+            this.Controls.Add(this.lbl3days);
+            this.Controls.Add(this.lblYesterday);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtNewUsers);
             this.Controls.Add(this.txtSongsLiked);
@@ -275,5 +349,12 @@
         private System.Windows.Forms.TextBox txtSongsLiked;
         private System.Windows.Forms.TextBox txtNewUsers;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblYesterday;
+        private System.Windows.Forms.Label lbl3days;
+        private System.Windows.Forms.Label lbl2days;
+        private System.Windows.Forms.TextBox txt3days;
+        private System.Windows.Forms.TextBox txt2days;
+        private System.Windows.Forms.TextBox txtYesterday;
     }
 }

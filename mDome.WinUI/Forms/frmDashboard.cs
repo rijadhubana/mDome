@@ -60,6 +60,18 @@ namespace mDome.WinUI.Forms
             pbNewUsers.Image = pbnewUsersImg;
             int numberOfNewUsers = users.Where(a => a.RegisteredAt.Value.Year == DateTime.Now.Year && a.RegisteredAt.Value.Month == DateTime.Now.Month).Count();
             txtNewUsers.Text = numberOfNewUsers.ToString();
+            DateTime yesterday = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - 1);
+            DateTime twodaysago = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - 2);
+            DateTime threedaysago = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - 3);
+            lblYesterday.Text = yesterday.ToShortDateString();
+            lbl2days.Text = twodaysago.ToShortDateString();
+            lbl3days.Text = threedaysago.ToShortDateString();
+            txtYesterday.Text = logins.Where(a => a.DateOfLogin.Day == yesterday.Day && a.DateOfLogin.Month == yesterday.Month
+             && a.DateOfLogin.Year == yesterday.Year).Count().ToString();
+            txt2days.Text = logins.Where(a => a.DateOfLogin.Day == twodaysago.Day && a.DateOfLogin.Month == twodaysago.Month
+             && a.DateOfLogin.Year == twodaysago.Year).Count().ToString();
+            txt3days.Text = logins.Where(a => a.DateOfLogin.Day == threedaysago.Day && a.DateOfLogin.Month == threedaysago.Month
+             && a.DateOfLogin.Year == threedaysago.Year).Count().ToString();
         }
     }
 }
